@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>snganh2</Title>
+      <Shortcut>snganh2</Shortcut>
+      <Description>Chọn ngành từ OOCR</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_MDM.dbo.OOCR (NOLOCK) WHERE DimCode = 2 --Ngành]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

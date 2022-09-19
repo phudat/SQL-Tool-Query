@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sothecao</Title>
+      <Shortcut>sothecao</Shortcut>
+      <Description>Check SO thẻ vào đó từ phiếu nào</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+	  C.SO
+	, S.ID
+	, S.SalesOrderCode
+	, S.WarehouseCode
+	, S.TotalReferAmount
+FROM
+    dbo.CRM_CARDMONEY_Log C (NOLOCK)
+    OUTER APPLY dbo.ufn_StringToTable(C.ID, ',', 0) F
+    INNER JOIN [10.1.13.76].FRTCRM.dbo.SalesOrders S WITH (NOLOCK)
+        ON F.VALUE = S.ID
+WHERE
+    C.SO = $CURSOR$;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

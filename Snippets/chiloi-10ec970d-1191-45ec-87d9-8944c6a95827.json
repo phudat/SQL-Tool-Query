@@ -1,0 +1,6 @@
+{
+  "id": "10ec970d-1191-45ec-87d9-8944c6a95827",
+  "prefix": "chiloi",
+  "description": "chi loi cac phieu huy va day ve BCQ",
+  "body": "EXEC dbo.spPaymentServices_Refund_TriNTM @billCode = '$CURSOR$', -- varchar(255)\n\t                                     @type = '',     -- varchar(50) payoo,viettelpay,viettelpayTH,momo,Ftel,SmartPay\n\t\t\t\t\t\t\t\t\t\t @remark = N' $MACHINE$ $DATE$ $TIME$',\n\t\t\t\t\t\t\t\t\t\t @employeecode= ''\n\t\t\t\t\t\t\t\t\t\t \n\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "2e859742-f994-4815-9b9d-d10edb1af9ff",
+  "prefix": "buildxnktchihomomo",
+  "description": "Build xác nhận kế toán chi hộ Momo",
+  "body": "INSERT INTO dbo.CRM_CashOutMoMo_AccCF\n        (\n         CashOutMoMoID\n       , ReceiptDate\n       , WarehouseCode\n       , VendorCode\n       , CashCollectionReceiptsNoVATType\n       , CashCollectionReceiptsNoVATStatus\n       , Amount\n       , Remark\n       , CreateDate\n       , CreateBy\n       , UpdateDate\n       , UpdateBy\n       , IsConfirm\n       , ConfirmDate\n       , ConfirmBy\n        )\nSELECT\n    C.ID\n\t, C.TransactionDate\n\t, C.WarehouseCode\n\t, C.VendorCode\n\t, 606\n\t, 605\n\t, C.TotalAmount\n\t, ''\n\t, C.TransactionDate\n\t, C.CreatedBy\n\t, C.LastUpdateDatetime\n\t, C.LastUpdateBy\n\t, 1\n\t, C.TransactionDate\n\t, C.LastUpdateBy\nFROM\n    dbo.CashOutMoMoHeader C (NOLOCK)\nWHERE\n    ID IN (\n$CURSOR$\n)"
+}

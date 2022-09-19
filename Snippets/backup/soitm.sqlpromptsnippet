@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>soitm</Title>
+      <Shortcut>soitm</Shortcut>
+      <Description>SELECT O.frozenFor, * FROM frt_ho.dbo.OITM AS O (NOLOCK) WHERE O.ItemCode = ''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.frozenFor, O.U_TGBH, O.U_NG_CODE, O.ItmsGrpCod, O.FirmCode, O.U_Nhom, O.U_DongHH, * FROM FRT_MDM.dbo.OITM AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

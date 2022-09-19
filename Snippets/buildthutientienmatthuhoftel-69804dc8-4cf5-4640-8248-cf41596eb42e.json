@@ -1,0 +1,6 @@
+{
+  "id": "69804dc8-4cf5-4640-8248-cf41596eb42e",
+  "prefix": "buildthutientienmatthuhoftel",
+  "description": "Build thu tiền mặt thu hộ Ftel",
+  "body": "INSERT INTO dbo.POSPaymentMethod\n    (\n         CreatedDate\n       , CreatedBy\n       , Remark\n       , CashAmount\n       , PaymentType\n       , FtelBillID\n       , TypePaymentVendor\n    )\nSELECT \n\t  C.CreatedDateTime\n\t, C.CreatedBy\n\t, N'Thanh toán bằng tiền mặt'\n\t, ISNULL(C.TotalAmount, 0)\n\t, 'CASH'\n\t, C.ID\n\t, 3\nFROM \n\tdbo.CashCollectionReceipts C (NOLOCK) \nWHERE \n\tC.Id IN (\n$CURSOR$\n)"
+}

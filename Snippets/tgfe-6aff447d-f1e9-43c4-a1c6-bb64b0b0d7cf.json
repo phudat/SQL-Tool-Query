@@ -1,0 +1,6 @@
+{
+  "id": "6aff447d-f1e9-43c4-a1c6-bb64b0b0d7cf",
+  "prefix": "tgfe",
+  "description": "Lấy thông tin trả góp nhà tài chính FEC",
+  "body": "SELECT * FROM dbo.ThongTinTraGop_CRM (NOLOCK) WHERE ItemCode='$CURSOR$' AND Ma_NhaTraGop_POS = 1556545"
+}

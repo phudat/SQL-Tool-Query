@@ -1,0 +1,6 @@
+{
+  "id": "da53c8f3-3cd3-4816-ab8b-9cd858d0a7af",
+  "prefix": "upo",
+  "description": "Mở PO cho kho tổng",
+  "body": "RETURN\nUPDATE FRT_POS.dbo.OPOR SET DocStatus = 'O' WHERE DocEntry IN ($CURSOR$) AND DocStatus = 'C'"
+}

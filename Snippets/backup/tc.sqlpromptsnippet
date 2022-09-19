@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tc</Title>
+      <Shortcut>tc</Shortcut>
+      <Description>TRY ... CATCH fragment</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>trans_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[BEGIN TRY
+    BEGIN TRANSACTION $trans_name$
+    	
+	COMMIT TRANSACTION $trans_name$
+END TRY
+BEGIN CATCH
+	IF @@TRANCOUNT > 0
+		BEGIN
+		    ROLLBACK TRANSACTION $trans_name$
+		END
+    DECLARE @ErrMsg NVARCHAR(2000) = N'Lỗi: [] - ERR: ' + ERROR_MESSAGE() + ' - Line: ' + CONVERT(NVARCHAR, ERROR_LINE())
+	INSERT INTO	dbo.Log
+	        (
+	         CreateDateTime
+	       , CreateBy
+	       , UpdateBy
+	       , Content
+	        )
+	VALUES
+	        (
+	         GETDATE()  -- CreateDateTime - datetime
+	       , N''  -- CreateBy - nchar(40)
+	       , N'QuangLP'  -- UpdateBy - nchar(40)
+	       , @ErrMsg  -- Content - nvarchar(2000)
+	        )
+END CATCH]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

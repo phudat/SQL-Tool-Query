@@ -1,0 +1,16 @@
+{
+  "id": "712ea0c5-c77c-4640-9677-e53c7335feb6",
+  "prefix": "curff",
+  "description": "Fast-forward read-only cursor",
+  "body": "/* Khai báo biến */\nDECLARE @variable INT\n\nDECLARE $cursor_name$ CURSOR SCROLL LOCAL \nFOR \n$select_statement$\nOPEN $cursor_name$\nFETCH FIRST FROM $cursor_name$ INTO @variable\n\nWHILE @@FETCH_STATUS = 0\n\tBEGIN\n    \t$CURSOR$\n\n    \tFETCH NEXT FROM $cursor_name$ INTO @variable\n\tEND\n\nCLOSE $cursor_name$\nDEALLOCATE $cursor_name$",
+  "placeholders": [
+    {
+      "name": "cursor_name",
+      "defaultValue": ""
+    },
+    {
+      "name": "select_statement",
+      "defaultValue": ""
+    }
+  ]
+}

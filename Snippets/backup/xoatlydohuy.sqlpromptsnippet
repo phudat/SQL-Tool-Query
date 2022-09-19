@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>xoatlydohuy</Title>
+      <Shortcut>xoatlydohuy</Shortcut>
+      <Description>Xóa lý do hủy Ecom</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @SO INT = $CURSOR$
+	, @CallLogID INT
+	, @CallLogStatus TINYINT
+
+SELECT @CallLogID = CallLogID FROM dbo.tbl_Lydohuy_SOEcom (NOLOCK) WHERE DocentrySO = @SO
+SELECT @CallLogStatus = R.Status FROM [10.1.13.73].FRTCallLogV2.dbo.Requests AS R (NOLOCK) WHERE R.Id = @callLogID
+SELECT @CallLogID, @CallLogStatus
+SELECT N'Trước khi xóa', * FROM tbl_Lydohuy_SOEcom (NOLOCK) WHERE DocentrySO = @SO
+IF ISNULL(@CallLogStatus, 0) = 0
+	BEGIN
+	    SELECT N'Không có số Call Log.'
+	END
+ELSE IF @CallLogStatus = 4
+	BEGIN
+	    SELECT N'Call Log' + CONVERT(VARCHAR, @CallLogID) + N' hoàn tất rồi.'
+	END
+ELSE IF @CallLogStatus = 1
+	BEGIN
+	    SELECT N'Call Log' + CONVERT(VARCHAR, @CallLogID) + N' vẫn còn chờ xử lý.'
+	END
+ELSE IF @CallLogStatus = 5
+	BEGIN
+	    INSERT  INTO dbo.tbl_Lydohuy_SOEcom_DEL
+			(
+				 DocentrySO
+			   , Reason
+			   , CreateDate
+			   , CreateBy
+			   , NumEcom
+			   , DocStatus
+			   , DocType
+			   , PickStatus
+			   , CallLogID
+			   , Remark
+			   , DeletedDateTime
+			)
+		SELECT
+			  DocentrySO
+			, Reason
+			, CreateDate
+			, CreateBy
+			, NumEcom
+			, DocStatus
+			, DocType
+			, PickStatus
+			, CallLogID
+			, CONVERT(VARCHAR, @CallLogID) + N' đã hủy.'
+			, GETDATE()
+		FROM
+			dbo.tbl_Lydohuy_SOEcom (NOLOCK)
+		WHERE
+			DocentrySO = @SO; 
+
+		DELETE FROM
+			dbo.tbl_Lydohuy_SOEcom
+		WHERE
+			DocentrySO = @SO; 
+
+		UPDATE
+			FRT_POS.dbo.ORDR
+		SET
+			Callog_ID = NULL
+		WHERE
+			DocEntry = @SO; 
+	END
+ELSE
+	BEGIN
+	    SELECT @CallLogID CallLogID, @CallLogStatus CallLogStatus
+	END
+SELECT N'[DEL]', * FROM dbo.tbl_Lydohuy_SOEcom_DEL (NOLOCK) WHERE DocentrySO = @SO
+SELECT N'Sau khi xóa', * FROM tbl_Lydohuy_SOEcom (NOLOCK) WHERE DocentrySO = @SO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

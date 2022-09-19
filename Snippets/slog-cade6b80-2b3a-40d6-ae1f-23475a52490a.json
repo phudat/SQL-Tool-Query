@@ -1,0 +1,6 @@
+{
+  "id": "cade6b80-2b3a-40d6-ae1f-23475a52490a",
+  "prefix": "slog",
+  "description": "SELECT LOG",
+  "body": "SELECT * FROM FRT_POS.dbo.Log AS L (NOLOCK) WHERE L.CreateBy = '$CURSOR$' ORDER BY L.CreateDateTime DESC "
+}

@@ -1,0 +1,6 @@
+{
+  "id": "1cab75c2-6f4d-488a-998a-4651f16166ff",
+  "prefix": "chaybaocao",
+  "description": "Chạy báo cáo",
+  "body": "EXEC [dbo].[sp_BaoCao_AllInOne] '2019-05-21 12:00:00', @MaBaoCao = 31 -- int\nEXEC [dbo].[sp_BaoCao_AllInOne] '2019-05-21 12:00:00', @MaBaoCao = 95 -- int\nEXEC [dbo].[sp_BaoCao_AllInOne] '2019-05-21 12:00:00', @MaBaoCao = 111 -- int"
+}

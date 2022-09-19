@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>RegionUser</Title>
+      <Shortcut>RegionUser</Shortcut>
+      <Description>Kiểm tra Uuser theo shop / khu vực</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    W.WarehouseCode
+  , W.WarehouseCodeB1
+  , W.WarehouseName
+  , W.RegionL1ID
+  , F1.RegionHierachyName
+  , W.RegionL2ID
+  , F2.RegionHierachyName
+  , W.RegionL3ID
+  , F3.RegionHierachyName
+  , W.RegionL4ID
+  , F4.RegionHierachyName
+FROM
+    [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)
+		INNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F1 WITH (NOLOCK)
+			ON W.RegionL1ID = F1.ID
+		INNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F2 WITH (NOLOCK)
+			ON W.RegionL2ID = F2.ID
+		INNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F3 WITH (NOLOCK)
+			ON W.RegionL3ID = F3.ID
+		INNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F4 WITH (NOLOCK)
+			ON W.RegionL4ID = F4.ID
+WHERE
+    WarehouseCodeB1 = '$CURSOR$'
+    AND W.Status = 'A'
+
+SELECT
+    J.*
+FROM
+    [10.1.13.77].FRTInsideV2.dbo.F03_EmployeeJobTitles AS J WITH (NOLOCK)
+WHERE
+    J.JobTitleCode = '00241'					--ASM
+    AND J.Status = 'A'							--Còn làm việc
+    AND J.RegionHierachyID IN (
+								  '126'			--RegionL3ID
+								, '65'			--RegionL4ID
+							   )	--Thuộc khu vực]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

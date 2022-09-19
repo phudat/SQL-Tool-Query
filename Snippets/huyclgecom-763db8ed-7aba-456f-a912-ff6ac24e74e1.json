@@ -1,0 +1,6 @@
+{
+  "id": "763db8ed-7aba-456f-a912-ff6ac24e74e1",
+  "prefix": "huyclgecom",
+  "description": "Hỗ trợ hủy Call Log Ecom",
+  "body": "DECLARE\t\n\t  @DocEntry VARCHAR(200) \t= '$CURSOR$'\n\t, @Remark \tNVARCHAR(100)\t= N''\n\t\nDECLARE @tblDocEntry TABLE (DocEntry INT)\n\nINSERT INTO @tblDocEntry (DocEntry)\nSELECT VALUE AS DocEntry FROM dbo.ufn_StringToTable(@DocEntry, ',', 0) \n\nIF EXISTS(SELECT TOP 1 1 FROM @tblDocEntry)\n\tBEGIN\t\n\t\tUPDATE FRT_POS.dbo.ORDR SET Callog_ID = NULL WHERE DocEntry IN (SELECT DocEntry FROM @tblDocEntry)\n\t\tINSERT INTO dbo.tbl_Lydohuy_SOEcom_DEL\n\t\t\t(\n\t\t\t\t DocentrySO\n\t\t\t   , Reason\n\t\t\t   , CreateDate\n\t\t\t   , CreateBy\n\t\t\t   , NumEcom\n\t\t\t   , DocStatus\n\t\t\t   , DocType\n\t\t\t   , PickStatus\n\t\t\t   , CallLogID\n\t\t\t   , Remark\n\t\t\t   , DeletedDateTime\n\t\t\t)\n\t\tSELECT\n\t\t\t  DocentrySO\n\t\t\t, Reason\n\t\t\t, CreateDate\n\t\t\t, CreateBy\n\t\t\t, NumEcom\n\t\t\t, DocStatus\n\t\t\t, DocType\n\t\t\t, PickStatus\n\t\t\t, CallLogID\n\t\t\t, @Remark\n\t\t\t, GETDATE()\n\t\tFROM\n\t\t\tdbo.tbl_Lydohuy_SOEcom (NOLOCK)\n\t\tWHERE\n\t\t\tDocentrySO IN (SELECT DocEntry FROM @tblDocEntry);\n\n\t\tDELETE FROM dbo.tbl_Lydohuy_SOEcom WHERE DocentrySO  IN (SELECT DocEntry FROM @tblDocEntry);\n\tEND"
+}

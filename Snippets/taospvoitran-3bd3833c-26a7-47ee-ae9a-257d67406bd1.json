@@ -1,0 +1,16 @@
+{
+  "id": "3bd3833c-26a7-47ee-ae9a-257d67406bd1",
+  "prefix": "taospvoitran",
+  "description": "create a new procedure with transaction",
+  "body": "-- ================================================\n--USE [DB123]\n--GO\n-- ================================================\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n/*====================================================================\nAuthor\t\t\t\t\t:\t\tNpdat132\nCreate date\t\t\t\t:\t\t$DATE(dd/MM/yyyy HH:mm:ss)$\nDescription\t\t\t\t:\t\t\n====================================================================*/\nCREATE PROCEDURE $tensp$\n(\n\t  @$CURSOR$\tINT\n)\nAS\nBEGIN\n\tSET NOCOUNT ON;\n\tBEGIN TRY\n\t\tBEGIN TRANSACTION $tentran$\n\t\t\t\n\t\tCOMMIT TRANSACTION $tentran$\n\t\t\n\tEND TRY\n\tBEGIN CATCH\n\t\tIF @@TRANCOUNT > 0\n\t\t\tBEGIN\n\t\t\t\tROLLBACK TRANSACTION $tentran$\n\t\t\tEND\t\n\n\t\tINSERT INTO dbo.Log\n\t\t    (\n\t\t         CreateDateTime\n\t\t       , CreateBy\n\t\t       , Content\n\t\t    )\n\t\tVALUES\n\t\t    (\n\t\t         GETDATE()\n\t\t       , N'$tensp$'\n\t\t       , N'Lỗi [$tensp$] - Err: ' + ERROR_MESSAGE() + ' Line: ' + CONVERT(VARCHAR, ERROR_LINE())\n\t\t    )\n\tEND CATCH\nEND\nGO\n",
+  "placeholders": [
+    {
+      "name": "tensp",
+      "defaultValue": ""
+    },
+    {
+      "name": "tentran",
+      "defaultValue": ""
+    }
+  ]
+}

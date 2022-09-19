@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>srm</Title>
+      <Shortcut>srm</Shortcut>
+      <Description>SELECT SO DETAIL MONEY</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT R.ItemCode, R.U_IMei, R.U_WhsCod, R.U_Price, R.Quantity, R.U_TaxAmo, R.U_TMoney, R.DiscPrcnt, R.U_DisOther, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

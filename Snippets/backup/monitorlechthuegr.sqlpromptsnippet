@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorlechthuegr</Title>
+      <Shortcut>monitorlechthuegr</Shortcut>
+      <Description>Monitor lệch thuế GR</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    O.DocEntry
+  , O.DocStatus
+  , O.U_ShpCod
+  , O.DocDate
+  , O.U_GRDocEntry
+  , R.ItemCode AS ORPDItemcode
+  , R.Dscription AS ORPDItemName
+  , R.U_WhsCod AS ORPDWhsCod
+  , R.Quantity AS ORPDQuantity
+  , R.U_IMei AS ORPDIMEI
+  , R.Price AS ORPDPrice
+  , R.U_TaxAmo AS ORPDTaxAmo
+  , R.U_TMoney AS ORPDMoney
+  , R.U_TaxRate AS ORPDTaxRate
+INTO
+    #tmpGR
+FROM
+    dbo.ORPD O (NOLOCK)
+    INNER JOIN dbo.RPD1 R (NOLOCK)
+        ON O.DocEntry = R.DocEntry
+WHERE
+    CONVERT(DATE, O.DocDate) >= '20190801'
+    AND DocStatus <> 'C';
+
+SELECT
+	  T.*
+	, P.ItemCode	AS GRPOItemcode
+	, P.Dscription	AS GRPOItemName
+	, P.U_WhsCod	AS GRPOWhsCod
+	, P.Quantity	AS GRPOQuantity
+	, P.U_IMei		AS GRPOIMEI
+	, P.Price		AS GRPOPrice
+	, P.U_TaxAmo	AS GRPOTaxAmo
+	, P.U_TMoney	AS GRPOMoney
+	, P.U_TaxRate	AS GRPOTaxRate
+INTO
+	#tmpGRPOandGR
+FROM
+    #tmpGR T
+		INNER JOIN dbo.PDN1 P (NOLOCK)
+			ON T.U_GRDocEntry = P.DocEntry
+			AND T.ORPDItemcode = P.ItemCode
+			AND ISNULL(T.ORPDIMEI, '') = ISNULL(P.U_IMei, '')
+
+
+SELECT
+	  T.DocEntry
+	, T.U_GRDocEntry
+    , T.ORPDItemcode
+	, T.GRPOItemcode
+	, T.DocDate
+	, T.DocStatus
+	, T.ORPDIMEI
+	, T.GRPOIMEI
+	, T.ORPDPrice
+	, T.GRPOPrice
+	, T.ORPDQuantity
+	, T.GRPOQuantity
+	, T.ORPDTaxAmo
+	, T.GRPOTaxAmo
+	, T.ORPDMoney
+	, T.GRPOMoney
+INTO #tmpLech
+FROM
+    #tmpGRPOandGR T
+WHERE
+    ROUND(ORPDTaxAmo, 3) <> ROUND(GRPOTaxAmo, 3)
+
+	SELECT * FROM #tmpLech
+
+--UPDATE R SET R.U_TaxAmo = T.GRPOTaxAmo FROM #tmpLech T INNER JOIN dbo.RPD1 R (NOLOCK) ON R.DocEntry = T.DocEntry AND T.ORPDItemcode = R.ItemCode AND T.ORPDIMEI = R.U_IMei
+
+--DROP TABLE #tmpGR, #tmpGRPOandGR, #tmpLech]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "ec3c070d-5fb0-498f-a35b-3d59b4d310e3",
+  "prefix": "pcw",
+  "description": "Phiếu chi theo ngày",
+  "body": "SELECT * FROM [10.1.13.76].FRTCRM.dbo.PaymentServices WITH (NOLOCK) WHERE WarehouseCode = '$CURSOR$' AND CONVERT(DATE, PaymentServiceDate) = ''"
+}

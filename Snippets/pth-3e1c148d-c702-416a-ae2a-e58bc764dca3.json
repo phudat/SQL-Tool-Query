@@ -1,0 +1,6 @@
+{
+  "id": "3e1c148d-c702-416a-ae2a-e58bc764dca3",
+  "prefix": "pth",
+  "description": "Phí trả hàng",
+  "body": "SELECT * FROM dbo.[@FPTPHITRAHANG_ITEM] (NOLOCK) WHERE U_DocEntry = $CURSOR$"
+}

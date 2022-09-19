@@ -1,0 +1,6 @@
+{
+  "id": "a9a85d42-616e-417f-b167-e3a51b6c5d97",
+  "prefix": "skho",
+  "description": "lấy thông tin kho",
+  "body": "SELECT * FROM FRT_MDM.dbo.OWHS (NOLOCK) WHERE WhsCode = '$CURSOR$'"
+}

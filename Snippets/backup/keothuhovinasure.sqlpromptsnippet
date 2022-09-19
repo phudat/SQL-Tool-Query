@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>keothuhovinasure</Title>
+      <Shortcut>keothuhovinasure</Shortcut>
+      <Description>kéo thu hộ Vinasure</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>vinasureid</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+         CreatedDate
+       , CreatedBy
+       , Remark
+       , CashAmount
+       , PaymentType
+       , VinasureID
+       , TypePaymentVendor
+    )
+SELECT 
+	  V.CreatedDateTime
+	, V.CreatedBy
+	, N'Thanh toán bằng tiền mặt'
+	, ISNULL(V.Amount, 0)
+	, 'CASH'
+	, V.ID
+	, 1
+FROM 
+	dbo.VinasureHeader V (NOLOCK) 
+WHERE 
+	V.Id IN (
+$vinasureid$
+)
+
+INSERT INTO dbo.CashCollectionReceiptsNoVAT
+    (
+         ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , VendorCode
+       , RefCode
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , CreatedEmployeeBy
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+       , CardPaymentFee
+    )
+SELECT 
+	'BH-' + CONVERT(VARCHAR, GETDATE(), 112) + CONVERT(VARCHAR, P.ID)
+	, P.CreatedDateTime
+	, P.WarehouseCode
+	, P.VendorCode
+	, CONVERT(VARCHAR, P.ID)
+	, ''
+	, P.buyer_name
+	, P.buyer_mobile
+	, P.Amount
+	, 343
+	, 298
+	, N'Hệ thống tạo'
+	, P.CreatedDateTime
+	, P.CreatedBy
+	, 1
+	, P.CreatedDateTime
+	, 'SYSTEM'
+	, 0
+FROM 
+	dbo.VinasureHeader P (NOLOCK) 
+WHERE 
+	P.ID IN (
+$vinasureid$
+)
+
+INSERT INTO dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH
+    (
+         CRMID
+       , CRMCode
+       , VendorCode
+       , TotalAmount
+       , Fee
+       , CreateDate
+       , U_ShpCod
+       , U_CrdCod
+       , U_EplCod
+       , U_Desc
+       , U_MoCash
+       , U_MoCCad
+       , U_Acbank
+       , U_CTLKCode
+       , U_TypCre
+       , U_NumCre
+       , U_MoVoCh
+       , U_NumVch
+       , U_NaVoch
+       , U_AcVoch
+       , U_MoTran
+       , U_BankTs
+       , U_AccNum
+       , U_AccName
+       , IsAutoCard
+       , Card_Fee
+       , CardFeeTM
+       , LongChauShopCode
+       , UpdatedDate
+       , PushStatus
+       , POSMsg
+       , POSORCT
+       , MaChuanChi
+       , SplitFee
+       , SplitFeeType
+       , mPOSDocNum
+       , Status
+    )
+SELECT
+    V.ID
+	, V.ID
+	, V.VendorCode
+	, V.Amount
+	, 0
+	, V.CreatedDateTime
+	, V.WarehouseCode
+	, 0
+	, V.CreatedBy
+	, ''
+	, P.CashAmount
+	, P.CardAmount
+	, P.CardPaymentMethod
+	, P.U_CTLKCode
+	, P.CreditCardType
+	, P.CreditCardNumber
+	, P.VoucherAmount
+	, P.VoucherNumber
+	, P.VoucherName
+	, P.VoucherAccount
+	, P.TransferAmount
+	, P.BankCode
+	, P.BankAccountNumber
+	, P.BankAccountName
+	, CASE WHEN P.IsAutoCard = 1 THEN 'Y' ELSE 'N' END
+	, P.Card_Fee
+	, P.Card_Fee
+	, ''
+	, NULL
+	, 1
+	, NULL
+	, NULL
+	, P.CreditCardNumber
+	, 0
+	, 0
+	, NULL
+	, V.VinasureStatus
+FROM
+    dbo.VinasureHeader V (NOLOCK)
+		INNER JOIN dbo.POSPaymentMethod P (NOLOCK)
+			ON V.ID = P.VinasureID
+WHERE
+	V.ID IN (
+$vinasureid$
+)
+
+SELECT * FROM FRTCRM.dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH WITH (NOLOCK) WHERE CRMID IN ($vinasureid$)
+
+RETURN	
+EXEC [10.1.13.71].FRT_POS.dbo.sp_POS_CRMv2_CollectionOnBeHalf_AllInOne 
+	@IDList = '$vinasureid$', -- varchar(max)
+    @VendorCode = '0042', -- varchar(40)
+    @ShopCode = '', -- varchar(40)
+    @ConfirmedDate = '2019-06-30 14:38:10', -- date
+    @POSDate       = '2019-06-30 14:38:10' -- date
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

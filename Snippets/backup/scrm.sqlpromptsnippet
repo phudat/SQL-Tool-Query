@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>scrm</Title>
+      <Shortcut>scrm</Shortcut>
+      <Description>SELECT * FROM [10.1.13.76].FRTCRM.dbo WITH (NOLOCK) WHERE </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.76].FRTCRM.dbo$CURSOR$ WITH (NOLOCK) WHERE ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

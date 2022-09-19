@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkcocmaycu</Title>
+      <Shortcut>checkcocmaycu</Shortcut>
+      <Description>Check MSP cọc máy cũ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+      O.DocEntry
+	, O.U_ShpCod
+	, R.U_ItmCod
+	, R.U_ItmName
+FROM
+    FRT_CUSTOMIZE.dbo.[@FPTORDRTMP] O (NOLOCK)
+    INNER JOIN FRT_CUSTOMIZE.dbo.[@FPTRDR1TMP] R (NOLOCK)
+        ON R.DocEntry = O.DocEntry
+WHERE
+    R.U_ItmCod = '$CURSOR$'
+    AND O.SOStatus = 'P']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "9fab1d1b-3fbf-4248-b6fa-270b267868b6",
+  "prefix": "tetgiay",
+  "description": "SECOND OF TET",
+  "body": "SELECT N'Còn ' + REPLACE(CONVERT(NVARCHAR, CONVERT(MONEY, DATEDIFF(SECOND, GETDATE(), '20180215 23:59:59')), 1), '.00', '') + N' giây là tới Tết.'"
+}

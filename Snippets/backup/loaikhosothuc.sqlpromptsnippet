@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>loaikhosothuc</Title>
+      <Shortcut>loaikhosothuc</Shortcut>
+      <Description>keo sim tu thuc ve beta va loai kho </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[	DECLARE @xmlupdateresult NVARCHAR(max)= N'0708374100,0932087573,0707780530'
+	DECLARE @loaikho BIT =0
+
+	--RETURN
+	--tao bang tu chuoi so vua khai bao
+	CREATE TABLE #temppull (id INT IDENTITY,phonepull VARCHAR(50))
+	INSERT INTO #temppull
+	(
+		phonepull
+	)
+	SELECT REPLACE(REPLACE(LTRIM(RTRIM(VALUE)),CHAR(13),''),NCHAR(10),'') FROM dbo.ufn_StringToTable(@xmlupdateresult,',',0) 
+	DECLARE @totalrow INT
+	SELECT @totalrow=COUNT(phonepull) FROM #temppull WITH (NOLOCK)
+
+	--keo data tu tren thuc ve beta
+	SELECT TOP (@totalrow)	
+		ProductCodeInStock,
+	    ProductName,
+	    SimSource,
+	    ActivedCode,
+	    ProductID,
+	    PhoneAdjusted,
+	    PriceUsed,
+	    Provider,
+	    ExpiredDate,
+	    ProductCodenNotInStock,
+	    GoodsGroup,
+	    PromotionDescriptionProvider,
+	    ExpiredPromotionDateProvider,
+	    PromotionDescriptionFRT,
+	    ExpiredPromotionDateFRT,
+	    PriceSale,
+	    SimOnlineType,
+	    CreatedDatetime,
+	    CreatedEmployeeCode,
+	    LastUpdatedDatetime,
+	    LastUpdatedEmployeeCode,
+	    Status,
+	    IsActived,
+	    SupportInfoNSX,
+	    Simserial,
+	    Remark,
+	    SimCatalog,
+	    SimType,
+	    TypeOfSubscription,
+	    ShopBook,
+	    BookDate,
+	    PriceCost,
+	    PriorityComSale 		
+	INTO #tempso
+	FROM [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline WITH (NOLOCK) 
+	WHERE Provider like '%Mobifone%' AND BookDate IS NULL and ShopBook IS NULL  and Status='I' AND IsActived= 1-- AND PhoneAdjusted='0877753139' -- neu keo theo so
+
+	
+
+	INSERT INTO [10.96.254.143].FRTCRM_Pro1.dbo.StoreOnline
+	(
+	    ProductCodeInStock,
+	    ProductName,
+	    SimSource,
+	    ActivedCode,
+	    ProductID,
+	    PhoneAdjusted,
+	    PriceUsed,
+	    Provider,
+	    ExpiredDate,
+	    ProductCodenNotInStock,
+	    GoodsGroup,
+	    PromotionDescriptionProvider,
+	    ExpiredPromotionDateProvider,
+	    PromotionDescriptionFRT,
+	    ExpiredPromotionDateFRT,
+	    PriceSale,
+	    SimOnlineType,
+	    CreatedDatetime,
+	    CreatedEmployeeCode,
+	    LastUpdatedDatetime,
+	    LastUpdatedEmployeeCode,
+	    Status,
+	    IsActived,
+	    SupportInfoNSX,
+	    Simserial,
+	    Remark,
+	    SimCatalog,
+	    SimType,
+	    TypeOfSubscription,
+	    ShopBook,
+	    BookDate,
+	    PriceCost,
+	    PriorityComSale
+	)
+	SELECT	
+		ProductCodeInStock,
+	    ProductName,
+	    SimSource,
+	    ActivedCode,
+	    ProductID,
+	    PhoneAdjusted,
+	    PriceUsed,
+	    Provider,
+	    ExpiredDate,
+	    ProductCodenNotInStock,
+	    GoodsGroup,
+	    PromotionDescriptionProvider,
+	    ExpiredPromotionDateProvider,
+	    PromotionDescriptionFRT,
+	    ExpiredPromotionDateFRT,
+	    PriceSale,
+	    SimOnlineType,
+	    CreatedDatetime,
+	    CreatedEmployeeCode,
+	    LastUpdatedDatetime,
+	    LastUpdatedEmployeeCode,
+	    Status,
+	    IsActived,
+	    SupportInfoNSX,
+	    Simserial,
+	    Remark,
+	    SimCatalog,
+	    SimType,
+	    TypeOfSubscription,
+	    ShopBook,
+	    BookDate,
+	    PriceCost,
+	    PriorityComSale 
+		FROM #tempso
+
+	INSERT INTO [10.96.254.143].FRTCRM_Pro1.dbo.CRM_SimType_Price
+	(
+	    SimTypeID,
+	    SimTypeName,
+	    PhoneNumber,
+	    PriceSale,
+	    CreateDate,
+	    CreateBy,
+	    UpdateDate,
+	    UpdateBy,
+	    InsureAmount
+	)
+	SELECT  
+		SimTypeID,
+	    SimTypeName,
+	    PhoneNumber,
+	    PriceSale,
+	    CreateDate,
+	    CreateBy,
+	    UpdateDate,
+	    UpdateBy,
+	    InsureAmount 
+	FROM  
+		[10.96.254.98].FRTCRM_MDM.dbo.CRM_SimType_Price WITH (NOLOCK) 
+	WHERE 
+		PhoneNumber IN (SELECT ProductID FROM #tempso)		
+
+	--loai kho neu can
+	IF @loaikho=1
+	BEGIN
+	    UPDATE [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline  SET IsActived=0,Status='E',Remark='Ho tro anh Gia '+ CAST(GETDATE() AS VARCHAR(20)) WHERE  PhoneAdjusted IN (SELECT PhoneAdjusted FROM #tempso WITH (NOLOCK))
+	END
+
+	--tao bang tam chuan bi cho viec cap nhat ve dung so yeu cau
+	CREATE TABLE #tempupdate(id INT IDENTITY, phoneadj VARCHAR(50),phone VARCHAR(50))
+	INSERT INTO #tempupdate
+	(
+	    phoneadj,
+	    phone
+	)	
+	SELECT PhoneAdjusted,'' FROM #tempso WITH (NOLOCK)
+	IF (SELECT COUNT(id) FROM #tempupdate WITH (NOLOCK) ) = @totalrow
+	BEGIN
+		DECLARE @cnt INT = 1;
+		DECLARE @phonetopull VARCHAR(50)
+		SET @phonetopull = (SELECT phonepull FROM #temppull WITH (NOLOCK) WHERE id = @cnt)
+		WHILE @cnt <=  (SELECT COUNT(id) FROM #tempupdate WITH (NOLOCK) )
+		BEGIN
+			UPDATE #tempupdate SET phone=@phonetopull WHERE id =@cnt
+			SET @cnt = @cnt + 1;
+		END;		
+	END
+
+	--bat dau update
+	DECLARE CUR_PO CURSOR 
+	FOR 	
+		SELECT phoneadj,phone FROM #tempupdate WITH (NOLOCK) 
+	
+	OPEN CUR_PO		
+	DECLARE @PhoneAdjusted VARCHAR(50),@Phone VARCHAR(50)
+	FETCH NEXT FROM CUR_PO INTO @PhoneAdjusted,@Phone
+	while ( @@FETCH_STATUS = 0)
+	begin
+		UPDATE [10.96.254.143].FRTCRM_Pro1.dbo.StoreOnline SET PhoneAdjusted=@phone, ProductID= @Phone WHERE PhoneAdjusted=@PhoneAdjusted
+		UPDATE [10.96.254.143].FRTCRM_Pro1.dbo.CRM_SimType_Price SET PhoneNumber=@Phone WHERE PhoneNumber= @PhoneAdjusted
+		FETCH NEXT FROM CUR_PO INTO @PhoneAdjusted,@Phone
+	END
+	CLOSE CUR_PO
+	DEALLOCATE CUR_PO
+	SELECT * FROM [10.96.254.143].FRTCRM_Pro1.dbo.StoreOnline WHERE ProductID IN (SELECT phone FROM #tempupdate)
+	DROP TABLE #tempso, #temppull,#tempupdate]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

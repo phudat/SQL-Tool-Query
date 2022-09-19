@@ -1,0 +1,6 @@
+{
+  "id": "3e15551d-604f-4270-a50b-cd057e4550a2",
+  "prefix": "stringtotable",
+  "description": "string to table",
+  "body": "DECLARE @xmlupdateresult NVARCHAR(max)= N'18826059,18826058,18826057,18826056,18826027,18826026,18826025,18826024,18826023,18826022'\nSELECT REPLACE(REPLACE(LTRIM(RTRIM(VALUE)),CHAR(13),''),NCHAR(10),'') AS saleorderid\nINTO #tempkeodata\nFROM dbo.ufn_StringToTable(@xmlupdateresult,',',0) \n\nSELECT * FROM #tempkeodata WITH (NOLOCK)\nDROP TABLE #tempkeodata\n"
+}

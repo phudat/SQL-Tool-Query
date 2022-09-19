@@ -1,0 +1,6 @@
+{
+  "id": "7352e07b-4431-4046-93e0-7525ca636ba3",
+  "prefix": "ufegb",
+  "description": "Update đã active nếu ghi nhận đã active trên App bảng BK",
+  "body": "UPDATE\n\tF\nSET\n\t  F.Status = 6\n\t, F.Email = L.Voucher\nFROM \n\tdbo.Log_Update_GalaxyGift L (NOLOCK) \n\t\tINNER JOIN dbo.FPT_PROMS_BK_ARCHIVE F (NOLOCK)\n\t\t\tON LEFT(L.Voucher, 8) = F.Email\nWHERE \n\tL.Voucher = '$CURSOR$'\n\tAND\tF.Status = 0"
+}

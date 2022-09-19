@@ -1,0 +1,6 @@
+{
+  "id": "adba785e-52a1-4c43-8cfc-0518791ee965",
+  "prefix": "getstringafterandbefore",
+  "description": "get string betwen different character",
+  "body": "DECLARE @col NVARCHAR(250) ='thuc-pham-chuc-nang/ho-tro-tieu-hoa?tinh-nang-dac-biet=nhuan-trang'\r\nSELECT SUBSTRING(@col, LEN(LEFT(@col, CHARINDEX ('?', @col))) + 1, LEN(@col) - LEN(LEFT(@col, CHARINDEX ('?', @col))) - LEN(RIGHT(@col, LEN(@col) - CHARINDEX ('=', @col))) - 1);"
+}

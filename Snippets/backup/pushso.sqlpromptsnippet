@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pushso</Title>
+      <Shortcut>pushso</Shortcut>
+      <Description>Insert vào push so</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT  INTO dbo.ORDRPUSH2COM
+    (
+         DocEntry
+       , PushStatus
+       , APIErr
+       , U_CompCod
+       , DocEntryB1
+       , CreateDate
+       , Type
+       , U_Tmoney
+       , ShopCode
+       , DocType
+       , Disperct
+       , DocStatus
+       , Type_ReturnSO
+       , Phone
+       , U_DocSplit
+       , IDFormDK
+       , U_NuBill
+	)
+SELECT
+	  DocEntry
+	, 1
+	, ''
+	, U_ComTo
+	, NULL
+	, GETDATE()
+	, NULL
+	, U_TMonBi
+	, U_ShpCod
+	, DocType
+	, NULL
+	, DocStatus
+	, Type_ReturnSO
+	, LicTradNum
+	, U_DocSplit
+	, IDFormDK
+	, U_NuBill
+FROM
+    dbo.ORDR (NOLOCK)
+WHERE
+    DocEntry = $CURSOR$;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

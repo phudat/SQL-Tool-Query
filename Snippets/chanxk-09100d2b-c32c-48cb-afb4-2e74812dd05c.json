@@ -1,0 +1,6 @@
+{
+  "id": "09100d2b-c32c-48cb-afb4-2e74812dd05c",
+  "prefix": "chanxk",
+  "description": "Chặn XK qua SAP",
+  "body": "RETURN\nUPDATE FRT_POS.dbo.POSPUSHGI2COM SET PushStatus = 4, APIErr = N'Chặn' WHERE DocEntry = $CURSOR$ AND PushStatus = 1"
+}

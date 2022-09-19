@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>laykeysohis</Title>
+      <Shortcut>laykeysohis</Shortcut>
+      <Description>lay cac key phan mem qua sau thang</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @demfull TINYINT,@posdocnum VARCHAR(50) ='$CURSOR$'
+SELECT 
+	id,
+	POSSODocNum,
+	SalesOrderCode,
+	ProductCode  
+INTO 
+	#tempheaderfull 
+FROM 
+	dbo.SalesOrders_History_full WITH (NOLOCK) 
+WHERE 
+	POSSODocNum = @posdocnum 
+	AND SalesOrdersStatus=67
+
+SELECT @demfull= COUNT(id) FROM #tempheaderfull
+IF (@demfull >= 1)
+BEGIN
+	CREATE TABLE #resultfull 
+	(
+	POSSODocNum VARCHAR(50), 
+	SalesOrderCode VARCHAR(50),
+	ProductCode VARCHAR(50),
+	SerialCard VARCHAR(50),
+	NumberCode VARCHAR(50)
+	)
+
+    SELECT 
+		SalesOrderID,
+		SerialCard,
+		NumberCode 
+	INTO 
+		#tempdetailfull 
+	FROM 
+		dbo.SalesOrderDetails_History_Full WITH (NOLOCK) 
+	WHERE 
+		SalesOrderID IN (SELECT id FROM #tempheaderfull)
+
+
+	
+	INSERT INTO #resultfull
+	(
+	    POSSODocNum,
+	    SalesOrderCode,
+	    ProductCode,
+	    SerialCard,
+	    NumberCode
+	)
+	
+	SELECT  
+		HD.POSSODocNum,
+	    HD.SalesOrderCode,
+	    HD.ProductCode,
+	    DT.SerialCard,
+	    DT.NumberCode
+	FROM  
+	#tempheaderfull AS hd 
+	INNER JOIN #tempdetailfull AS dt ON HD.ID=DT.SalesOrderID
+
+	SELECT r.POSSODocNum,r.SalesOrderCode,r.ProductCode,p.ProductName,r.NumberCode 
+	FROM #resultfull AS r LEFT JOIN dbo.POSConfig p WITH (nolock) ON r.ProductCode=p.ProductCode 
+	DROP TABLE  #resultfull,#tempdetailfull
+	
+END
+ELSE
+BEGIN
+    SELECT 0 AS ReturnCode, N'Đơn hàng chưa được lấy key hoặc không còn tồn tại' AS ReturnMes
+END
+DROP TABLE #tempheaderfull
+
+
+
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

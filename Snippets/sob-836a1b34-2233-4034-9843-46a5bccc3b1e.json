@@ -1,0 +1,6 @@
+{
+  "id": "836a1b34-2233-4034-9843-46a5bccc3b1e",
+  "prefix": "sob",
+  "description": "Lấy ORDR bảng BK",
+  "body": "SELECT O.U_ShpCod, O.U_NumECom, O.U_DocMap, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR_BK_ARCHIVE AS O WITH (NOLOCK) WHERE O.DocEntry = $CURSOR$"
+}

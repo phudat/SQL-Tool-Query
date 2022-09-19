@@ -1,0 +1,6 @@
+{
+  "id": "cf5a432c-69c8-4c15-b86f-b666bbc9c5f0",
+  "prefix": "spt",
+  "description": "Execute sp_helptext",
+  "body": "EXEC sp_helptext"
+}

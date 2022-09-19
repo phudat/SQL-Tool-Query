@@ -1,0 +1,6 @@
+{
+  "id": "9578aef0-ae09-4b1f-bdae-9929b443998f",
+  "prefix": "skh",
+  "description": "SELECT O.LicTradNum, O.Phone1, * FROM dbo.OCRD AS O (NOLOCK) WHERE O.CardCode IN ()",
+  "body": "SELECT O.IsResident, O.DdctOffice, O.LicTradNum, O.Phone1, O.BPID, * FROM FRT_POS.dbo.OCRD AS O WITH (NOLOCK) WHERE O.CardCode IN ($CURSOR$)"
+}

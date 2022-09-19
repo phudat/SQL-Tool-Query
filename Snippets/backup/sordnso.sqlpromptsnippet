@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sordnso</Title>
+      <Shortcut>sordnso</Shortcut>
+      <Description>Select trả hàng từ chứng từ SO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_NumSO, * FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE o.U_NumSO = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

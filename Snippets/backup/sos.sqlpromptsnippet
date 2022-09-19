@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sos</Title>
+      <Shortcut>sos</Shortcut>
+      <Description>SELECT OSRN</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.ItemCode, O.itemName, O.WhsCode, O.Quantity, O.CommitQty, O.LastPurPrice, O.InDate, O.LastPurPrice, O.AbsEntry, * FROM FRT_POS.dbo.OSRN AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$' AND O.WhsCode = '']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "14333524-5d9e-49fd-b6b0-faf14bed20d5",
+  "prefix": "sr62",
+  "description": "lấy detail SO con 62",
+  "body": "SELECT R.ItemCode, R.U_IMei, R.U_WhsCod, R.U_Price, R.Quantity, R.U_TaxAmo, R.U_TMoney, R.DiscPrcnt, R.U_DisOther, * FROM [10.1.13.62].POSEInv.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$"
+}

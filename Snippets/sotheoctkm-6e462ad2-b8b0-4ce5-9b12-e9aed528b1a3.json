@@ -1,0 +1,6 @@
+{
+  "id": "6e462ad2-b8b0-4ce5-9b12-e9aed528b1a3",
+  "prefix": "sotheoctkm",
+  "description": "Lấy danh sách SO theo CTKM",
+  "body": "DECLARE\n        @CTKM INT = 0\n      , @CC INT = $CURSOR$\n      , @IsValid BIT = 0\n\t  , @FromDate DATE = '20170901'\n\t  , @ToDate DATE = '20170930'\n\nSELECT\n    DocEntry\nINTO\n\t#tmpCC\nFROM\n    dbo.CTKM_structure (NOLOCK)\nWHERE\n    (CTKM_Header_DocEntry = @CTKM OR @CTKM = 0)\n    AND (DocEntry = @CC OR @CC = 0)\n    AND (@CTKM > 0 OR @CC > 0)\n\tAND (@IsValid = 0 OR (@IsValid = 1 AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate)))\n\nSELECT DocEntrySO, PromotionCode INTO #tmpCheckedSO FROM dbo.FRT_PROM_Detail (NOLOCK) WHERE PromotionCode IN (SELECT T.DocEntry FROM #tmpCC T)\n\nSELECT\n      O.DocEntry\n\t, T.PromotionCode\nFROM\n    #tmpCheckedSO T\n\t\tINNER JOIN dbo.ORDR O (NOLOCK)\n\t\t\tON T.DocEntrySO = O.DocEntry\nWHERE\n    O.DocStatus = 'F'\n    AND CONVERT(DATE, O.U_ExDate) BETWEEN @FromDate AND @ToDate;\n\nDROP TABLE #tmpCC, #tmpCheckedSO"
+}

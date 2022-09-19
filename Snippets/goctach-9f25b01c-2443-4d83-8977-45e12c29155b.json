@@ -1,0 +1,6 @@
+{
+  "id": "9f25b01c-2443-4d83-8977-45e12c29155b",
+  "prefix": "goctach",
+  "description": "Tách mà không xóa gốc",
+  "body": "DECLARE \n\t  @Goc INT = $CURSOR$\n\t, @Tach INT = \n\t\nSELECT 'ORDR', O.DocEntry, O.Type_ReturnSO, O.U_ProSplit, O.U_DocSplit, O.U_ShpCod, O.U_ExDate, O.DocDate, O.DocStatus FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @Goc\nSELECT 'RDR1', R.DocEntry, R.LineNum, R.ItemCode, R.Dscription, U_Imei, R.U_WhsCod, R.U_Price, R.U_PROMOS, R.U_OnHand FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @Goc\nSELECT 'RDR1_62', R.DocEntry, R.LineNum, R.ItemCode, R.Dscription, U_Imei, R.U_WhsCod, R.U_Price, R.U_PROMOS, R.U_OnHand FROM [10.1.13.62].POSEInv.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @Goc\nSELECT 'OIVL', * FROM FRT_POS.dbo.FRT_POS_OIVL AS V WITH (NOLOCK) WHERE V.Docentry = @Goc\n\nSELECT 'ORDR_TACH', O.DocEntry, O.Type_ReturnSO, O.U_ProSplit, O.U_DocSplit, O.U_ShpCod, O.U_ExDate, O.DocDate, O.DocStatus FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @Tach\nSELECT 'RDR1_TACH', R.DocEntry, R.LineNum, R.ItemCode, R.Dscription, U_Imei, R.U_WhsCod, R.U_Price, R.U_PROMOS, R.U_OnHand FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @Tach\n\nRETURN\n--DELETE FROM dbo.RDR1 WHERE DocEntry = AND LineNum = "
+}

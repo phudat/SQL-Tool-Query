@@ -1,0 +1,6 @@
+{
+  "id": "e713b40a-a932-4c3e-9a50-6256dacc3c15",
+  "prefix": "smpos",
+  "description": "Select MPOS Database",
+  "body": "SELECT * FROM [10.1.13.86].MPOS.dbo$CURSOR$ WITH (NOLOCK) WHERE "
+}

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>mdmhnew</Title>
+      <Shortcut>mdmhnew</Shortcut>
+      <Description>Lấy thông tin MDMH gia3m 30%</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.frozenFor, O.U_TGBH, O.U_NG_CODE, O.ItmsGrpCod, O.FirmCode, O.U_Nhom, O.U_DongHH, * FROM FRT_MDM.dbo.OITM AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$'
+SELECT * FROM dbo.tbl_ConfigMDMH_New (NOLOCK) WHERE Nganh = '06' AND Loai = '152' AND Nhan IN ('-1', '381') AND DongHang = '0003']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

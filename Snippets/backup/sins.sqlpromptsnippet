@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sins</Title>
+      <Shortcut>sins</Shortcut>
+      <Description>INSIDE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.77].FRTInsideV2.dbo$CURSOR$ WITH (NOLOCK) WHERE ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

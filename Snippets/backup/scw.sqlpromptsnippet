@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>scw</Title>
+      <Shortcut>scw</Shortcut>
+      <Description>SELECT * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.WarehouseCode = '' AND CONVERT(DATE, C.ReceiptDate) = ''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT C.TotalAmount, C.CashCollectionReceiptStatus, C.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, C.ReceiptDate) = '' AND C.CashCollectionReceiptStatus = 37]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

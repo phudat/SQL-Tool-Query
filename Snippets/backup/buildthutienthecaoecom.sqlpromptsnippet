@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildthutienthecaoecom</Title>
+      <Shortcut>buildthutienthecaoecom</Shortcut>
+      <Description>Build hình thức thanh toán thẻ cào Ecom</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[
+INSERT INTO dbo.POSPaymentMethod
+    (
+         CreatedDate
+       , CreatedBy
+       , Remark
+       , TransferAmount
+       , PaymentType
+	   , BankAccountName
+	   , BankCode
+	   , BankAccountNumber
+	   , CardPaymentMethod
+       , SalesOrdersID
+    )
+SELECT 
+	  S.CreatedDateTime
+	, '-1'
+	, N'Thanh toán bằng CK ECOM'
+	, ISNULL(S.TotalReferAmount, 0)
+	, 'TRANSFER'
+	, '123 pay'
+	, N'Ví điện tử'
+	, '0011004265608'
+	, 6
+	, S.ID
+FROM 
+	dbo.SalesOrders S (NOLOCK) 
+WHERE 
+	S.Id IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

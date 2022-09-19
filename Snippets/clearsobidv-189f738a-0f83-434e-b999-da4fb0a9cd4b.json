@@ -1,0 +1,6 @@
+{
+  "id": "189f738a-0f83-434e-b999-da4fb0a9cd4b",
+  "prefix": "clearsobidv",
+  "description": "Gạch giao dịch thu tiền BIDV",
+  "body": "SELECT *, 'EXEC dbo.sp_POSBank_BIDV_ClearPendingSaleOrders @Data = N''<?xml version=\"1.0\" encoding=\"utf-16\"?><BIDVTransationSaleOrdersRequestModel xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bankCode>BIDV</bankCode><bankCertifiedKey>jR2f56wW3M5QLaIslTGigxQeRUdzBpwcpssEyCsXSm2/sJbawHkGBAa8J5gd1zI+</bankCertifiedKey><BIDVTransationSaleOrders><DATA><transationID>12200813_20180822151459</transationID><transationStatus>OK</transationStatus><TID>12200813</TID><transtionType>' + transtionType + '</transtionType><saleOrderCode>' + saleOrderCode + '</saleOrderCode><creditCardNumber>9704 XXXX XXXX 6127</creditCardNumber><cardHolderName>GIAO DICH TEST</cardHolderName><authorizationCode>TEST</authorizationCode><totalAmount>' + CONVERT(VARCHAR, totalAmount) +  '</totalAmount></DATA></BIDVTransationSaleOrders></BIDVTransationSaleOrdersRequestModel>''' FROM dbo.FRT_POSBank_BIDV_PendingSaleOrders_Push (NOLOCK) "
+}

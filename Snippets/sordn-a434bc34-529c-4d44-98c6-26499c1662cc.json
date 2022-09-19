@@ -1,0 +1,6 @@
+{
+  "id": "a434bc34-529c-4d44-98c6-26499c1662cc",
+  "prefix": "sordn",
+  "description": "SELECT ORDN",
+  "body": "SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_NumSO, * FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE DocEntry = $CURSOR$"
+}

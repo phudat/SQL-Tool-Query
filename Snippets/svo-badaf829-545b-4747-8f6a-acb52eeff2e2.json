@@ -1,0 +1,6 @@
+{
+  "id": "badaf829-545b-4747-8f6a-acb52eeff2e2",
+  "prefix": "svo",
+  "description": "SELECT VOUCHER",
+  "body": "SELECT F.U_ItmCod, F.U_Voucher, F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, F.U_Voucher, F.U_FacVal, F.U_StartD, F.U_EndD, F.U_Nganh_AD, F.U_Loai_AD, F.U_Nhan_AD, F.U_ItemCode_AD, F.U_Phone, F.TypeReturnSO, F.U_SOType, F.Fix_Facval, * FROM FRT_POS.dbo.[@FPTVOCH] AS F WITH (NOLOCK) WHERE F.U_Voucher = '$CURSOR$' AND F.U_Status <> 'C'"
+}

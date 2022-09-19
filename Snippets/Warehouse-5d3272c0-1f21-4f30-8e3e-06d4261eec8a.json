@@ -1,0 +1,6 @@
+{
+  "id": "5d3272c0-1f21-4f30-8e3e-06d4261eec8a",
+  "prefix": "Warehouse",
+  "description": "get infor warehouse from employee code",
+  "body": "SELECT \n\tISNULL(W.WarehouseCode,W.WarehouseCodeB1)\nFROM \n\tdbo.CRM_Employees AS E WITH (NOLOCK) \n\tINNER JOIN dbo.Warehouse AS W \n\tON E.WarehouseCode=w.WarehouseCode \nWHERE \n\tE.EmployeeCode = '$CURSOR$'"
+}

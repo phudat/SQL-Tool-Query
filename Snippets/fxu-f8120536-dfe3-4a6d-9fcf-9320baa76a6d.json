@@ -1,0 +1,6 @@
+{
+  "id": "f8120536-dfe3-4a6d-9fcf-9320baa76a6d",
+  "prefix": "fxu",
+  "description": "Lấy VC Fxu",
+  "body": "SELECT SUBSTRING(U_DESC, 8, 15) Voucher, U_DESC, * FROM [10.1.13.69].FRT_Platform.dbo.ChiTietGiaoDichKH WITH (NOLOCK) WHERE SoDienThoai = '$CURSOR$' ORDER BY ID DESC"
+}

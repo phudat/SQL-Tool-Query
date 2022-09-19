@@ -1,0 +1,6 @@
+{
+  "id": "25664c2b-ec5d-4eeb-ba21-c52f3db5d4c3",
+  "prefix": "monitordoubleck",
+  "description": "Monitor double chuyển khoản",
+  "body": "SELECT * INTO #tmpCK FROM dbo.[@FPTORCT] (NOLOCK) WHERE CONVERT(DATE, U_AcDate) = CONVERT(DATE, GETDATE()) AND U_MoTran > 0 AND IsAutoCard = 'N'\n\nSELECT\n    O.DocEntry\n  , O.U_DocSO\n  , ISNULL(O.U_MoCash, 0) U_MoCash\n  , ISNULL(O.U_MoCCad, 0) U_MoCCad\n  , ISNULL(O.U_MoTran, 0) U_MoTran\n  , ISNULL(O.U_MoVoCh, 0) U_MoVoCh\nINTO\n\t#tmpThuTien\nFROM\n    #tmpCK T\n    INNER JOIN dbo.[@FPTORCT] O\n        ON T.U_DocSO = O.U_DocSO;\n\nSELECT\n      T.*\n\t, O.U_TMonBi\nINTO\n\t#tmpThuTienSO\nFROM\n    #tmpThuTien T\n\t\tINNER JOIN dbo.ORDR O (NOLOCK)\n\t\t\tON T.U_DocSO = O.DocEntry;\n\nSELECT * FROM #tmpThuTienSO ORDER BY U_DocSO\n\nSELECT DISTINCT U_DocSO FROM #tmpThuTienSO\n\nSELECT\n    T.U_DocSO, T.U_TMonBi, SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) \nFROM\n    #tmpThuTienSO T\nGROUP BY\n\tT.U_DocSO, T.U_TMonBi\nHAVING\n\tSUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) <> T.U_TMonBi\n\nDROP TABLE \n\t  #tmpCK\n\t, #tmpThuTien\n\t, #tmpThuTienSO"
+}

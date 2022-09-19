@@ -1,0 +1,6 @@
+{
+  "id": "50d22ddd-363a-4ac6-8370-ae8b5ad92b18",
+  "prefix": "addgroup",
+  "description": "Thêm group VC không giá",
+  "body": "SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = ''\n\nDECLARE\n        @Voucher VARCHAR(50) = '$CURSOR$'\n      , @IsPhone BIT\t = 1\n\t  , @Group\t VARCHAR(20) = 255\nINSERT  INTO dbo.FPT_PROMS\n    (\n         DocEntry_SO\n       , Status\n       , Email\n       , CreateDate\n       , GroupCode\n       , Phone\n       , updatedate\n       , Email2\n    )\nVALUES\n    (\n         NULL\n       , 6\n       , @Voucher\n       , GETDATE()\n       , @Group\n       , CASE WHEN @IsPhone = 1 THEN @Voucher\n              ELSE ''\n         END\n       , NULL\n       , NULL\n    );"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "5d321bb8-9da0-4a26-a630-c52501c9568d",
+  "prefix": "scw",
+  "description": "SELECT * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.WarehouseCode = '' AND CONVERT(DATE, C.ReceiptDate) = ''",
+  "body": "SELECT C.TotalAmount, C.CashCollectionReceiptStatus, C.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, C.ReceiptDate) = '' AND C.CashCollectionReceiptStatus = 37"
+}

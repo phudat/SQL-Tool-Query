@@ -1,0 +1,6 @@
+{
+  "id": "3c946cac-765f-495b-ab12-805d2221f167",
+  "prefix": "svoib",
+  "description": "SELECT VOUCHER BACKUP BY SO",
+  "body": "SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH_BK_20150615] AS F WITH (NOLOCK) WHERE F.U_IssIn = '$CURSOR$' AND F.U_Status <> 'C'"
+}

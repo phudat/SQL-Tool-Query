@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>nhantinbts</Title>
+      <Shortcut>nhantinbts</Shortcut>
+      <Description>Nhắn tin BTS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO [10.1.13.61].FRT_Customer.dbo.FRTSMSCRM (SODocNum, CustomerCodeB1, CustomerName, PhoneNumber, SMSContent, System, Remark, CreatedDate, Status, Account)
+SELECT '0', '0', 'bts', L.Phone, L.SMSContent, 'POS', N'SMS gui voucher BTS', GETDATE(), 'A', 'FRTCSKH1' FROM [10.96.254.34].POS_HNI.dbo.log_voucher_bts L WITH (NOLOCK) WHERE Phone ='$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

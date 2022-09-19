@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>addgroup</Title>
+      <Shortcut>addgroup</Shortcut>
+      <Description>Thêm group VC không giá</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = ''
+
+DECLARE
+        @Voucher VARCHAR(50) = '$CURSOR$'
+      , @IsPhone BIT	 = 1
+	  , @Group	 VARCHAR(20) = 255
+INSERT  INTO dbo.FPT_PROMS
+    (
+         DocEntry_SO
+       , Status
+       , Email
+       , CreateDate
+       , GroupCode
+       , Phone
+       , updatedate
+       , Email2
+    )
+VALUES
+    (
+         NULL
+       , 6
+       , @Voucher
+       , GETDATE()
+       , @Group
+       , CASE WHEN @IsPhone = 1 THEN @Voucher
+              ELSE ''
+         END
+       , NULL
+       , NULL
+    );]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

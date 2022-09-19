@@ -1,0 +1,6 @@
+{
+  "id": "9058d60e-e54c-4a3d-a306-0017ea46029f",
+  "prefix": "cancelpy",
+  "description": "tim thong tin huy payoo",
+  "body": "SELECT \n\te.Email,\n\ts.CreatedEmployeeCode [Ma inside huy],\n\ts.CreatedDateTime [Ngay huy],\n\ts.Reason [Ly do huy],\n\ts.UserRemark [Ghi chu],\n\tpy.CreatedBy [Nguoi tao phieu] \nFROM \n\tdbo.Log_Cancel_Payoo s WITH (NOLOCK) \n\tINNER JOIN dbo.PaymentBillReceipts_History AS py WITH (NOLOCK) ON py.ID = s.IDGD\n\tINNER JOIN dbo.CRM_Employees e WITH (NOLOCK) ON s.CreatedEmployeeCode=e.EmployeeCode \nWHERE \n\ts.IDGD=$CURSOR$\n\tORDER BY s.CreatedDateTime"
+}

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>lsgd</Title>
+      <Shortcut>lsgd</Shortcut>
+      <Description>Lịch sử giao dịch</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC dbo.sp_COMMOND_GetHistoryProduct_New_LSGD_New_1 
+	@ItemCode = '', -- varchar(50)
+    @Serial = N'$CURSOR$', -- nvarchar(100)
+    @TuNgay = '2014-06-28 01:52:22', -- datetime
+    @DenNgay = '2017-06-28 01:52:22', -- datetime
+    @Status = '', -- char(1)
+    @ShopCode = '', -- varchar(max)
+    @WhsCode = '', -- varchar(max)
+    @Paging = 0, -- int
+    @UserID = N'' -- nvarchar(40)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "4c9e639a-fbcd-4ca3-b183-b6577e714f60",
+  "prefix": "usw",
+  "description": "UPDATE frament SET WHERE",
+  "body": "RETURN\nUPDATE FRT_POS.dbo$CURSOR$ SET  WHERE DocEntry = "
+}

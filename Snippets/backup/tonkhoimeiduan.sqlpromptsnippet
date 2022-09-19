@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tonkhoimeiduan</Title>
+      <Shortcut>tonkhoimeiduan</Shortcut>
+      <Description>Check tồn kho IMEI SO dự án</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    R.ItemCode, R.U_WhsCod, R.U_IMei, O.ItemCode, O.WhsCode, O.DistNumber, O.Quantity, O.CommitQty
+FROM
+    FRT_POS.dbo.RDR1 AS R WITH (NOLOCK)
+		INNER JOIN dbo.OSRN O (NOLOCK)
+			ON R.ItemCode = O.ItemCode
+				AND R.U_WhsCod = O.WhsCode
+				AND R.U_IMei = O.DistNumber
+WHERE
+    R.DocEntry = $CURSOR$;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "81f946d8-9afe-4ef7-8c11-eb41d30a38c1",
+  "prefix": "sod",
+  "description": "SELECT * FROM dbo.OSRN AS O (NOLOCK) WHERE O.DistNumber = 'IMEI' AND O.Quantity = 1",
+  "body": "SELECT O.ItemCode, O.itemName, O.DistNumber, O.WhsCode, O.Quantity, O.CommitQty, O.LastPurPrice, O.Indate, O.AbsEntry, DATEDIFF(DAY, O.InDate, GETDATE()) + 1 FROM FRT_POS.dbo.OSRN AS O WITH (NOLOCK) WHERE O.DistNumber = '$CURSOR$' AND O.Quantity = 1 "
+}

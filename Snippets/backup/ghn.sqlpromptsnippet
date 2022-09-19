@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ghn</Title>
+      <Shortcut>ghn</Shortcut>
+      <Description>MONITOR GIAOHANGNHANH</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT OC.DocEntry INTO #tmpPush FROM dbo.ORDRPUSH2COM AS OC (NOLOCK) WHERE CONVERT(DATE, OC.CreateDate) BETWEEN '20160901' AND '20160926'
+SELECT O.* FROM #tmpPush AS P (NOLOCK) INNER JOIN dbo.ORDR AS O (NOLOCK) ON P.DocEntry = O.DocEntry WHERE O.U_ShipTyp = 4
+DROP TABLE #tmpPush]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Updatetongtien</Title>
+      <Shortcut>Updatetongtien</Shortcut>
+      <Description>do mpos day sai so tien ne crm update lai</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @billcode VARCHAR(100),@id INT,@totalamount NUMERIC(18,2),@card_fee NUMERIC(18,2),@date DATETIME
+SET @billcode='$CURSOR$'
+SET @totalamount=1
+SET @card_fee=1
+IF EXISTS (SELECT TOP 1 1 FROM PaymentBillReceipts_History WITH (NOLOCK) WHERE BillCode =@billcode) 
+BEGIN
+    SELECT @id=id,@date=CreatedDateTime FROM dbo.PaymentBillReceipts_History WITH (NOLOCK) WHERE BillCode =@billcode
+	SELECT TotalAmount,Card_Fee,* FROM dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH_HISTORY WITH (NOLOCK) WHERE CreateDate>@date AND CRMID = @id
+	SELECT U_DocAR, U_Status, U_AcDate, Object,U_ShpCod,*  FROM [10.1.13.71].FRT_POS.dbo.[@FPTORCT] WITH (NOLOCK) WHERE U_DocAR IN ( @id) AND Object='0006'
+	UPDATE dbo.PaymentBillReceipts_History SET TotalAmount = @totalamount, CardPaymentFee = @card_fee WHERE BillCode = @billcode
+	UPDATE dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH_HISTORY SET TotalAmount=@totalamount, Card_Fee=@card_fee WHERE CRMID=@id AND VendorCode='0006'
+	UPDATE [10.1.13.71].FRT_POS.dbo.[@FPTORCT] SET U_MoCCad=@totalamount WHERE U_DocAR IN ( @id) AND Object='0006' AND U_loaiCT=4
+	UPDATE [10.1.13.71].FRT_POS.dbo.[@FPTORCT] SET U_MoCCad=@card_fee WHERE U_DocAR IN ( @id) AND Object='0006' AND U_loaiCT=16--Phi
+END
+IF EXISTS (SELECT TOP 1 1 FROM PaymentBillReceipts WITH (NOLOCK) WHERE BillCode =@billcode) 
+BEGIN
+    SELECT @id=id,@date=CreatedDateTime FROM dbo.PaymentBillReceipts WITH (NOLOCK) WHERE BillCode =@billcode
+	SELECT TotalAmount,Card_Fee,* FROM dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH WITH (NOLOCK) WHERE CreateDate>@date AND CRMID = @id
+	SELECT U_DocAR, U_Status, U_AcDate, Object,U_ShpCod,*  FROM [10.1.13.71].FRT_POS.dbo.[@FPTORCT] WITH (NOLOCK) WHERE U_DocAR IN ( @id) AND Object='0006'
+	UPDATE dbo.PaymentBillReceipts SET TotalAmount = @totalamount, CardPaymentFee = @card_fee WHERE BillCode = @billcode
+	UPDATE dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH SET TotalAmount=@totalamount, Card_Fee=@card_fee WHERE CRMID=@id AND VendorCode='0006'
+	UPDATE [10.1.13.71].FRT_POS.dbo.[@FPTORCT] SET U_MoCCad=@totalamount WHERE U_DocAR IN ( @id) AND Object='0006' AND U_loaiCT=4
+	UPDATE [10.1.13.71].FRT_POS.dbo.[@FPTORCT] SET U_MoCCad=@card_fee WHERE U_DocAR IN ( @id) AND Object='0006' AND U_loaiCT=16--Phi
+END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

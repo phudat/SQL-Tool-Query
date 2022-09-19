@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>keolaivoucherbkhethieuluc</Title>
+      <Shortcut>keolaivoucherbkhethieuluc</Shortcut>
+      <Description>Kéo lại voucher không giá ở bảng BK bị hết hiệu lực -&gt; gia hạn</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    C.Value
+INTO
+    #tmpActiveGroupCode
+FROM
+    dbo.CTKM_Condition C (NOLOCK)
+		INNER JOIN dbo.CTKM_structure S (NOLOCK)
+			ON C.DocEntry_structure = S.DocEntry
+				AND C.Object = 3
+				AND C.Properties = 2
+				AND GETDATE() BETWEEN S.ActiveDate AND S.InActiveDate;
+
+INSERT INTO dbo.FPT_PROMS
+    (
+         DocEntry_SO
+       , Status
+       , Email
+       , CreateDate
+       , GroupCode
+       , Phone
+       , updatedate
+       , Email2
+       , Status_push_mpos
+       , U_Desc
+       , Remark
+       , type
+    )
+SELECT
+      DocEntry_SO
+    , Status
+    , Email
+    , CreateDate
+    , GroupCode
+    , Phone
+    , updatedate
+    , Email2
+    , Status_push_mpos
+    , U_Desc
+    , Remark
+    , type
+FROM
+	#tmpActiveGroupCode T
+		INNER JOIN dbo.FPT_PROMS_BK_ARCHIVE B (NOLOCK)
+			ON T.Value = B.GroupCode
+WHERE
+    Status = 6
+	AND B.GroupCode > 1000]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

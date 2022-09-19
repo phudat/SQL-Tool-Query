@@ -1,0 +1,6 @@
+{
+  "id": "a44a4f79-782d-454c-87fc-228427609537",
+  "prefix": "xtd",
+  "description": "SELECT SO DETAIL FROM 62",
+  "body": "SELECT * FROM [10.1.13.62].POSEInv.dbo.RDR1 WITH (NOLOCK) WHERE DocEntry = $CURSOR$"
+}

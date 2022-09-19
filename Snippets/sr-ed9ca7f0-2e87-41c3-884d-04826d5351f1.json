@@ -1,0 +1,6 @@
+{
+  "id": "ed9ca7f0-2e87-41c3-884d-04826d5351f1",
+  "prefix": "sr",
+  "description": "SELECT * FROM RDR1 AS R (NOLOCK) WHERE R.DocEntry = ",
+  "body": "SELECT U_WhsCod, U_Imei, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$"
+}

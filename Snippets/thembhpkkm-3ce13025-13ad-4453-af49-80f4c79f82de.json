@@ -1,0 +1,6 @@
+{
+  "id": "3ce13025-13ad-4453-af49-80f4c79f82de",
+  "prefix": "thembhpkkm",
+  "description": "Thêm MSP bảo hành PK khác mã",
+  "body": "\nINSERT  INTO dbo.[@FPT_ItemConfig]\n    (\n         ItemCode\n       , Nganh\n       , Loai\n       , Nhan\n       , Type\n       , [Percent]\n       , Price\n       , CheckImei\n       , Status\n       , ItemCodeBH\n       , ItemNameBH\n       , CreateBy\n       , CreateDate\n    )\nSELECT\n    ItemCode\n  , U_NG_CODE\n  , ItmsGrpCod\n  , FirmCode\n  , 3\n  , NULL\n  , NULL\n  , 0\n  , 'S'\n  , ItemCode\n  , ItemName\n  , '11004'\n  , GETDATE()\nFROM\n    FRT_MDM.dbo.OITM (NOLOCK)\nWHERE\n    ItemCode = '$CURSOR$';"
+}

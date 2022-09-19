@@ -1,0 +1,6 @@
+{
+  "id": "c11812e9-ad3a-4370-b849-b757f145cd06",
+  "prefix": "monitortongitenlonhonthutien",
+  "description": "Monitor tổng tiền > thu tiền",
+  "body": "SELECT DocEntry INTO #tmpDocEntrySO FROM dbo.ORDRPUSH2COM (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND ISNULL(DocStatus, '') NOT IN ('', 'D')\n\nSELECT O.DocEntry, O.U_ExDate, O.DocDate, O.DocType, O.DocStatus, O.PickStatus, O.Type_ReturnSO, O.U_TMonBi, O.U_ShpCod, O.U_UsrCre INTO #tmpSO FROM #tmpDocEntrySO T INNER JOIN dbo.ORDR O (NOLOCK) ON T.DocEntry = O.DocEntry\n\nSELECT\n      T.*\n\t, ISNULL(F.U_MoCash, 0) AS U_MoCash\n\t, ISNULL(F.U_MoCCad, 0) AS U_MoCCad\n\t, ISNULL(F.U_MoTran, 0) AS U_MoTran\n\t, ISNULL(F.U_MoVoCh, 0) AS U_MoVoCh\n\t, F.IsAutoCard\nINTO\n\t#tmpThuTien\nFROM\n    #tmpSO T\n\t\tLEFT JOIN dbo.[@FPTORCT] F (NOLOCK)\n\t\t\tON T.DocEntry = F.U_DocSO;\n\nSELECT\n    T.DocEntry\n  , T.U_TMonBi\n  , SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) AS TotalAmount\nFROM\n    #tmpThuTien T\nGROUP BY\n    T.DocEntry\n  , T.U_TMonBi\nHAVING\n\tT.U_TMonBi < SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) - 10\n\nDROP TABLE #tmpDocEntrySO, #tmpSO, #tmpThuTien"
+}

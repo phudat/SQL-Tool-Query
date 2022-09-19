@@ -1,0 +1,6 @@
+{
+  "id": "38429baa-996a-4fd4-92cb-ec0d665527de",
+  "prefix": "sloai",
+  "description": "SELECT LOAI",
+  "body": "SELECT * FROM FRT_MDM.dbo.OITB (NOLOCK)"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>slog</Title>
+      <Shortcut>slog</Shortcut>
+      <Description>SELECT LOG</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_POS.dbo.Log AS L (NOLOCK) WHERE L.CreateBy = '$CURSOR$' ORDER BY L.CreateDateTime DESC ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

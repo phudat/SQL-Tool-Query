@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>imeiam</Title>
+      <Shortcut>imeiam</Shortcut>
+      <Description>Monitor IMEI Book âm</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT ItemCode, DistNumber, WhsCode, AbsEntry, Quantity, CommitQty, * FROM dbo.OSRN (NOLOCK) WHERE CommitQty < 0$CURSOR$
+SELECT O.ItemCode, O.WhsCode, O.OnHand, O.Qty_Available, O.Qty_Order, O.OnOrder, O.LastPurPrice FROM FRT_POS.dbo.OITW AS O WITH (NOLOCK) WHERE O.ItemCode = '00372391' AND O.WhsCode = '31228010'
+
+RETURN
+--UPDATE FRT_POS.dbo.OSRN SET CommitQty = 0 WHERE AbsEntry = 
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

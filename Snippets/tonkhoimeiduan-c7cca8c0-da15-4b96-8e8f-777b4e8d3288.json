@@ -1,0 +1,6 @@
+{
+  "id": "c7cca8c0-da15-4b96-8e8f-777b4e8d3288",
+  "prefix": "tonkhoimeiduan",
+  "description": "Check tồn kho IMEI SO dự án",
+  "body": "SELECT\n    R.ItemCode, R.U_WhsCod, R.U_IMei, O.ItemCode, O.WhsCode, O.DistNumber, O.Quantity, O.CommitQty\nFROM\n    FRT_POS.dbo.RDR1 AS R WITH (NOLOCK)\n\t\tINNER JOIN dbo.OSRN O (NOLOCK)\n\t\t\tON R.ItemCode = O.ItemCode\n\t\t\t\tAND R.U_WhsCod = O.WhsCode\n\t\t\t\tAND R.U_IMei = O.DistNumber\nWHERE\n    R.DocEntry = $CURSOR$;"
+}

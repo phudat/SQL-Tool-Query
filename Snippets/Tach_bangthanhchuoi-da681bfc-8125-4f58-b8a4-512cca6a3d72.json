@@ -1,0 +1,12 @@
+{
+  "id": "da681bfc-8125-4f58-b8a4-512cca6a3d72",
+  "prefix": "Tach_bangthanhchuoi",
+  "description": "",
+  "body": "DECLARE @string NVARCHAR(max) =''\n\tDECLARE CUR_PO CURSOR \n\tFOR \n\tSELECT $CURSOR1$ FROM $CURSOR$ WITH (NOLOCK) \n\tOPEN CUR_PO\t\t\n\tDECLARE @ID VARCHAR(50) \n\tFETCH NEXT FROM CUR_PO INTO @ID\n\twhile ( @@FETCH_STATUS = 0)\n\tbegin\n\t\tSET @string+=@id+','\n\t\tFETCH NEXT FROM CUR_PO INTO @ID\n\tEND\n\tCLOSE CUR_PO\n\tDEALLOCATE CUR_PO\n\tSET @string=SUBSTRING(@string, 1, (len(@string) - 1))",
+  "placeholders": [
+    {
+      "name": "CURSOR1",
+      "defaultValue": ""
+    }
+  ]
+}

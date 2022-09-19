@@ -1,0 +1,6 @@
+{
+  "id": "e7d28d88-feb4-425e-8e99-c407e3ad0ae4",
+  "prefix": "taoycdtrahang",
+  "description": "Tạo yê uc ầu duyệt trả hàng",
+  "body": "DECLARE \n\t  @DocEntry INT = 0 \n\t, @DocReturn INT = 0\n\t, @CreateBy VARCHAR(20)\n\nSELECT @DocReturn = O.DocEntry, @CreateBy= O.CreateBy FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE o.U_NumSO = @DocEntry\nSELECT @DocEntry DocEntry, @DocReturn DocReuturn, @CreateBy CreateBy\n\nINSERT INTO dbo.APPROVAL (CreateBy, CreateDateTime, UpdateBy, UpdateDateTime, Status, Type, Content, UserApprove, U_SONum, Jobtitle, Remark, LineSO, ApprovedBy)\nVALUES \n\t  ('HT', GETDATE(), NULL, NULL, 'N', 'C', N'Duyệt chi tiền trả hàng', '', @DocReturn, '', N'Hệ thống hỗ trợ duyệt trả hàng', 0, 'HT')\n\t, ('HT', GETDATE(), 'HT', GETDATE(), 'C', 'R', N'Yêu cầu duyệt trả hàng', '', @DocReturn, '', N'Hệ thống hỗ trợ duyệt trả hàng', 0, 'HT')\n\nUPDATE FRT_POS.dbo.APPROVAL SET Status = 'C', ApprovedBy = 'HT' WHERE U_SONum = @DocReturn AND Type = 'R'\nUPDATE FRT_POS.dbo.ORDN SET DocStatus = 'A' WHERE DocEntry = @DocReturn\n\nSELECT * FROM dbo.APPROVAL (NOLOCK) WHERE U_SONum = @DocReturn\nSELECT * FROM dbo.ORDN (NOLOCK) WHERE DocEntry = @DocReturn\n"
+}

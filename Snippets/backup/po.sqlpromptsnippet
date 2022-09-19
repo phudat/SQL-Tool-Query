@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>po</Title>
+      <Shortcut>po</Shortcut>
+      <Description>Select PO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM dbo.OPOR (NOLOCK) WHERE DocEntry IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

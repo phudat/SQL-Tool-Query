@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>lechvoucher</Title>
+      <Shortcut>lechvoucher</Shortcut>
+      <Description>Chạy lệch voucher ALL</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    *
+INTO
+    #tmpVoucherCoGia
+FROM
+    dbo.ITEM_VOCH (NOLOCK)
+WHERE
+    U_LoaiVou = 'Y';
+
+SELECT CONVERT(NVARCHAR(500), N'1. Có ' + CONVERT(VARCHAR, COUNT(1)) + N' mã voucher.') Msg INTO #tmpMsg FROM #tmpVoucherCoGia
+
+SELECT
+    ItemcodeVoch
+  , COUNT(*) SL
+INTO
+    #tmpVoucherCount
+FROM
+    dbo.FRT_VOCH_TEMP
+WHERE
+    ItemcodeVoch IN (SELECT U_ItmCod FROM #tmpVoucherCoGia)
+GROUP BY
+    ItemcodeVoch;
+
+SELECT DISTINCT
+    c.ItemcodeVoch
+  , c.SL
+INTO
+    #tmpVoucherHieuLuc
+FROM
+    dbo.[@FPTVOCH] v (NOLOCK)
+		INNER JOIN #tmpVoucherCount c
+			ON c.ItemcodeVoch = v.U_ItmCod
+WHERE
+    CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, U_StartD) AND CONVERT(DATE, U_EndD)
+    AND U_Status = 'N'
+    AND U_ExBill = 'N'
+    AND U_IssBill = 'N'
+    AND U_IssIn IS NULL
+    AND v.U_BillIn IS NULL;
+
+INSERT INTO #tmpMsg (Msg) 
+SELECT CONVERT(NVARCHAR(500), N'2. Có ' + CONVERT(VARCHAR, COUNT(1)) + N' mã voucher còn hiệu lực.') FROM #tmpVoucherHieuLuc
+
+SELECT DISTINCT
+    c.ItemcodeVoch
+INTO
+    #tmpVoucherLineOK
+FROM
+    dbo.[@FPTVOCH] v (NOLOCK)
+		INNER JOIN #tmpVoucherHieuLuc c
+			ON c.ItemcodeVoch = v.U_ItmCod
+WHERE
+    CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, U_StartD) AND CONVERT(DATE, U_EndD)
+    AND U_Status = 'N'
+    AND U_ExBill = 'N'
+    AND U_IssBill = 'N'
+    AND U_IssIn IS NULL
+    AND c.SL + 1 = v.LineId
+    AND v.U_BillIn IS NULL;
+
+SELECT
+    *
+INTO
+	#tmpVoucherLech
+FROM
+    #tmpVoucherHieuLuc
+WHERE
+    ItemcodeVoch NOT IN (SELECT * FROM #tmpVoucherLineOK);
+
+INSERT INTO #tmpMsg (Msg) 
+SELECT CONVERT(NVARCHAR(500), N'3. Có ' + CONVERT(VARCHAR, COUNT(1)) + N' mã voucher bị lệch line.') FROM #tmpVoucherLech
+
+DECLARE @C_ItemCodeVoch NVARCHAR(50)
+
+DECLARE C_VOUCHER CURSOR SCROLL LOCAL 
+FOR 
+SELECT ItemcodeVoch FROM #tmpVoucherLech
+OPEN C_VOUCHER
+FETCH FIRST FROM C_VOUCHER INTO @C_ItemCodeVoch
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+    	EXEC dbo.sp_AutoLineVoucher_new @ItemCodeVoucher = @C_ItemCodeVoch
+
+    	FETCH NEXT FROM C_VOUCHER INTO @C_ItemCodeVoch
+	END
+
+CLOSE C_VOUCHER
+DEALLOCATE C_VOUCHER
+
+SELECT * FROM #tmpMsg
+
+DROP TABLE 
+	  #tmpVoucherHieuLuc
+	, #tmpVoucherCount
+	, #tmpVoucherCoGia
+	, #tmpVoucherLineOK
+	, #tmpVoucherLech
+	, #tmpMsg;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

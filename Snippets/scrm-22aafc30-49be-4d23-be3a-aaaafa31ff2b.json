@@ -1,0 +1,6 @@
+{
+  "id": "22aafc30-49be-4d23-be3a-aaaafa31ff2b",
+  "prefix": "scrm",
+  "description": "SELECT * FROM [10.1.13.76].FRTCRM.dbo WITH (NOLOCK) WHERE ",
+  "body": "SELECT * FROM [10.1.13.76].FRTCRM.dbo$CURSOR$ WITH (NOLOCK) WHERE "
+}

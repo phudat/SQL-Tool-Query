@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sordn</Title>
+      <Shortcut>sordn</Shortcut>
+      <Description>SELECT ORDN</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_NumSO, * FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

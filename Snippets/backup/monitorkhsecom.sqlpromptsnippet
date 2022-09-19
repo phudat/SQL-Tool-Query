@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorkhsecom</Title>
+      <Shortcut>monitorkhsecom</Shortcut>
+      <Description>Monitor SO kích hoạt Ecom có giá mà POS không có MSP Gói chọn số</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    DocEntry
+INTO
+    #tmpSOEcom_00503355
+FROM
+    FRT_CUSTOMIZE.dbo.[@FPTORDRTMP] (NOLOCK)
+WHERE
+    CONVERT(DATE, DocDate) = CONVERT(DATE, GETDATE());
+
+SELECT
+    T.DocEntry
+  , R.U_ItmCod
+INTO
+    #tmpSOEcomDetail_00503355
+FROM
+    #tmpSOEcom_00503355 T
+    INNER JOIN FRT_CUSTOMIZE.dbo.[@FPTRDR1TMP] R (NOLOCK)
+        ON T.DocEntry = R.DocEntry
+           AND R.U_ItmCod = '00503355'
+           AND R.U_Price > 0;
+
+SELECT
+    O.DocEntry
+  , O.U_NumECom
+  , T.U_ItmCod
+INTO
+    #tmpSOPOS_00503355
+FROM
+    #tmpSOEcomDetail_00503355 T
+		INNER JOIN dbo.ORDR O (NOLOCK)
+			ON T.DocEntry = O.U_NumECom;
+
+SELECT
+    T.DocEntry
+  , T.U_NumECom
+INTO
+	#tmpSOPOSDetail_Final00503355
+FROM
+    #tmpSOPOS_00503355 T
+		LEFT JOIN dbo.RDR1 R (NOLOCK)
+			ON T.DocEntry = R.DocEntry
+			   AND T.U_ItmCod = R.ItemCode
+WHERE
+    R.ItemCode IS NULL;
+
+SELECT REPLACE((SELECT 'POS: ' + CONVERT(VARCHAR, T.DocEntry) + ' - ECOM: ' + CONVERT(VARCHAR, T.U_NumECom) + '|' FROM #tmpSOPOSDetail_Final00503355 T FOR XML PATH('')), '|', '</br>');
+
+DROP TABLE 
+	  #tmpSOEcom_00503355
+	, #tmpSOEcomDetail_00503355
+	, #tmpSOPOS_00503355
+	, #tmpSOPOSDetail_Final00503355]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

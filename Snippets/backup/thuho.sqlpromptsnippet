@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>thuho</Title>
+      <Shortcut>thuho</Shortcut>
+      <Description>cap nhat trang thai ve thanh cong, tao HTTT, day Push, keo ve BCQ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXECUTE sp_CollectedForErrorTransaction_TriNTM
+@billCode = 'PB-20200608-32181459',-- payoo : BillCode ; viettelpay : ID
+@type ='payoo',-- payoo, viettelpay, momo, ftel,viettel
+@remark =N'Hải, 10:55 AM', -- remark nvarchar
+@employeecode ='29099', --emlpoyeecode varchar
+@paymentmethod = 1, --0 tien mat, 1 the
+@U_CTLKCode ='BIDV', --BIDV,VTB,AGR,Vinamilk,TCB,SCB,VCB
+@CardPaymentMethod ='7', --7,8,1,9,2,4
+@CreditCardType ='1',--1:VISA 2:Master Card 3:Amex 4:Nội địa 5:Ví MOMO 6:VN PAY
+@feeTM = 1, --0 tien mat, 1 the
+@CreditCardNumber ='2177']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

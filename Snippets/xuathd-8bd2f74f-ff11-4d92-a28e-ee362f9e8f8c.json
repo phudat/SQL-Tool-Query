@@ -1,0 +1,6 @@
+{
+  "id": "8bd2f74f-ff11-4d92-a28e-ee362f9e8f8c",
+  "prefix": "xuathd",
+  "description": "Cập nhật khách hàng xuất hóa đơn công ty",
+  "body": "SELECT O.CardCode, O.CardName, O.CardCodePoint, O.CardNamePoint, O.CardCodeEx, O.CardNameEx, O.LicTradNum, O.U_ExDate, O.U_ComTo, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE DocEntry = $CURSOR$"
+}

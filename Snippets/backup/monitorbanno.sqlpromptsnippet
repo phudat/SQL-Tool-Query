@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorbanno</Title>
+      <Shortcut>monitorbanno</Shortcut>
+      <Description>Monitor đơn hàng bán nợ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT DocEntry INTO #tmp03 FROM dbo.ORDRPUSH2COM (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND DocStatus='F'
+SELECT O.DocEntry, O.U_TMonBi INTO #tmpSO FROM #tmp03 T INNER JOIN dbo.ORDR O (NOLOCK) ON T.DocEntry = O.DocEntry WHERE O.DocStatus = 'F'
+SELECT T.*, ISNULL(O.U_MoCash, 0) AS U_MoCash, ISNULL(O.U_MoCCad, 0) AS U_MoCCad, ISNULL(O.U_MoVoCh, 0) AS U_MoVoCh, ISNULL(O.U_MoTran, 0) AS U_MoTran INTO #tmpPayemnt FROM #tmpSO T INNER JOIN dbo.[@FPTORCT] O (NOLOCK) ON T.DocEntry = O.U_DocSO
+SELECT T.DocEntry, T.U_TMonBi, SUM(T.U_MoCash + T.U_MoCCad + T.U_MoVoCh + T.U_MoTran) AS Total INTO #tmpTotal FROM #tmpPayemnt T GROUP BY T.DocEntry, T.U_TMonBi
+SELECT * FROM #tmpTotal T WHERE T.Total > T.U_TMonBi + 10
+SELECT N'Âm tiền mặt', U_DocSO, * FROM dbo.[@FPTORCT] (NOLOCK) WHERE CONVERT(DATE, U_AcDate) = CONVERT(DATE, GETDATE()) AND U_MoCash < 0
+DROP TABLE #tmp03, #tmpSO, #tmpPayemnt, #tmpTotal]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

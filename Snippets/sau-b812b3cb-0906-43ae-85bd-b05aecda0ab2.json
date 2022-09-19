@@ -1,0 +1,6 @@
+{
+  "id": "b812b3cb-0906-43ae-85bd-b05aecda0ab2",
+  "prefix": "sau",
+  "description": "SELECT * FROM [10.1.13.76].FRTCRM.dbo.CRM_GenerateCode_Auth WHERE UserName=''",
+  "body": "SELECT * FROM [10.1.13.76].FRTCRM.dbo.CRM_GenerateCode_Auth WITH (NOLOCK) WHERE UserName='$CURSOR$'"
+}

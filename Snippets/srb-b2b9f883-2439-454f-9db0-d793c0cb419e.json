@@ -1,0 +1,6 @@
+{
+  "id": "b2b9f883-2439-454f-9db0-d793c0cb419e",
+  "prefix": "srb",
+  "description": "Lấy Detail SO bảng BK",
+  "body": "SELECT U_WhsCod, U_Imei, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1_BK_ARCHIVE AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$"
+}

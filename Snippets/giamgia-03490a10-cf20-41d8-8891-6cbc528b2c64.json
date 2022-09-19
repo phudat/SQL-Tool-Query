@@ -1,0 +1,6 @@
+{
+  "id": "03490a10-cf20-41d8-8891-6cbc528b2c64",
+  "prefix": "giamgia",
+  "description": "Cập nhật giảm giá tay",
+  "body": "RETURN\nDECLARE \n\t  @DocEntry\t\tINT\t\t\t\t= $CURSOR$\n\t, @Itemcode\t\tVARCHAR(20)\t\t= ''\n\t, @DiscPrcnt\tNUMERIC(18, 6)\t= 0\n\nSELECT O.Type_ReturnSO, O.PickStatus, O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @DocEntry\nSELECT R.ItemCode, R.U_IMei, R.U_WhsCod, R.U_Price, R.Quantity, R.U_TaxAmo, R.U_TMoney, R.DiscPrcnt, R.U_DisOther, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @DocEntry\n\nUPDATE FRT_POS.dbo.RDR1 SET DiscPrcnt = @DiscPrcnt, U_ReaCode = 6 WHERE DocEntry = @DocEntry AND ItemCode = @Itemcode\nUPDATE FRT_POS.dbo.RDR1 SET U_TaxAmo = (Quantity - U_Price\t - DiscPrcnt - U_DisOther) * (U_TaxRate / 100), U_TMoney = (Quantity - U_Price - DiscPrcnt - U_DisOther) * (1 + U_TaxRate / 100) WHERE DocEntry = @DocEntry AND ItemCode = @Itemcode\nUPDATE B SET  \n    U_TMonPr\t= B1.U_TMoney - B1.U_TaxAmo\n    , U_TMonTx\t= B1.U_TaxAmo\n    , U_TMonBi\t= B1.U_TMoney FROM \nFRT_POS.dbo.ORDR B WITH (NOLOCK), \n    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo \n    \tFROM FRT_POS.dbo.RDR1 WITH (NOLOCK)\n    \tWHERE DocEntry = @DocEntry\nGROUP BY DocEntry) B1 WHERE \n    B.DocEntry = B1.DocEntry"
+}

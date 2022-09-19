@@ -1,0 +1,6 @@
+{
+  "id": "1906742f-e193-4b03-ba66-b140b815dd40",
+  "prefix": "ipshop",
+  "description": "Lấy Shop theo IP",
+  "body": "SELECT L.IP, F.Code + ' - ' + F.Name FROM [10.1.13.77].FRTInsideV2.dbo.F01_ListIP L WITH (NOLOCK) \n\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)\n\t\tON L.WarehouseCode = W.WarehouseCode\n\tINNER JOIN FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK)\n\t\tON W.WarehouseCodeB1 = F.Code COLLATE SQL_Latin1_General_CP1_CI_AS\nWHERE L.IP = '$CURSOR$'"
+}

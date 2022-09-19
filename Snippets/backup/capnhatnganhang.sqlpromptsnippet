@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhatnganhang</Title>
+      <Shortcut>capnhatnganhang</Shortcut>
+      <Description>Cập nhật lại ngân hàng bị sai trong ORCT</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE
+	F
+SET
+	F.U_Acbank = CONVERT(VARCHAR, O.CrTypeCode)
+	, F.U_CTLKCode=O.CrTypeName
+FROM
+    dbo.[@FPTORCT] F (NOLOCK)
+		inner JOIN FRT_MDM.dbo.OCRP O (NOLOCK)
+			ON F.U_Acbank = O.CrTypeName
+WHERE
+    CONVERT(DATE, U_AcDate) = CONVERT(DATE, GETDATE())
+    AND LEN(U_Acbank) > 1]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

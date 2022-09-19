@@ -1,0 +1,6 @@
+{
+  "id": "b0eb4c59-7160-4423-b689-f9ba7cd10b0e",
+  "prefix": "ften",
+  "description": "Tìm tên CTKM gần giống",
+  "body": "SELECT * INTO #tmpA FROM dbo.CTKM_structure (NOLOCK) WHERE name LIKE '%$CURSOR$%'\nSELECT * FROM dbo.CTKM_structure (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpA) AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate)\nDROP TABLE #tmpA"
+}

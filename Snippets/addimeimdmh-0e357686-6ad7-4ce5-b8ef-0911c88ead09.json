@@ -1,0 +1,6 @@
+{
+  "id": "0e357686-6ad7-4ce5-b8ef-0911c88ead09",
+  "prefix": "addimeimdmh",
+  "description": "Thêm IMEI MDMH",
+  "body": "DECLARE\n        @DocEntrySO INT\t\t\t\t= $CURSOR$ \n      , @ItemCodeSO NVARCHAR(20)\t= ''\n      , @IMEI VARCHAR(32)\t\t\t= '';\n\nINSERT  INTO dbo.[@FPT_ImeiSO]\n    (\n         DocEntrySO\n       , ItemCodeMap\n       , LineNumMap\n       , Imei\n       , Type\n       , CreateDate\n       , Status\n       , UpdateDate\n       , UpdateBy\n       , SoPhieu\n       , U_PriceNew\n       , U_PriceBHV\n       , DocEntry_SOBHV\n       , PushStatus\n    )\nSELECT\n      R.DocEntry\n\t, R.ItemCode\n\t, R.LineNum\n\t, @IMEI\n\t, 2\n\t, GETDATE()\n\t, 1\n\t, GETDATE()\n\t, ''\n\t, 0\n\t, 0\n\t, 0\n\t, 0\n\t, 1\nFROM\n    dbo.RDR1 R (NOLOCK)\n\t\tINNER JOIN dbo.[@FPT_ItemConfig] F (NOLOCK)\n\t\t\tON R.ItemCode = F.ItemCode\nWHERE\n    R.DocEntry = @DocEntrySO\n    AND R.ItemCode = @ItemCodeSO"
+}

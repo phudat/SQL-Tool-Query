@@ -1,0 +1,6 @@
+{
+  "id": "9f8d4fb8-7140-42d2-a940-50d89c1fd7d3",
+  "prefix": "ufe",
+  "description": "Update voucher thành chưa sử dụng",
+  "body": "RETURN\nUPDATE FRT_POS.dbo.FPT_PROMS SET DocEntry_SO = 0, Status = 6 WHERE Email = '$CURSOR$'"
+}

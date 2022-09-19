@@ -1,0 +1,12 @@
+{
+  "id": "96cff25c-0322-4b58-81bd-5d32549e51cb",
+  "prefix": "lamtrontien",
+  "description": "Làm tròn tiền đơn hàng do lỗi làm tròn qq",
+  "body": "RETURN\nUPDATE FRT_POS.dbo.RDR1 SET U_Price = ROUND(U_Price, 0) WHERE DocEntry = $RoundDocSO$\nUPDATE\n    FRT_POS.dbo.RDR1\nSET\n      U_TaxAmo = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (U_TaxRate / 100), 0)\n\t, U_TaxAmL = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)), 0)\n\t, U_TMoney = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (1 + U_TaxRate / 100), 0)\nWHERE\n    DocEntry = $RoundDocSO$\n\nUPDATE B SET  \n    U_TMonPr\t= B1.U_TMoney - B1.U_TaxAmo\n    , U_TMonTx\t= B1.U_TaxAmo\n    , U_TMonBi\t= B1.U_TMoney FROM \nFRT_POS.dbo.ORDR B WITH (NOLOCK), \n    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo \n    \tFROM FRT_POS.dbo.RDR1 WITH (NOLOCK)\n    \tWHERE DocEntry = $RoundDocSO$\nGROUP BY DocEntry) B1 WHERE \n    B.DocEntry = B1.DocEntry\n\nRETURN\n--DELETE FROM [10.1.13.62].POSEInv.dbo.ORDR WHERE DocEntry = $RoundDocSO$\n--DELETE FROM [10.1.13.62].POSEInv.dbo.RDR1 WHERE DocEntry = $RoundDocSO$\n\n--EXEC [10.1.13.62].POSEInv.dbo.sp_Get_SOPOS '$RoundDocSO$', 0\n--EXEC dbo.sp_Delete_File_Einv_DEV $RoundDocSO$, 1\n\n",
+  "placeholders": [
+    {
+      "name": "RoundDocSO",
+      "defaultValue": ""
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitordoubleck</Title>
+      <Shortcut>monitordoubleck</Shortcut>
+      <Description>Monitor double chuyển khoản</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * INTO #tmpCK FROM dbo.[@FPTORCT] (NOLOCK) WHERE CONVERT(DATE, U_AcDate) = CONVERT(DATE, GETDATE()) AND U_MoTran > 0 AND IsAutoCard = 'N'
+
+SELECT
+    O.DocEntry
+  , O.U_DocSO
+  , ISNULL(O.U_MoCash, 0) U_MoCash
+  , ISNULL(O.U_MoCCad, 0) U_MoCCad
+  , ISNULL(O.U_MoTran, 0) U_MoTran
+  , ISNULL(O.U_MoVoCh, 0) U_MoVoCh
+INTO
+	#tmpThuTien
+FROM
+    #tmpCK T
+    INNER JOIN dbo.[@FPTORCT] O
+        ON T.U_DocSO = O.U_DocSO;
+
+SELECT
+      T.*
+	, O.U_TMonBi
+INTO
+	#tmpThuTienSO
+FROM
+    #tmpThuTien T
+		INNER JOIN dbo.ORDR O (NOLOCK)
+			ON T.U_DocSO = O.DocEntry;
+
+SELECT * FROM #tmpThuTienSO ORDER BY U_DocSO
+
+SELECT DISTINCT U_DocSO FROM #tmpThuTienSO
+
+SELECT
+    T.U_DocSO, T.U_TMonBi, SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) 
+FROM
+    #tmpThuTienSO T
+GROUP BY
+	T.U_DocSO, T.U_TMonBi
+HAVING
+	SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) <> T.U_TMonBi
+
+DROP TABLE 
+	  #tmpCK
+	, #tmpThuTien
+	, #tmpThuTienSO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

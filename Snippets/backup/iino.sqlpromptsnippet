@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>iino</Title>
+      <Shortcut>iino</Shortcut>
+      <Description>Kéo thu tiền CRM từ His về chính</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @HisID INT = $CURSOR$
+INSERT INTO dbo.CashCollectionReceiptsNoVAT
+        (
+         ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , CashCollectionVendorID
+       , VendorCode
+       , RefID
+       , RefCode
+       , CustomerID
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , LastUpdatedDateTime
+       , CreatedEmployeeBy
+       , LastUpdatedEmployeeBy
+       , RefInvoiceCode
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+       , Notes
+       , ContractNumber
+        )
+SELECT	ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , CashCollectionVendorID
+       , VendorCode
+       , RefID
+       , RefCode
+       , CustomerID
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , LastUpdatedDateTime
+       , CreatedEmployeeBy
+       , LastUpdatedEmployeeBy
+       , RefInvoiceCode
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+       , Notes
+       , ContractNumber
+FROM	 
+	dbo.CashCollectionReceiptsNoVAT_History (NOLOCK)
+WHERE 
+	ID = @HisID
+
+DELETE FROM dbo.CashCollectionReceiptsNoVAT_History WHERE ID = @HisID;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

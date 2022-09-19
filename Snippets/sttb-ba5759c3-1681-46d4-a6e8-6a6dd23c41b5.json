@@ -1,0 +1,6 @@
+{
+  "id": "ba5759c3-1681-46d4-a6e8-6a6dd23c41b5",
+  "prefix": "sttb",
+  "description": "Lấy thu tiền bảng BK",
+  "body": "SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, F.U_DocDown, * FROM FRT_POS.dbo.[@FPTORCT_BK_ARCHIVE] AS F WITH (NOLOCK) WHERE F.U_DocSO = $CURSOR$"
+}

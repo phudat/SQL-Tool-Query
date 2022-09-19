@@ -1,0 +1,6 @@
+{
+  "id": "3cbdcd5a-dcb2-4721-bf8b-a6552a756bcc",
+  "prefix": "mdmhnew",
+  "description": "Lấy thông tin MDMH gia3m 30%",
+  "body": "SELECT O.frozenFor, O.U_TGBH, O.U_NG_CODE, O.ItmsGrpCod, O.FirmCode, O.U_Nhom, O.U_DongHH, * FROM FRT_MDM.dbo.OITM AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$'\nSELECT * FROM dbo.tbl_ConfigMDMH_New (NOLOCK) WHERE Nganh = '06' AND Loai = '152' AND Nhan IN ('-1', '381') AND DongHang = '0003'"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorthecaothuho</Title>
+      <Shortcut>monitorthecaothuho</Shortcut>
+      <Description>Lấy bảng Monitor thẻ cào thu hộ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.76].FRTCRM.dbo.POS_CRM_Monitor WITH (NOLOCK) WHERE convert(DATE, CreatedMonitorDateTime) = CONVERT(DATE, GETDATE()) ORDER BY WarehouseCode, Type]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

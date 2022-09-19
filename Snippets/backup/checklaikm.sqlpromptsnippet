@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checklaikm</Title>
+      <Shortcut>checklaikm</Shortcut>
+      <Description>Cho check lại KM ở SO cũ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+	  @OldDocEntry INT = $CURSOR$
+	, @NewDocEntry INT = 
+	, @ItemCode VARCHAR(32) = ''
+
+INSERT INTO dbo.Promotion_Datcoc
+    (
+         MaCoCau
+       , SoSO
+       , createdate
+       , Createby
+       , Status
+       , itemcode
+       , Doc_MayCu
+       , TongTien
+       , Phone
+    )
+SELECT
+	  PromotionCode
+	, @NewDocEntry
+	, GETDATE()
+	, '-1'
+	, 1
+	, ItemCode
+	, NULL
+	, NULL
+	, NULL
+FROM
+    dbo.FRT_PROM_Detail (NOLOCK)
+WHERE
+    DocEntrySO = @OldDocEntry
+	AND (ItemCode = @ItemCode OR @ItemCode = '')
+
+UPDATE
+    FRT_POS.dbo.ORDR
+SET
+    PickStatus = '1'
+ -- , PayBlock = 'Y'
+WHERE
+    DocEntry = @NewDocEntry;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cl15</Title>
+      <Shortcut>cl15</Shortcut>
+      <Description>Check</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.73].FRTCallLogV2.dbo.Conversations AS R (NOLOCK) WHERE CONVERT(DATE, R.TimeCreate) = CONVERT(DATE, GETDATE()) AND R.Sender = '15569' ORDER BY R.TimeCreate DESC]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

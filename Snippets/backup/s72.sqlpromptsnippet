@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>s72</Title>
+      <Shortcut>s72</Shortcut>
+      <Description>SELECT FROM Server 72</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.72]$CURSOR$ WITH (NOLOCK) WHERE ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

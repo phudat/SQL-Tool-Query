@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>phieuchimomo</Title>
+      <Shortcut>phieuchimomo</Shortcut>
+      <Description>kiem tra phieu chi momo vua tao</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @id INT = $CURSOR$
+SELECT id INTO #tempreceipt FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode=CAST(@id AS VARCHAR(20))
+SELECT * FROM [10.1.13.71].FRT_POS.dbo.[@FPTURCT] WITH (NOLOCK) WHERE U_DocAR IN (SELECT ID FROM #tempreceipt) AND [Object]='0036'
+DROP table #tempreceipt]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

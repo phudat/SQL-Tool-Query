@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>svob</Title>
+      <Shortcut>svob</Shortcut>
+      <Description>SELECT VOUCHER BACKUP</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, F.U_Voucher, F.U_FacVal, * FROM FRT_POS.dbo.[@FPTVOCH_BK_20150615] AS F WITH (NOLOCK) WHERE F.U_Voucher = '$CURSOR$' AND F.U_Status <> 'C']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

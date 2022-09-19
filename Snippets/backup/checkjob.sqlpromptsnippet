@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkjob</Title>
+      <Shortcut>checkjob</Shortcut>
+      <Description>kiem tra store co nam trong job</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT 
+	 sJOB.name N'Tên Job',
+	 sJOB.description N'Ghi chú Job',
+	 CASE sJOB.enabled WHEN 0 THEN N'Tắt' ELSE N'Đang chạy' END AS N'Trạng thái Job',
+	 sJOB.date_created N'Ngày tạo Job',
+	 sJSTP.step_name N'Tên Step',
+	 sJSTP.command N'Commnad',
+	 sJSTP.database_name N'Tên DB chạy Step',
+	 sSCH.name N'Tên Schedule',
+	 sSCH.active_start_date N'Chạy từ ngày',
+	 sSCH.active_end_date N'Kết thúc ngày',
+	 sSCH.active_start_time N'Chạy lúc',
+	  CASE 
+        WHEN [sSCH].[freq_type] = 64 THEN 'Start automatically when SQL Server Agent starts'
+        WHEN [sSCH].[freq_type] = 128 THEN 'Start whenever the CPUs become idle'
+        WHEN [sSCH].[freq_type] IN (4,8,16,32) THEN N'Định kỳ'
+        WHEN [sSCH].[freq_type] = 1 THEN N'1 lần'
+      END N'Loại đặt lịch'
+    , CASE [freq_type]
+        WHEN 1 THEN N'1 lần'
+        WHEN 4 THEN N'Mỗi ngày'
+        WHEN 8 THEN N'Hàng tuần'
+        WHEN 16 THEN N'Hàng tháng'
+        WHEN 32 THEN N'Hàng tháng - Phụ thuộc vào tuần suất chạy'
+        WHEN 64 THEN N'Start automatically when SQL Server Agent starts'
+        WHEN 128 THEN N'Start whenever the CPUs become idle'
+      END N'Lịch chạy'
+    , CASE [freq_type]
+        WHEN 4 THEN N'Chạy mỗi ' + CAST([freq_interval] AS VARCHAR(3)) + N' ngày'
+        WHEN 8 THEN N'Chạy mỗi ' + CAST([freq_recurrence_factor] AS VARCHAR(3)) 
+                    + N' tuần vào '
+                    + CASE WHEN [freq_interval] & 1 = 1 THEN N'Sunday' ELSE '' END
+                    + CASE WHEN [freq_interval] & 2 = 2 THEN N', Monday' ELSE '' END
+                    + CASE WHEN [freq_interval] & 4 = 4 THEN N', Tuesday' ELSE '' END
+                    + CASE WHEN [freq_interval] & 8 = 8 THEN N', Wednesday' ELSE '' END
+                    + CASE WHEN [freq_interval] & 16 = 16 THEN N', Thursday' ELSE '' END
+                    + CASE WHEN [freq_interval] & 32 = 32 THEN N', Friday' ELSE '' END
+                    + CASE WHEN [freq_interval] & 64 = 64 THEN N', Saturday' ELSE '' END
+        WHEN 16 THEN N'Chạy ngày ' + CAST([freq_interval] AS VARCHAR(3)) 
+                     + N' mỗi '
+                     + CAST([freq_recurrence_factor] AS VARCHAR(3)) + N' tháng'
+        WHEN 32 THEN N'Chạy vào '
+                     + CASE [freq_interval]
+                        WHEN 1 THEN N'Chủ nhật'
+                        WHEN 2 THEN N'Thứ hai'
+                        WHEN 3 THEN N'Thứ ba'
+                        WHEN 4 THEN N'Thứ tư'
+                        WHEN 5 THEN N'Thứ năm'
+                        WHEN 6 THEN N'Thứ sáu'
+                        WHEN 7 THEN N'Thứ bảy'
+                        WHEN 8 THEN N'Ngày'
+                        WHEN 9 THEN N'Ngày trong tuần'
+                        WHEN 10 THEN N'Ngày cuối tuần'
+						+ ' '
+                       END
+					   + CASE [freq_relative_interval]
+                        WHEN 1 THEN N'Đầu tiên'
+                        WHEN 2 THEN N'Thứ hai'
+                        WHEN 4 THEN N'Thứ ba'
+                        WHEN 8 THEN N'Thứ tư'
+                        WHEN 16 THEN N'Cuối'
+                       END
+                     
+                     + N' của mỗi ' + CAST([freq_recurrence_factor] AS VARCHAR(3)) 
+                     + N' tháng'
+      END AS N'Lặp lại'
+    , CASE [freq_subday_type]
+        WHEN 1 THEN N'Chạy 1 lần vào lúc ' 
+                    + STUFF(
+                 STUFF(RIGHT('000000' + CAST([active_start_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+        WHEN 2 THEN N'Chạy mỗi ' 
+                    + CAST([freq_subday_interval] AS VARCHAR(3)) + N' giây giữa ' 
+                    + STUFF(
+                   STUFF(RIGHT('000000' + CAST([active_start_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+                    + ' & ' 
+                    + STUFF(
+                    STUFF(RIGHT('000000' + CAST([active_end_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+        WHEN 4 THEN N'Chạy mỗi ' 
+                    + CAST([freq_subday_interval] AS VARCHAR(3)) + N' phút giữa ' 
+                    + STUFF(
+                   STUFF(RIGHT('000000' + CAST([active_start_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+                    + ' & ' 
+                    + STUFF(
+                    STUFF(RIGHT('000000' + CAST([active_end_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+        WHEN 8 THEN N'Chạy mỗi ' 
+                    + CAST([freq_subday_interval] AS VARCHAR(3)) + N' giờ giữa ' 
+                    + STUFF(
+                    STUFF(RIGHT('000000' + CAST([active_start_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+                    + ' & ' 
+                    + STUFF(
+                    STUFF(RIGHT('000000' + CAST([active_end_time] AS VARCHAR(6)), 6)
+                                , 3, 0, ':')
+                            , 6, 0, ':')
+      END N'Tần suất chạy'
+FROM
+    [msdb].[dbo].[sysjobs] AS [sJOB]
+    LEFT JOIN [msdb].[sys].[servers] AS [sSVR]
+        ON [sJOB].[originating_server_id] = [sSVR].[server_id]
+    LEFT JOIN [msdb].[dbo].[syscategories] AS [sCAT]
+        ON [sJOB].[category_id] = [sCAT].[category_id]
+    LEFT JOIN [msdb].[dbo].[sysjobsteps] AS [sJSTP]
+        ON [sJOB].[job_id] = [sJSTP].[job_id]
+        AND [sJOB].[start_step_id] = [sJSTP].[step_id]
+    LEFT JOIN [msdb].[sys].[database_principals] AS [sDBP]
+        ON [sJOB].[owner_sid] = [sDBP].[sid]
+    LEFT JOIN [msdb].[dbo].[sysjobschedules] AS [sJOBSCH]
+        ON [sJOB].[job_id] = [sJOBSCH].[job_id]
+    LEFT JOIN [msdb].[dbo].[sysschedules] AS [sSCH]
+        ON [sJOBSCH].[schedule_id] = [sSCH].[schedule_id]
+WHERE 1 = 1
+	AND sJSTP.command LIKE '%$CURSOR$%'
+	--AND sSCH.active_start_time = '224500'
+	--AND freq_subday_type = 4 --4: Chạy mỗi ngày, 8: Chạy x ngày 1 Tuần, 16: Chạy x ngày 1 tháng; 32: Chạy vào ngày trong tuần
+	--AND freq_type = 4 --1: Chạy 1 lần, 2: Giây, 4: phút, 8: giờ
+	--AND [freq_subday_interval] = 5 --Lượng thời gian
+	--AND sJOB.name LIKE '%voucher%'
+	--AND sJOB.enabled = 1]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

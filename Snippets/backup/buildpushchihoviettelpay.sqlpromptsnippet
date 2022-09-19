@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildpushchihoviettelpay</Title>
+      <Shortcut>buildpushchihoviettelpay</Shortcut>
+      <Description>Build push chi hộ ViettelPay</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CRM_POS_PAYMENT_ON_BEHALF_PUSH
+    (
+         CRMID
+       , CRMCode
+       , VendorCode
+       , TotalAmount
+       , Fee
+       , CreateDate
+       , U_ShpCod
+       , U_CrdCod
+       , U_EplCod
+       , U_Desc
+       , U_MoCash
+       , U_MoCCad
+       , U_Acbank
+       , U_CTLKCode
+       , U_TypCre
+       , U_NumCre
+       , U_MoVoCh
+       , U_NumVch
+       , U_NaVoch
+       , U_AcVoch
+       , U_MoTran
+       , U_BankTs
+       , U_AccNum
+       , U_AccName
+       , IsAutoCard
+       , Card_Fee
+       , CardFeeTM
+       , UpdatedDate
+       , PushStatus
+       , POSMsg
+       , POSURCT
+       , mPOSDocNum
+       , Status
+       , ServiceName
+       , ReceiverPersionID
+       , SenderPersionID
+       , Phone
+    )
+SELECT
+      P.ID
+	, CONVERT(VARCHAR, P.ID)
+	, CASE WHEN P.Pay_Type = 1 THEN N'0049' WHEN P.Pay_Type = 3 THEN N'0041' END
+	, P.U_Tmoney
+	, P.U_Fee
+	, P.CreateDate
+	, P.From_ShopCode
+	, 0
+	, ''
+	, ''
+	, O.CashAmount
+	, O.CardAmount
+	, O.CardPaymentMethod
+	, O.U_CTLKCode
+	, O.CreditCardType
+	, O.CreditCardNumber
+	, O.VoucherAmount
+	, O.VoucherNumber
+	, O.VoucherName
+	, O.VoucherAccount
+	, O.TransferAmount
+	, O.BankCode
+	, O.BankAccountNumber
+	, O.BankAccountName
+	, 'N'
+	, 0
+	, 0
+	, ''
+	, NULL
+	, 1
+	, NULL
+	, NULL
+	, O.CreditCardNumber
+	, 0
+	, 0
+	, P.Mpos_ID
+	, P.U_status
+	, N'Chuyển tiền ViettelPay'
+	, P.CardID_Receiver
+	, P.CardID_Sender
+	, P.U_Phone_Sender
+FROM
+    dbo.Pay_Services P (NOLOCK)
+		INNER JOIN dbo.URCT O (NOLOCK)
+			ON P.ID = O.DocEntry
+				AND O.U_Type = P.Pay_Type
+WHERE
+    P.ID IN ($CURSOR$)
+    AND P.Pay_Type = 2]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

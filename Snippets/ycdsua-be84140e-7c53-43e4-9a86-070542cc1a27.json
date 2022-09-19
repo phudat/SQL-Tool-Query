@@ -1,0 +1,6 @@
+{
+  "id": "be84140e-7c53-43e4-9a86-070542cc1a27",
+  "prefix": "ycdsua",
+  "description": "Update YCD cho SO VNM",
+  "body": "UPDATE FRT_POS.dbo.APPROVAL SET UserApprove = '1071', Jobtitle = '00597' WHERE ID = $CURSOR$"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "c1b413e4-65fa-4eeb-81eb-2315c536b544",
+  "prefix": "matkho",
+  "description": "Cập nhật mất kho",
+  "body": "RETURN\nUPDATE FRT_POS.dbo.RDR1 SET U_WhsCod = '', U_OnHand = 1, OrderedQty = 1 WHERE DocEntry = $CURSOR$ \nUPDATE FRT_POS.dbo.OITW SET Qty_Available-=1, Qty_Order +=1 WHERE ItemCode = '' AND WhsCode = ''"
+}

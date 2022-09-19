@@ -1,0 +1,6 @@
+{
+  "id": "220e0e9c-9ebf-4152-9d57-19df613f7675",
+  "prefix": "giahanbc",
+  "description": "Gia hạn báo cáo cho vk",
+  "body": "UPDATE FRT_POS.dbo.AutoMail_BaoCao SET FromDate = '2019-05-01', ToDate = '2019-05-31' WHERE ID = 31\nUPDATE FRT_POS.dbo.AutoMail_BaoCao SET FromDate = '2019-05-01', ToDate = '2019-05-31' WHERE ID = 95\nUPDATE FRT_POS.dbo.AutoMail_BaoCao SET FromDate = '2019-05-01', ToDate = '2019-05-31' WHERE ID = 111"
+}

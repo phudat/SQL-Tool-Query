@@ -1,0 +1,6 @@
+{
+  "id": "4d0a6047-52dc-492c-b800-5634f00c356f",
+  "prefix": "ss",
+  "description": "CRM Card",
+  "body": "SELECT S.POSSODocNum, S.POSIsPushed, S.TotalReferAmount, S.TotalSellingAmount, S.SalesOrdersStatus, S.VendorCode, * FROM [10.1.13.76].FRTCRM.dbo.SalesOrders AS S WITH (NOLOCK) WHERE S.SalesOrderCode IN ('$CURSOR$')"
+}

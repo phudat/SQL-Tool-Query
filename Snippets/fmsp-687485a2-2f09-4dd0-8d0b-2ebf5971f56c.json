@@ -1,0 +1,6 @@
+{
+  "id": "687485a2-2f09-4dd0-8d0b-2ebf5971f56c",
+  "prefix": "fmsp",
+  "description": "Tìm CTKM theo MSP",
+  "body": "DECLARE @ItemCode VARCHAR(20) = '$CURSOR$';\nSELECT\n    DocEntry\nINTO\n    #tmpA\nFROM\n    dbo.CTKM_structure_detail (NOLOCK)\nWHERE\n    ItemCode = @ItemCode\nUNION\nSELECT\n    DocEntry\nFROM\n    dbo.CTKM_structure_detail_ex (NOLOCK)\nWHERE\n    ItemCode = @ItemCode;\n\nSELECT\n    *\nINTO\n\t#tmpB\nFROM\n    dbo.CTKM_structure (NOLOCK)\nWHERE\n    DocEntry IN (SELECT DocEntry FROM #tmpA)\n\tAND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate);\n\nSELECT * FROM #tmpB\nSELECT * FROM dbo.CTKM_structure_detail (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpB)\nSELECT * FROM dbo.CTKM_structure_detail_ex (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpB)\n\nDROP TABLE #tmpA, #tmpB"
+}

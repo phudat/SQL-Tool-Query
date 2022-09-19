@@ -1,0 +1,6 @@
+{
+  "id": "44930698-e330-43c4-904c-079bdd46ed01",
+  "prefix": "ClearBCQ",
+  "description": "Clear BCQ",
+  "body": "EXEC [10.1.13.71].FRT_POS.dbo.frt_pos_ClearThuTien \n\t@DocEntryORCT = '$CURSOR$', -- varchar(100)\n\t@daybravo = ''    -- bit qua ngay clear bravo, trong ngay khoi truye null"
+}

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkfknox</Title>
+      <Shortcut>checkfknox</Shortcut>
+      <Description>Check trạng thái FKnox</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+        @FKnoxStatusOut		INT
+      , @FKnoxMessageOut	NVARCHAR(200)
+      , @IMEI				NVARCHAR(200) = '$CURSOR$'
+
+EXEC [10.1.13.86].[EDMServer].[dbo].[FRT_SP_fknox_checkImei] 
+	  @IMEI			= @IMEI
+    , @p_status		= @FKnoxStatusOut OUTPUT
+    , @p_messsages	= @FKnoxMessageOut OUTPUT
+
+SELECT @IMEI IMEI, @FKnoxStatusOut Status, @FKnoxMessageOut Message]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>thempushgomhang</Title>
+      <Shortcut>thempushgomhang</Shortcut>
+      <Description>Thêm vào push gom hàng bảo hành</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[CREATE TABLE #tmpReturnSO (DocEntry INT, ReturnType TINYINT, SoPhieu_BH INT, LineId TINYINT, ShopReturn NVARCHAR(40), U_NumSO NVARCHAR(15))
+
+INSERT INTO #tmpReturnSO (DocEntry, ReturnType, SoPhieu_BH, LineID, ShopReturn, U_NumSO)
+SELECT
+      R.DocEntry
+    , 0
+    , $CURSOR$
+    , R.LineNum
+    , O.U_ShpCod
+	, O.U_NumSO
+FROM
+    dbo.RDN1 AS R
+		INNER JOIN dbo.ORDN AS O
+			ON R.DocEntry = O.DocEntry
+WHERE
+    R.DocEntry = $CURSOR$
+
+INSERT INTO PUSH_POS_WARR_PHIEUBH (ReturnSO, ReturnSOType, ShopEx, ComCodeEx, MaPhieuBH, CreateDate, PushStatus, U_NumSO)
+SELECT DISTINCT T.DocEntry, T.ReturnType, T.ShopReturn, F.U_ComCode, T.SoPhieu_BH, GETDATE(), 1, T.U_NumSO
+FROM #tmpReturnSO AS T (NOLOCK) INNER JOIN FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK) ON T.ShopReturn = F.Code COLLATE SQL_Latin1_General_CP1_CI_AS
+
+DROP TABLE #tmpReturnSO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

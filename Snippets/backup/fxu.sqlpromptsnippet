@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fxu</Title>
+      <Shortcut>fxu</Shortcut>
+      <Description>Lấy VC Fxu</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT SUBSTRING(U_DESC, 8, 15) Voucher, U_DESC, * FROM [10.1.13.69].FRT_Platform.dbo.ChiTietGiaoDichKH WITH (NOLOCK) WHERE SoDienThoai = '$CURSOR$' ORDER BY ID DESC]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

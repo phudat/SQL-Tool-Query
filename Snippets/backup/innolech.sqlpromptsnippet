@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>innolech</Title>
+      <Shortcut>innolech</Shortcut>
+      <Description>Lệch tiền Innovation</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+      P.Mpos_DocEntry
+	, P.Saleoder_ID
+	, P.Bill_Code
+	, P.TongTien
+	, ISNULL(I.Mocash, 0) + ISNULL(I.Mocard, 0) + ISNULL(I.Movoch, 0) + ISNULL(I.Motran, 0) AS InnoThuTien
+	, I.Mocash
+	, I.Mocard
+	, I.Movoch
+	, I.Motran
+FROM
+    dbo.push_TheCao_CRM_innovation P (NOLOCK)
+		LEFT JOIN dbo.Push_ThuTien_TheCao_ThuHo_innovation I (NOLOCK)
+			ON P.Mpos_DocEntry = i.Mpos
+WHERE
+    P.CreateBy = '$CURSOR$'
+    AND P.ShopCode = ''
+    AND P.U_status = 1
+    AND CONVERT(DATE, P.CreateDate) = CONVERT(DATE, GETDATE())
+	AND P.TongTien <> ISNULL(I.Mocash, 0) + ISNULL(I.Mocard, 0) + ISNULL(I.Movoch, 0) + ISNULL(I.Motran, 0)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

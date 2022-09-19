@@ -1,0 +1,6 @@
+{
+  "id": "7ec68a60-f7e2-4ffa-9159-2bf9580d7819",
+  "prefix": "se",
+  "description": "Lấy SO theo số Ecom",
+  "body": "SELECT O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.U_NumECom = $CURSOR$"
+}

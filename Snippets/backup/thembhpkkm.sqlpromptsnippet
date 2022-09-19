@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>thembhpkkm</Title>
+      <Shortcut>thembhpkkm</Shortcut>
+      <Description>Thêm MSP bảo hành PK khác mã</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[
+INSERT  INTO dbo.[@FPT_ItemConfig]
+    (
+         ItemCode
+       , Nganh
+       , Loai
+       , Nhan
+       , Type
+       , [Percent]
+       , Price
+       , CheckImei
+       , Status
+       , ItemCodeBH
+       , ItemNameBH
+       , CreateBy
+       , CreateDate
+    )
+SELECT
+    ItemCode
+  , U_NG_CODE
+  , ItmsGrpCod
+  , FirmCode
+  , 3
+  , NULL
+  , NULL
+  , 0
+  , 'S'
+  , ItemCode
+  , ItemName
+  , '11004'
+  , GETDATE()
+FROM
+    FRT_MDM.dbo.OITM (NOLOCK)
+WHERE
+    ItemCode = '$CURSOR$';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

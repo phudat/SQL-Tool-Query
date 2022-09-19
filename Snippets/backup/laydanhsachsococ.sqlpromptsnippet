@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>laydanhsachsococ</Title>
+      <Shortcut>laydanhsachsococ</Shortcut>
+      <Description>Lấy danh sách SO cọc</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT TOP 10 * FROM dbo.ORDRPUSH2COM (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND DocStatus = 'D']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

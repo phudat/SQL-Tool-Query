@@ -1,0 +1,6 @@
+{
+  "id": "e3d37bee-6c7e-4a45-a518-a0054358db43",
+  "prefix": "ghn",
+  "description": "MONITOR GIAOHANGNHANH",
+  "body": "SELECT OC.DocEntry INTO #tmpPush FROM dbo.ORDRPUSH2COM AS OC (NOLOCK) WHERE CONVERT(DATE, OC.CreateDate) BETWEEN '20160901' AND '20160926'\nSELECT O.* FROM #tmpPush AS P (NOLOCK) INNER JOIN dbo.ORDR AS O (NOLOCK) ON P.DocEntry = O.DocEntry WHERE O.U_ShipTyp = 4\nDROP TABLE #tmpPush"
+}

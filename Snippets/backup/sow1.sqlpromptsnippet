@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sow1</Title>
+      <Shortcut>sow1</Shortcut>
+      <Description>SELECT OWTQ Detail</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT W.U_WhsCod, W.U_WhsTo, W.U_IMei, W.Price, * FROM FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK) WHERE W.DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "2b26b4b9-8e9d-4550-81bf-d794a37364eb",
+  "prefix": "sno",
+  "description": "SELECT V.ConfirmedDate, V.CashCollectionReceiptsNoVATStatus, * FROM [10.96.254.19].FRTCRM.dbo.CashCollectionReceiptsNoVAT AS V WITH (NOLOCK) WHERE V.RefCode IN ('')",
+  "body": "SELECT V.ConfirmedDate, V.CashCollectionReceiptsNoVATStatus, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT AS V WITH (NOLOCK) WHERE V.RefCode IN ('$CURSOR$')"
+}

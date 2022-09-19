@@ -1,0 +1,6 @@
+{
+  "id": "4c4783bd-c04d-4a19-8128-b6f413753514",
+  "prefix": "semshop",
+  "description": "Lấy NV theo shop",
+  "body": "SELECT\n      E.EmployeeCode\n\t, J.JobTitleCode\n\t, J.JobTitleName\nFROM\n    [10.1.13.77].FRTInsideV2.dbo.F03_Employees AS E WITH (NOLOCK)\n\t\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_JobTitles J WITH (NOLOCK)\n\t\t\tON E.JobTitle = J.JobTitleCode\n\t\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)\n\t\t\tON E.WarehouseCode = W.WarehouseCode\nWHERE\n    W.WarehouseCodeB1 = '$CURSOR$'\n    AND E.Status = 'A';"
+}

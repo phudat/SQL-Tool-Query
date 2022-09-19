@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fshop</Title>
+      <Shortcut>fshop</Shortcut>
+      <Description>SELECT * FROM frt_ho.dbo.[@FPTSHOP] AS F (NOLOCK) WHERE F.Code = ''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_ComCode, * FROM FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK) WHERE F.Code = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

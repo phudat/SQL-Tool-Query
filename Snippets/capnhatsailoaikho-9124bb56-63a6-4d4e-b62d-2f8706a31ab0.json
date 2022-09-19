@@ -1,0 +1,6 @@
+{
+  "id": "9124bb56-63a6-4d4e-b62d-2f8706a31ab0",
+  "prefix": "capnhatsailoaikho",
+  "description": "Cập nhật sai loại kho",
+  "body": "SELECT WhsCode, U_WHS_TYPE, SUBSTRING(WhsCode, 6, 2), * FROM FRT_MDM.dbo.OWHS (NOLOCK)  WHERE LEFT(U_Code_SH, 1) IN ('3', '4') AND WhsCode <> '' AND U_WHS_TYPE <> SUBSTRING(WhsCode, 6, 2)\n--UPDATE FRT_MDM.dbo.OWHS SET U_WHS_TYPE = SUBSTRING(WhsCode, 6, 2) WHERE LEFT(U_Code_SH, 1) IN ('3', '4') AND WhsCode <> '' AND U_WHS_TYPE <> SUBSTRING(WhsCode, 6, 2)"
+}

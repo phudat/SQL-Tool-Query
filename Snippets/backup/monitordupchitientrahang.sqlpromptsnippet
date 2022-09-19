@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitordupchitientrahang</Title>
+      <Shortcut>monitordupchitientrahang</Shortcut>
+      <Description>Monitor đúp chi tiền trả hàng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    U_DocSO
+  , ISNULL(U_DocReturn, 0) AS U_DocReturn
+  , ISNULL(U_DocGRPO, 0) AS U_DocGRPO
+  , U_MoCash
+INTO
+    #tmpDupChiTienTraHang
+FROM
+    dbo.[@FPTURCT](NOLOCK)
+WHERE
+    CONVERT(DATE, U_CrDate) = CONVERT(DATE, GETDATE())
+    AND U_DocSO > 0
+    AND (U_MoCash) > 0;
+
+SELECT
+    U_DocSO
+  , U_DocReturn
+  , U_DocGRPO
+  , COUNT(*) SL
+INTO
+	#tmpDupChiTienTraHangKQ
+FROM
+    #tmpDupChiTienTraHang
+GROUP BY
+    U_DocSO
+  , U_DocReturn
+  , U_DocGRPO
+HAVING
+    COUNT(*) > 1;
+
+SELECT F.U_DocSO, F.U_DocReturn, F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, * FROM FRT_POS.dbo.[@FPTURCT] AS F WITH (NOLOCK) INNER JOIN #tmpDupChiTienTraHangKQ T ON F.U_DocSO = T.U_DocSO AND T.U_DocReturn = F.U_DocReturn
+
+DROP TABLE #tmpDupChiTienTraHang, #tmpDupChiTienTraHangKQ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

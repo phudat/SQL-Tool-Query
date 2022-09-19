@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhatgiavonycdcktcpn</Title>
+      <Shortcut>capnhatgiavonycdcktcpn</Shortcut>
+      <Description>Cập nhật giá vốn SO và GRPO cho lệnh tạo tay</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+	  @DocEntry		INT = 0
+	, @DocEntryGRPO INT = 0
+	, @IsUpdate		BIT = 0
+	
+IF @IsUpdate = 0
+	BEGIN
+		SELECT
+			  R.DocEntry
+			, R.ItemCode
+			, R.U_WhsCod
+			, R.U_IMei
+			, R.U_Price
+			, '------------'
+			, O.Docentry
+			, O.ItemCode
+			, O.Whscode
+			, O.EMEI
+			, O.OpenStockPrice
+		FROM
+			FRT_POS.dbo.RDR1 AS R WITH (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON R.DocEntry = O.Docentry
+						AND R.ItemCode = O.ItemCode
+						AND R.U_IMei = O.EMEI
+						AND R.U_WhsCod = O.Whscode
+		WHERE
+			R.DocEntry = @DocEntry
+			AND R.U_Price <> O.OpenStockPrice
+			AND O.TypeGD = 1
+
+		SELECT
+			  P.DocEntry
+			, P.ItemCode
+			, P.U_IMei
+			, P.WhsCode
+			, P.Price
+			, '------------'
+			, O.ItemCode
+			, O.Whscode
+			, O.EMEI
+			, O.OpenStockPrice
+		FROM
+			FRT_POS.dbo.PDN1 AS P WITH (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON P.ItemCode = O.ItemCode
+						AND P.U_IMei = O.EMEI
+		WHERE
+			O.DocEntry = @DocEntry
+			AND P.DocEntry = @DocEntryGRPO
+			AND P.price <> O.OpenStockPrice
+			AND O.TypeGD = 1
+	END
+ELSE IF @IsUpdate = 1
+	BEGIN
+		UPDATE
+			R
+		SET
+			R.U_Price = O.OpenStockPrice
+		FROM
+			FRT_POS.dbo.RDR1 AS R WITH (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON R.DocEntry = O.Docentry
+						AND R.ItemCode = O.ItemCode
+						AND R.U_IMei = O.EMEI
+						AND R.U_WhsCod = O.Whscode
+		WHERE
+			R.DocEntry = @DocEntry
+			AND R.U_Price <> O.OpenStockPrice
+			AND O.TypeGD = 1
+
+		UPDATE
+			P
+		SET
+			P.Price = O.OpenStockPrice
+		FROM
+			FRT_POS.dbo.PDN1 AS P WITH (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON P.ItemCode = O.ItemCode
+						AND P.U_IMei = O.EMEI
+		WHERE
+			O.DocEntry = @DocEntry
+			AND P.DocEntry = @DocEntryGRPO
+			AND P.price <> O.OpenStockPrice
+			AND O.TypeGD = 1
+	END
+
+
+
+
+
+
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

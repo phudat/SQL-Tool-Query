@@ -1,0 +1,6 @@
+{
+  "id": "de849c80-ec2a-4f4b-ab64-8750f220c2e7",
+  "prefix": "tgasc",
+  "description": "Lấy thông tin trả góp nhà tài chính ASC Việt Nam",
+  "body": "SELECT * FROM dbo.ThongTinTraGop_CRM (NOLOCK) WHERE ItemCode='$CURSOR$' AND Ma_NhaTraGop_POS = 2673625"
+}

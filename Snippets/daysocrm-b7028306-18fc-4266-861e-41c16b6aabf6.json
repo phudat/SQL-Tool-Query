@@ -1,0 +1,6 @@
+{
+  "id": "b7028306-18fc-4266-861e-41c16b6aabf6",
+  "prefix": "daysocrm",
+  "description": "thieu httt",
+  "body": "INSERT INTO dbo.POSPaymentMethod\n    (\n         CreatedDate\n       , CreatedBy\n       , Remark\n       , CashAmount\n       , PaymentType\n       , SalesOrdersID\n       , TypePaymentVendor\n    )\nSELECT \n\t  S.CreatedDateTime\n\t, S.CreatedBy\n\t, N'Thanh toán bằng tiền mặt'\n\t, ISNULL(S.TotalReferAmount, 0)\n\t, 'CASH'\n\t, S.ID\n\t, 1\nFROM \n\tdbo.SalesOrders S (NOLOCK) \nWHERE \n\tS.Id IN (\n\t\t\t\tSELECT \n\t\t\t\t\ts.id \n\t\t\t\tFROM \n\t\t\t\t\tdbo.SalesOrders AS s WITH (NOLOCK) \n\t\t\t\t\tLEFT JOIN dbo.POSPaymentMethod AS P WITH (nolock) ON s.ID=p.SalesOrdersID \n\t\t\t\tWHERE \n\t\t\t\t\ts.CreatedDateTime > CAST(GETDATE() AS date) \n\t\t\t\t\tAND s.WarehouseCode='$CURSOR$'\n\t\t\t\t\tAND s.isExportInvoice =1 \n\t\t\t\t\tAND p.SalesOrdersID IS NULL\n\t\t\t\t)"
+}

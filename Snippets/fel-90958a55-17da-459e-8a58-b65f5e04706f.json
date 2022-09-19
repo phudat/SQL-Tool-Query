@@ -1,0 +1,6 @@
+{
+  "id": "90958a55-17da-459e-8a58-b65f5e04706f",
+  "prefix": "fel",
+  "description": "Tìm voucher không giá gần đúng",
+  "body": "SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email LIKE '%$CURSOR$%' "
+}

@@ -1,0 +1,6 @@
+{
+  "id": "a419d470-cf13-4ae3-9726-9255de8c0788",
+  "prefix": "tghc",
+  "description": "Lấy thông tin trả góp nhà tài chính Home Credit",
+  "body": "SELECT * FROM dbo.ThongTinTraGop_CRM (NOLOCK) WHERE ItemCode='$CURSOR$' AND Ma_NhaTraGop_POS = 667497"
+}

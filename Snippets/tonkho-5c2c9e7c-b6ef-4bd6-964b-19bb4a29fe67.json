@@ -1,0 +1,6 @@
+{
+  "id": "5c2c9e7c-b6ef-4bd6-964b-19bb4a29fe67",
+  "prefix": "tonkho",
+  "description": "Lấy dánh sách MSP tồn kho theo shop",
+  "body": "DECLARE @ShopCode VARCHAR(20) = '$CURSOR$'\nSELECT\n\t  O.ItemCode\n\t, M.ItemName\n\t, O.WhsCode\n\t, S.DistNumber\n\t, O.OnHand\n\t, O.Qty_Available\n\t, O.Qty_Order\n\t, S.Quantity\n\t, S.CommitQty\nFROM\n    dbo.OITW O (NOLOCK)\n\t\tINNER JOIN dbo.OSRN S (NOLOCK)\n\t\t\tON O.ItemCode = S.ItemCode\n\t\t\t   AND O.WhsCode = S.WhsCode\n\t\tINNER JOIN FRT_MDM.dbo.OITM M (NOLOCK)\n\t\t\tON O.ItemCode = M.ItemCode\nWHERE\n    LEFT(O.WhsCode, 5) = @ShopCode\n    AND O.OnHand > 0\n    AND M.ManSerNum = 'Y';"
+}

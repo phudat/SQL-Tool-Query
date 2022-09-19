@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chkgg</Title>
+      <Shortcut>chkgg</Shortcut>
+      <Description>Check gỉảm giá</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @DocEntry INT = $CURSOR$;
+
+SELECT
+    ItemCode
+  , LineNum = ROW_NUMBER() OVER (ORDER BY ItemCode)
+  , LineNum LineSO
+  , phantram = R.U_DisOther * 100 * 1.0 / (U_Price * Quantity)
+  , R.U_WhsCod WhsCod
+INTO
+    #tmpDiscount
+FROM
+    dbo.RDR1 R (NOLOCK)
+WHERE
+    R.DocEntry = @DocEntry
+    AND R.DiscPrcnt > 0
+    AND ItemCode <> '00001891';
+
+SELECT O.DocEntry, O.DocStatus, O.DocDate, O.U_ExDate, O.Type_ReturnSO, O.PickStatus, O.U_ShpCod FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @DocEntry
+SELECT R.ItemCode, R.U_IMei, R.U_WhsCod, R.U_Price, R.Quantity, R.U_TaxAmo, R.U_TMoney, R.DiscPrcnt, R.U_DisOther, R.U_ReaCode, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @DocEntry
+SELECT * FROM #tmpDiscount (NOLOCK)
+
+DECLARE
+        @StepDiscount INT = 1
+      , @CountDiscount INT = 0
+      , @ItemCodeDiscount VARCHAR(20)= ''
+      , @PercentDiscount NUMERIC= 0.0
+      , @WhsCodDiscount VARCHAR(8)= '';
+
+DECLARE
+        @SendedUser VARCHAR(100)
+      , @LineSO INT = 0;
+
+SELECT
+    @CountDiscount = COUNT(*)
+FROM
+    #tmpDiscount;
+
+CREATE TABLE #tmpDiscountUsers
+    (
+        JobTitle VARCHAR(10)
+      , ApprovalUsers VARCHAR(1000)
+    );
+
+WHILE @StepDiscount <= @CountDiscount
+      BEGIN
+            SELECT
+                @ItemCodeDiscount = ItemCode
+              , @PercentDiscount = phantram
+              , @WhsCodDiscount = WhsCod
+              , @LineSO = LineSO
+            FROM
+                #tmpDiscount
+            WHERE
+                LineNum = @StepDiscount;
+
+            INSERT  INTO #tmpDiscountUsers
+                (
+                     JobTitle
+                   , ApprovalUsers
+                )
+            EXEC dbo.sp_COMMOND_CheckRoles 
+				@ItemCode = @ItemCodeDiscount, -- nvarchar(100)
+                @Price = NULL, -- numeric
+                @Percent = @PercentDiscount, -- numeric
+                @Date = NULL, -- datetime
+                @Type = 1, -- int
+                @Whscode = @WhsCodDiscount, -- varchar(20)
+                @Imei = '', -- varchar(50)
+                @GRPONum = @DocEntry; -- varchar(100
+
+			SELECT @ItemCodeDiscount ItemCode, @PercentDiscount [Percent]
+
+			SET @StepDiscount += 1
+      END;
+
+SELECT * FROM #tmpDiscountUsers
+
+DROP TABLE #tmpDiscount, #tmpDiscountUsers]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

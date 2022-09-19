@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sthue</Title>
+      <Shortcut>sthue</Shortcut>
+      <Description>SELECT * FROM frt_ho.dbo.OVTG AS O (NOLOCK) </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_MDM.dbo.OVTG AS O (NOLOCK)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

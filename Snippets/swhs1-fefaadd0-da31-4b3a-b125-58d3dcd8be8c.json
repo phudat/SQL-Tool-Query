@@ -1,0 +1,6 @@
+{
+  "id": "fefaadd0-da31-4b3a-b125-58d3dcd8be8c",
+  "prefix": "swhs1",
+  "description": "SELECT * FROM [10.96.254.19].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK) WHERE W.WarehouseCodeB1 = ''",
+  "body": "SELECT * FROM [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK) WHERE W.WarehouseCodeB1 = '$CURSOR$'"
+}

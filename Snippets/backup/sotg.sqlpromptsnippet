@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sotg</Title>
+      <Shortcut>sotg</Shortcut>
+      <Description>Thông tin trả góp trên đơn hàng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>SO</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT O.U_ShpCod, O.U_CardCode, O.KyHan, O.LaiSuat, O.LaiSuat_FEC, O.TraTruoc, O.U_ProNum, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = $SO$
+SELECT U_WhsCod, U_Imei, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $SO$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

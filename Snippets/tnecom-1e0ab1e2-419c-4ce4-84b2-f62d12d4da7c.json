@@ -1,0 +1,6 @@
+{
+  "id": "1e0ab1e2-419c-4ce4-84b2-f62d12d4da7c",
+  "prefix": "tnecom",
+  "description": "Lấy voucher từ tin nhắn Ecom",
+  "body": "SELECT * FROM [10.13.254.249].FPTShopVer2.dbo.LogSMS with (NOLOCK) WHERE Phone='$CURSOR$'\nSELECT * FROM [10.13.254.249].FPTShopVer2.dbo.GetVoucherFromPos_Using with (NOLOCK) WHERE Phone=''\nSELECT * FROM [10.13.254.249].FPTShopVer2.dbo.MiniGameCardPhone with (NOLOCK) WHERE Phone=''\nSELECT * FROM [10.13.254.249].FPTShopVer2.dbo.MiniGameCardPhone with (NOLOCK) WHERE Note='' --Số báo danh"
+}

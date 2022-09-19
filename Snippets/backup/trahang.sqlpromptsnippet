@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>trahang</Title>
+      <Shortcut>trahang</Shortcut>
+      <Description>Ho tro shop day lai cac don hang loi</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @posso VARCHAR(50)='$CURSOR$', @ticket VARCHAR(10)='1000'
+DECLARE @status CHAR(1), @count TINYINT
+SELECT @status=DocStatus FROM [10.1.13.71].FRT_POS.dbo.ORDR with (NOLOCK) WHERE DocEntry = @posso
+SELECT @count=COUNT(1) FROM dbo.SalesOrders WITH (NOLOCK) WHERE POSSODocNum=@posso
+BEGIN
+    --UPDATE dbo.SalesOrders set POSSODocNum='',POSIsPushed=0,Remark=ISNULL(Remark,'')+' - OldPosso: '+ @posso+' - Ticket:'+ @ticket WHERE POSSODocNum=@posso
+	SELECT @count AS RowUpdate, N'Cập nhật thành công!' AS Mess
+END
+IF @status = ('C') AND @count=0
+BEGIN    
+	SELECT @count AS RowUpdate,N'Đơn hàng đã hủy, không cần thao tác gì thêm.' AS Mess
+END
+IF @status = ('W') AND @count>0
+BEGIN    
+	SELECT @count AS RowUpdate,N'Đơn hàng trả theo từng dòng, check tay đi ba' AS Mess
+END
+ELSE
+BEGIN
+    SELECT @count AS RowUpdate,N'Trạng thái đơn hàng khác ''Hủy, Trả hàng, Trả từng dòng'' hoặc đã hỗ trợ update trên CRM.' AS Mess
+	SELECT N'SELECT DocStatus, U_ShopSO,U_ShpCod,PickRmrk,* FROM [10.1.13.71].FRT_POS.dbo.ORDR with (NOLOCK) WHERE DocEntry ='+@posso+N'
+	SELECT U_Return, * FROM [10.1.13.71].FRT_POS.dbo.RDR1 with (NOLOCK) WHERE DocEntry ='+@posso+N'
+	SELECT * FROM dbo.SalesOrders WITH (NOLOCK) WHERE POSSODocNum='+@posso+N'
+	--T: đã trả hết nguyên đơn hàng
+	--W: TRẢ TỪNG LINE, U_Return = 2 là chưa hoàn tất, =3 đã hoàn tất
+	--C: hủy
+	--F: Hoàn tất' AS Query
+END
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

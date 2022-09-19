@@ -1,0 +1,6 @@
+{
+  "id": "93ddf3ee-ba31-4b0f-a7d6-ac564c15fcaa",
+  "prefix": "sloai3",
+  "description": "SELECT OOCR 3",
+  "body": "SELECT * FROM FRT_MDM.dbo.OOCR (NOLOCK) WHERE DimCode = 3 --Nhãn"
+}

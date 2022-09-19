@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkmdel</Title>
+      <Shortcut>checkmdel</Shortcut>
+      <Description>Check mDelivery</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @DocEntry INT = $CURSOR$
+SELECT * FROM [10.1.13.86].MDELIVERY.dbo.PUSH_MPOS_ORDR WITH (NOLOCK) WHERE DocEntry_POS = @DocEntry
+SELECT * FROM [10.1.13.86].MDELIVERY.dbo.[@FPTORDR] WITH (NOLOCK) WHERE DocEntry = @DocEntry]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

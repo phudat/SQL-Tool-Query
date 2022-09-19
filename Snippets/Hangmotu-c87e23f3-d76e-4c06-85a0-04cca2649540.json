@@ -1,0 +1,6 @@
+{
+  "id": "c87e23f3-d76e-4c06-85a0-04cca2649540",
+  "prefix": "Hangmotu",
+  "description": "",
+  "body": "SELECT TOP 10 p.Code FROM dbo.Product p WITH (NOLOCK)\r\nINNER JOIN dbo.ProductCategory pc  WITH (NOLOCK) ON pc.ProductId = p.Id AND p.IsActive = 1 AND p.IsPublished =1\r\nINNER JOIN dbo.Category c WITH (NOLOCK)  ON pc.CategoryId = c.Id AND c.Level = 1 AND c.Type = 0 AND c.Id IN (814,821,812,811,810) \r\nINNER JOIN dbo.ProductAttributeValue pav WITH (NOLOCK) ON pav.ProductId=p.id \r\nWHERE AttributeId IN (75) AND pav.CustomValue=N'Hàng mở tủ'"
+}

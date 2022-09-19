@@ -1,0 +1,6 @@
+{
+  "id": "b5ed38b0-6c94-426a-83a6-e590e83c544b",
+  "prefix": "layidvuainsert",
+  "description": "output id vua insert",
+  "body": "============================================\r\n--lay id vua insert\r\nDECLARE @OutputTbl TABLE (ID INT)\r\nINSERT INTO MyTable(Name, Address, PhoneNo)\r\nOUTPUT INSERTED.ID INTO @OutputTbl(ID)\r\nVALUES ('Yatrix', '1234 Address Stuff', '1112223333')"
+}

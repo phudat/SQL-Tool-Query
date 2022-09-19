@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorclmatdetail</Title>
+      <Shortcut>monitorclmatdetail</Shortcut>
+      <Description>Monitor Call Log hoàn tiền mất detail</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * INTO #tmpLyDoHuy FROM dbo.tbl_Lydohuy_SOEcom (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())
+SELECT * INTO #tmpCLHeader FROM [10.1.13.73].FRTCallLogV2.dbo.Requests AS R (NOLOCK) WHERE R.Id IN (SELECT CallLogID FROM #tmpLyDoHuy)
+SELECT * INTO #tmpCLDetail FROM [10.1.13.73].FRTCallLogV2.dbo.RequestDetails AS D (NOLOCK) WHERE D.RequestId IN (SELECT CallLogID FROM #tmpLyDoHuy)
+SELECT * FROM #tmpCLHeader H LEFT JOIN #tmpCLDetail D ON H.Id = D.RequestId WHERE D.RequestId IS NULL
+DROP TABLE #tmpCLDetail, #tmpCLHeader, #tmpLyDoHuy]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

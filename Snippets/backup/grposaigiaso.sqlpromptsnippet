@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>grposaigiaso</Title>
+      <Shortcut>grposaigiaso</Shortcut>
+      <Description>Update GRPO sai giá với SO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @OPDNDocEntry INT = $CURSOR$
+	, @Update		BIT	= 0
+
+IF @Update = 0
+	BEGIN	
+		SELECT
+			  O.DocEntry
+			, O.U_NumSO
+			, D.DocEntry
+			, P.ItemCode
+			, P.U_IMei
+			, P.Price
+			, R.DocEntry
+			, R.ItemCode
+			, R.U_IMei
+			, R.U_Price
+		FROM
+			dbo.PDN1 P (NOLOCK)
+				INNER JOIN dbo.OPDN O (NOLOCK)
+					ON P.DocEntry = O.DocEntry
+				INNER JOIN dbo.ORDR D (NOLOCK)
+					ON O.U_NumSO = D.DocEntry
+				INNER JOIN dbo.RDR1 R (NOLOCK)
+					ON D.DocEntry = R.DocEntry
+						AND P.U_IMei = R.U_IMei
+						AND P.ItemCode = R.ItemCode
+		WHERE
+			O.DocEntry = @OPDNDocEntry
+			AND R.U_Price <> P.Price
+
+		SELECT
+			L.*
+			, O.DocEntry
+			, P.ItemCode
+			, P.U_IMei
+			, P.Price
+			, R.ItemCode
+			, R.U_IMei
+			, R.U_Price
+		FROM
+			dbo.OPDN O (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL L (NOLOCK)
+					ON O.DocEntry = L.Docentry
+						AND L.TypeGD = 2
+				INNER JOIN dbo.PDN1 P (NOLOCK)
+					ON O.DocEntry = P.DocEntry
+						AND L.EMEI = P.U_IMei
+						AND L.ItemCode = P.ItemCode
+				INNER JOIN dbo.ORDR D (NOLOCK)
+					ON O.U_NumSO = D.DocEntry
+				INNER JOIN dbo.RDR1 R (NOLOCK)
+					ON D.DocEntry = R.DocEntry
+		WHERE 
+			O.DocEntry = @OPDNDocEntry
+			AND L.OpenStockPrice <> R.U_Price
+
+		SELECT
+			L.*
+			, O.DocEntry
+			, P.ItemCode
+			, P.U_IMei
+			, P.Price
+			, R.ItemCode
+			, R.U_IMei
+			, R.U_Price
+		FROM
+			dbo.OPDN O (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVQ L (NOLOCK)
+					ON O.DocEntry = L.Docentry
+						AND L.TypeGD = 2
+				INNER JOIN dbo.PDN1 P (NOLOCK)
+					ON O.DocEntry = P.DocEntry
+						AND L.EMEI = P.U_IMei
+						AND L.ItemCode = P.ItemCode
+				INNER JOIN dbo.ORDR D (NOLOCK)
+					ON O.U_NumSO = D.DocEntry
+				INNER JOIN dbo.RDR1 R (NOLOCK)
+					ON D.DocEntry = R.DocEntry
+		WHERE 
+			O.DocEntry = @OPDNDocEntry
+			AND L.OpenStockPrice <> R.U_Price
+	END
+IF @Update = 1
+	BEGIN	
+		UPDATE
+			P
+		SET	
+			P.Price = R.U_Price
+		FROM
+			dbo.PDN1 P (NOLOCK)
+				INNER JOIN dbo.OPDN O (NOLOCK)
+					ON P.DocEntry = O.DocEntry
+				INNER JOIN dbo.ORDR D (NOLOCK)
+					ON O.U_NumSO = D.DocEntry
+				INNER JOIN dbo.RDR1 R (NOLOCK)
+					ON D.DocEntry = R.DocEntry
+						AND P.U_IMei = R.U_IMei
+						AND P.ItemCode = R.ItemCode
+		WHERE
+			O.DocEntry = @OPDNDocEntry
+			AND R.U_Price <> P.Price
+
+		UPDATE
+			L
+		SET
+			L.OpenStockPrice = R.U_Price
+		FROM
+			dbo.OPDN O (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL L (NOLOCK)
+					ON O.DocEntry = L.Docentry
+						AND L.TypeGD = 2
+				INNER JOIN dbo.PDN1 P (NOLOCK)
+					ON O.DocEntry = P.DocEntry
+						AND L.EMEI = P.U_IMei
+						AND L.ItemCode = P.ItemCode
+				INNER JOIN dbo.ORDR D (NOLOCK)
+					ON O.U_NumSO = D.DocEntry
+				INNER JOIN dbo.RDR1 R (NOLOCK)
+					ON D.DocEntry = R.DocEntry
+		WHERE 
+			O.DocEntry = @OPDNDocEntry
+			AND L.OpenStockPrice <> R.U_Price
+
+		UPDATE
+			L
+		SET
+			L.OpenStockPrice = R.U_Price
+		FROM
+			dbo.OPDN O (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVQ L (NOLOCK)
+					ON O.DocEntry = L.Docentry
+						AND L.TypeGD = 2
+				INNER JOIN dbo.PDN1 P (NOLOCK)
+					ON O.DocEntry = P.DocEntry
+						AND L.EMEI = P.U_IMei
+						AND L.ItemCode = P.ItemCode
+				INNER JOIN dbo.ORDR D (NOLOCK)
+					ON O.U_NumSO = D.DocEntry
+				INNER JOIN dbo.RDR1 R (NOLOCK)
+					ON D.DocEntry = R.DocEntry
+		WHERE 
+			O.DocEntry = @OPDNDocEntry
+			AND L.OpenStockPrice <> R.U_Price
+	END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

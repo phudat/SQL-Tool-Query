@@ -1,0 +1,6 @@
+{
+  "id": "22fbd386-b272-4fda-a4dd-647af7bea80c",
+  "prefix": "checkmdel",
+  "description": "Check mDelivery",
+  "body": "DECLARE @DocEntry INT = $CURSOR$\nSELECT * FROM [10.1.13.86].MDELIVERY.dbo.PUSH_MPOS_ORDR WITH (NOLOCK) WHERE DocEntry_POS = @DocEntry\nSELECT * FROM [10.1.13.86].MDELIVERY.dbo.[@FPTORDR] WITH (NOLOCK) WHERE DocEntry = @DocEntry"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "df6ecd2e-f86e-4aea-bf5f-427ea316b64e",
+  "prefix": "monitorclmatdetail",
+  "description": "Monitor Call Log hoàn tiền mất detail",
+  "body": "SELECT * INTO #tmpLyDoHuy FROM dbo.tbl_Lydohuy_SOEcom (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())\nSELECT * INTO #tmpCLHeader FROM [10.1.13.73].FRTCallLogV2.dbo.Requests AS R (NOLOCK) WHERE R.Id IN (SELECT CallLogID FROM #tmpLyDoHuy)\nSELECT * INTO #tmpCLDetail FROM [10.1.13.73].FRTCallLogV2.dbo.RequestDetails AS D (NOLOCK) WHERE D.RequestId IN (SELECT CallLogID FROM #tmpLyDoHuy)\nSELECT * FROM #tmpCLHeader H LEFT JOIN #tmpCLDetail D ON H.Id = D.RequestId WHERE D.RequestId IS NULL\nDROP TABLE #tmpCLDetail, #tmpCLHeader, #tmpLyDoHuy"
+}

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>giahangvc</Title>
+      <Shortcut>giahangvc</Shortcut>
+      <Description>Gia hạn Voucher</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @StringCf NVARCHAR(100) = '2586836'
+UPDATE FRT_POS.dbo.[@FPTVOCH] SET U_EndD = GETDATE(), U_DESC_VC += N'[HT' + CONVERT(VARCHAR, GETDATE(), 112) + N'] HT gia hạn voucher, mail/call log cf: ' + @StringCf WHERE DocEntry IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

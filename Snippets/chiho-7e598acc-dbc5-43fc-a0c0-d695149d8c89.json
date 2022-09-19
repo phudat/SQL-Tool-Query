@@ -1,0 +1,6 @@
+{
+  "id": "7e598acc-dbc5-43fc-a0c0-d695149d8c89",
+  "prefix": "chiho",
+  "description": "Cập nhật các phiếu chi hỗ đã có về thành công",
+  "body": "EXECUTE [sp_CRM_UpdateStatusPayService_Recieve_ToPOS] \n@type = 'viettelpay',\t\t\t\t-- viettelpay, momo\n@id = 208894,\t\t\t\t\t\t-- bigint,\n@pro_code = '200610669761408',\t\t-- varchar(50),\n@empcode = '29099',\t\t\t\t\t-- varchar(10),\n@rm = N'Da Xac Nhan NCC', \t\t\t-- nvarchar(max),\n@sm = N''\t\t\t\t\t\t\t-- nvarchar(255) = '' OUTPUT,"
+}

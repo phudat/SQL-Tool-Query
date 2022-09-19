@@ -1,0 +1,6 @@
+{
+  "id": "4074f3db-579d-443c-a901-6f26caac7adf",
+  "prefix": "feg",
+  "description": "Check Galaxy Gift đã active hay chưa",
+  "body": "SELECT \n\t'Galaxy Gift: ', L.*, '-------', 'FPT_PROM', F.*\nFROM \n\tdbo.Log_Update_GalaxyGift L (NOLOCK) \n\t\tINNER JOIN dbo.FPT_PROMS F (NOLOCK)\n\t\t\tON LEFT(L.Voucher, 8) = F.Email\nWHERE \n\tL.Voucher = '$CURSOR$'\n\tAND\tF.Status = 0"
+}

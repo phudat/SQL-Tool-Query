@@ -1,0 +1,6 @@
+{
+  "id": "7fbc00b3-1de0-4928-986f-46cf48428d63",
+  "prefix": "lechtienhoctien",
+  "description": "Lệch tiền hộc tiền",
+  "body": "SELECT\n    *\nINTO\n\t#tmpInno\nFROM\n    dbo.push_TheCao_CRM_innovation (NOLOCK)\nWHERE\n    CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())\n    AND ShopCode = '$CURSOR$'\n    AND U_status = 1;\n\nSELECT\n      T.Mpos_DocEntry\n\t, T.Eplcode\n\t, T.Saleoder_ID\n\t, T.Bill_Code\n\t, T.Type\n\t, T.TongTien\n\t, ISNULL(P.Mocash, 0) AS Mocash\n\t, ISNULL(P.Mocard, 0) AS Mocard\n\t, P.ID\nINTO\n\t#tmpInnoThuTien\nFROM\n    #tmpInno T\n\t\tLEFT JOIN dbo.Push_ThuTien_TheCao_ThuHo_innovation P (NOLOCK)\n\t\t\tON T.Mpos_DocEntry = P.Mpos\n\nSELECT\n    T.Mpos_DocEntry\n\t, T.Type\n\t, T.TongTien\n\t, T.Saleoder_ID\n\t, T.Bill_Code\n\t, SUM(T.Mocash) + SUM(T.Mocard) AS TongThuTien\nFROM\n    #tmpInnoThuTien T\nGROUP BY \n\t  T.Mpos_DocEntry\n\t, T.Type\n\t, T.TongTien\n\t, T.Saleoder_ID\n\t, T.Bill_Code\nHAVING\n\tSUM(T.Mocash) + SUM(T.Mocard) <> TongTien\n\n/*\nSELECT\n\t  Eplcode\n    , SUM(TongTien) AS TongTien\nINTO\n\t#tmpInnoEpl\nFROM\n    dbo.push_TheCao_CRM_innovation (NOLOCK)\nWHERE\n    CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())\n    AND ShopCode = '30418'\n    AND U_status = 1\nGROUP BY\n\tEplcode\n*/\n"
+}

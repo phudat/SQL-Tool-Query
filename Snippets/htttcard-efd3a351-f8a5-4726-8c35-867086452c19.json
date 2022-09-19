@@ -1,0 +1,6 @@
+{
+  "id": "efd3a351-f8a5-4726-8c35-867086452c19",
+  "prefix": "htttcard",
+  "description": "them httt the cao bang the",
+  "body": "INSERT INTO dbo.POSPaymentMethod\n    (\n\t\tSalesOrdersID\n\t\t,Status\n       , CreatedDate\n       , CreatedBy\n       , Remark\n\t   , CashAmount\n       , TransferAmount\n\t   ,CreditCardType\n\t   ,CardAmount\n\t   ,VoucherAmount\n       , PaymentType\n\t   , Card_Fee\t  \n    )\nSELECT \n\ts.ID\n\t,1\n\t,  S.CreatedDateTime\n\t, s.CreatedBy\n\t, N'Thanh Toán Bằng Thẻ'\n\t, 0\n\t, 0\n\t, '7'\n\t, ISNULL(S.TotalReferAmount, 0)\n\t, 0\n\t,'CARD'\n\t, 0\nFROM \n\tdbo.SalesOrders S (NOLOCK) \nWHERE \n\tS.Id IN (\n$CURSOR$\n)"
+}

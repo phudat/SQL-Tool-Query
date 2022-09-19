@@ -1,0 +1,6 @@
+{
+  "id": "490cb3bc-1758-4297-a466-f264ba82a9d5",
+  "prefix": "buildthutienthecaoecom",
+  "description": "Build hình thức thanh toán thẻ cào Ecom",
+  "body": "\nINSERT INTO dbo.POSPaymentMethod\n    (\n         CreatedDate\n       , CreatedBy\n       , Remark\n       , TransferAmount\n       , PaymentType\n\t   , BankAccountName\n\t   , BankCode\n\t   , BankAccountNumber\n\t   , CardPaymentMethod\n       , SalesOrdersID\n    )\nSELECT \n\t  S.CreatedDateTime\n\t, '-1'\n\t, N'Thanh toán bằng CK ECOM'\n\t, ISNULL(S.TotalReferAmount, 0)\n\t, 'TRANSFER'\n\t, '123 pay'\n\t, N'Ví điện tử'\n\t, '0011004265608'\n\t, 6\n\t, S.ID\nFROM \n\tdbo.SalesOrders S (NOLOCK) \nWHERE \n\tS.Id IN (\n$CURSOR$\n)"
+}

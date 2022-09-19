@@ -1,0 +1,6 @@
+{
+  "id": "e7e0052e-9615-4b4b-9533-eec3d899010a",
+  "prefix": "srota",
+  "description": "SELECT YCDC",
+  "body": "SELECT F.U_RqType, F.U_ShpCod, F.U_ShpRec, * FROM FRT_POS.dbo.[@FPTRQROTA] AS F WITH (NOLOCK) WHERE F.DocEntry = $CURSOR$"
+}

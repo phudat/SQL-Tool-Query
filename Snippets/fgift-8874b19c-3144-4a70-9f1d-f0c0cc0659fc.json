@@ -1,0 +1,6 @@
+{
+  "id": "8874b19c-3144-4a70-9f1d-f0c0cc0659fc",
+  "prefix": "fgift",
+  "description": "Tìm CTKM theo MSP tặng",
+  "body": "DECLARE\n        @Gift VARCHAR(20) = '$CURSOR$'\n      , @CC INT;\n\nSELECT\n    DocEntry\n  , CTKM_structure_DocEntry\nINTO\n    #tmpA\nFROM\n    dbo.CTKM_Gift (NOLOCK)\nWHERE\n    ItemCode = @Gift\nUNION\nSELECT\n    DocEntry\n  , 0 CTKM_structure_DocEntry\nFROM\n    dbo.CTKM_Gift_ex (NOLOCK)\nWHERE\n    ItemCode = @Gift;\n\nSELECT\n    *\nFROM\n    dbo.CTKM_structure (NOLOCK)\nWHERE\n    DocEntry IN (SELECT CTKM_structure_DocEntry FROM #tmpA WHERE CTKM_structure_DocEntry > 0)\n\tAND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate);\n\nDROP TABLE #tmpA;"
+}

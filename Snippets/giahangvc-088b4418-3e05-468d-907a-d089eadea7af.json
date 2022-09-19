@@ -1,0 +1,6 @@
+{
+  "id": "088b4418-3e05-468d-907a-d089eadea7af",
+  "prefix": "giahangvc",
+  "description": "Gia hạn Voucher",
+  "body": "DECLARE @StringCf NVARCHAR(100) = '2586836'\nUPDATE FRT_POS.dbo.[@FPTVOCH] SET U_EndD = GETDATE(), U_DESC_VC += N'[HT' + CONVERT(VARCHAR, GETDATE(), 112) + N'] HT gia hạn voucher, mail/call log cf: ' + @StringCf WHERE DocEntry IN ($CURSOR$)"
+}

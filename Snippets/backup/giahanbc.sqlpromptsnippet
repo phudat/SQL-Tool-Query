@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>giahanbc</Title>
+      <Shortcut>giahanbc</Shortcut>
+      <Description>Gia hạn báo cáo cho vk</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE FRT_POS.dbo.AutoMail_BaoCao SET FromDate = '2019-05-01', ToDate = '2019-05-31' WHERE ID = 31
+UPDATE FRT_POS.dbo.AutoMail_BaoCao SET FromDate = '2019-05-01', ToDate = '2019-05-31' WHERE ID = 95
+UPDATE FRT_POS.dbo.AutoMail_BaoCao SET FromDate = '2019-05-01', ToDate = '2019-05-31' WHERE ID = 111]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

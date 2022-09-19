@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>gau</Title>
+      <Shortcut>gau</Shortcut>
+      <Description>Gửi lại code đăng nhập CRM sau khi thu công nợ SO thẻ cào</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC [10.1.13.76].FRTCRM.dbo.sp_CRM_GenerateCode_Auth_CreateCode_By_User '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

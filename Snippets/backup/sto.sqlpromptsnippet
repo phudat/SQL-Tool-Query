@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sto</Title>
+      <Shortcut>sto</Shortcut>
+      <Description>SELECT TOP 1 * FROM table (NOLOCK) WHERE DocEntry = </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT TOP 1 * FROM $CURSOR$ (NOLOCK) WHERE DocEntry = ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

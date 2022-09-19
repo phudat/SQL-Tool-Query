@@ -1,0 +1,6 @@
+{
+  "id": "7f6bf891-6e06-4157-8d0f-8fd522998f8a",
+  "prefix": "nganhang",
+  "description": "SEELCT BANK FROM MASTERDATA",
+  "body": "SELECT * FROM FRT_MDM.dbo.OCRC\nSELECT * FROM FRT_MDM.dbo.OCRP\nSELECT * FROM FRT_MDM.dbo.ODSC"
+}

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>updateitemcodepo</Title>
+      <Shortcut>updateitemcodepo</Shortcut>
+      <Description>Cập nhật tên sản phẩm trên POS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>itemcode</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT
+    P.*
+FROM
+    dbo.OPOR O (NOLOCK)
+		INNER JOIN dbo.POR1 P (NOLOCK)
+			ON P.DocEntry = O.DocEntry
+WHERE
+    P.ItemCode = '$itemcode$'
+    AND O.DocStatus = 'O';
+
+RETURN
+UPDATE
+	P
+SET
+	P.Dscription = N'$CURSOR$'
+FROM
+    dbo.OPOR O (NOLOCK)
+		INNER JOIN dbo.POR1 P (NOLOCK)
+			ON P.DocEntry = O.DocEntry
+WHERE
+    P.ItemCode = '$itemcode$'
+    AND O.DocStatus = 'O';
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

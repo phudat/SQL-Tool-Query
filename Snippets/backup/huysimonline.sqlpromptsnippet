@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>huysimonline</Title>
+      <Shortcut>huysimonline</Shortcut>
+      <Description>Cập nhật hủy SIM online</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    ShopBook
+  , BookDate
+  , IsActived
+  , Status
+  , *
+FROM
+    [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline WITH (NOLOCK)
+WHERE
+    PhoneAdjusted IN ('$CURSOR$');
+
+RETURN
+UPDATE
+    [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline
+SET
+    IsActived = 0
+  , Status = 'E'
+WHERE
+    PhoneAdjusted IN ('');]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

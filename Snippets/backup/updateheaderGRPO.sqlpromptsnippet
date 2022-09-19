@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>updateheaderGRPO</Title>
+      <Shortcut>updateheaderGRPO</Shortcut>
+      <Description>Tính lại tiền GRPO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE B SET  
+      U_TMonBi	 = B1.U_TMoney
+    , U_TMonTx	 = B1.U_TaxAmo
+    , B.DocTotal = B1.U_TMoney
+	, B.U_TMonPr = B1.U_TMoney - B1.U_TaxAmo FROM 
+FRT_POS.dbo.OPDN B WITH (NOLOCK), 
+    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo 
+    	FROM FRT_POS.dbo.PDN1 WITH (NOLOCK)
+    	WHERE DocEntry = $CURSOR$
+GROUP BY DocEntry) B1 WHERE 
+    B.DocEntry = B1.DocEntry]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

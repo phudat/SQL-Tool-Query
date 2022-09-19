@@ -1,0 +1,6 @@
+{
+  "id": "de4f5e15-0a3a-4fac-b2ab-0c4d10b5e4e7",
+  "prefix": "scwh",
+  "description": "Select Ftel từ bảng His",
+  "body": "SELECT C.TotalAmount, C.CashCollectionReceiptStatus, C.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts_History AS C WITH (NOLOCK) WHERE C.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, C.ReceiptDate) = '' AND C.CashCollectionReceiptStatus = 37"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>soi</Title>
+      <Shortcut>soi</Shortcut>
+      <Description>SELECT * FROM dbo.OITW AS O (NOLOCK) WHERE O.ItemCode = '' AND O.WhsCode = ''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.ItemCode, O.WhsCode, O.OnHand, O.Qty_Available, O.Qty_Order, O.OnOrder, O.LastPurPrice FROM FRT_POS.dbo.OITW AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$' AND O.WhsCode = '']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

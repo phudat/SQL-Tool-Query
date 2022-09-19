@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tgasc</Title>
+      <Shortcut>tgasc</Shortcut>
+      <Description>Lấy thông tin trả góp nhà tài chính ASC Việt Nam</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM dbo.ThongTinTraGop_CRM (NOLOCK) WHERE ItemCode='$CURSOR$' AND Ma_NhaTraGop_POS = 2673625]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "8b627b92-6938-4fe7-a218-a474e3053358",
+  "prefix": "checkdayso",
+  "description": "lay id cac the cao day so nhung mat httt ",
+  "body": "SELECT \n\t* \nFROM \n\tdbo.SalesOrders s WITH (NOLOCK) \n\tLEFT JOIN dbo.POSPaymentMethod AS P WITH (nolock) ON s.ID=p.SalesOrdersID\nWHERE \n\tWarehouseCode = '$CURSOR$' \n\tAND CreatedDateTime> CAST(GETDATE() AS DATE) \n\tAND isExportInvoice=1 \n\tAND p.SalesOrdersID IS NULL"
+}

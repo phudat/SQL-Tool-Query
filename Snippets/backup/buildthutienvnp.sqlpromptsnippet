@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildthutienvnp</Title>
+      <Shortcut>buildthutienvnp</Shortcut>
+      <Description>Build lại thu tiền VNPay</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @docEntry INT = $CURSOR$; 
+
+SELECT
+    *
+INTO
+	#tmpQRPay
+FROM
+    dbo.QRCode_Payment_Push AS Q (NOLOCK)
+WHERE
+    Q.DocEntry = @docEntry
+    AND Q.U_type = 'P'
+    AND Q.U_status = '4';
+
+DECLARE
+        @CardCodeQRPay INT
+      , @EplCodeQRPay INT
+      , @QRDocStatus CHAR(1)
+      , @QRShopCode VARCHAR(20)
+      , @QRAccCash NVARCHAR(50);
+SELECT
+	  @CardCodeQRPay = CardCode
+	, @EplCodeQRPay = CreateBy
+	, @QRDocStatus = DocStatus
+	, @QRShopCode = U_ShpCod
+FROM
+    dbo.ORDR (NOLOCK)
+WHERE
+    DocEntry = @docEntry;
+SELECT TOP 1
+    @QRAccCash = F.U_AccCash
+FROM
+    FRT_MDM.dbo.[@FPTSHOP] F WITH (NOLOCK)
+WHERE
+    F.Code = @QRShopCode;
+
+DELETE FROM
+    dbo.[@FPTORCT]
+WHERE
+    U_DocSO = @docEntry
+    AND IsAutoCard = 'Y'
+    AND U_Acbank = '6'
+    AND ISNULL(U_DocDown, 0) = 0;
+-- Check trên thực bảng: FRT_MDM.dbo.OCRP - Ví điện tử
+INSERT  INTO [@FPTORCT]
+        (
+         CardType
+       , U_CName
+       , U_Acbank
+       , U_CTLKCode
+       , U_CTLKName
+       , U_MoCash
+       , U_MoCCad
+       , U_CrDate
+       , U_AccNum
+       , U_AccName
+       , U_BankTs
+       , U_MoTran
+       , U_DateTs
+       , U_NumVch
+       , U_NaVoch
+       , U_MoVoCh
+       , U_EDate
+       , U_DocSO
+       , U_DocDown
+       , U_ShpCod
+       , U_AcCash
+       , U_TypCre
+       , U_Acount
+       , U_NumCre
+       , U_AcVoch
+       , U_Status
+       , U_CrdCod
+       , U_AcDate
+       , U_EplCod
+       , CreateDate
+       , U_Desc
+       , IS_VC_CRM
+       , U_loaiCT
+       , U_DocAR
+       , IsAutoCard
+							
+        )
+SELECT
+    '6'					--VNPay: FRT_MDM.dbo.OCRC
+  , '6'					--VNPay: FRT_MDM.dbo.OCRC
+  , '6'					--Ví điện tử FRT_MDM.dbo.OCRP
+  , N'Ví điện tử'
+  , ''
+  , 0
+  , C.Tmonbi
+  , C.createdate
+  , ''
+  , ''
+  , ''
+  , 0
+  , C.createdate
+  , ''
+  , ''
+  , 0
+  , C.createdate
+  , @docEntry
+  , NULL
+  , @QRShopCode
+  , @QRAccCash
+  , '6'					--VNPay: FRT_MDM.dbo.OCRC
+  , '113100100'
+  , ISNULL(C.TransactionNum_VNPay, '')
+  , ''
+  , 1
+  , @CardCodeQRPay
+  , C.createdate
+  , C.createby
+  , C.createdate
+  , 'THU SO QRPay'
+  , 1
+  , NULL
+  , 0
+  , 'Y'
+FROM
+    #tmpQRPay C;
+
+DROP TABLE #tmpQRPay]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

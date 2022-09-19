@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sttd</Title>
+      <Shortcut>sttd</Shortcut>
+      <Description>Lấy thu tiền theo số Chứng từ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, F.U_DocDown, * FROM FRT_POS.dbo.[@FPTORCT] AS F WITH (NOLOCK) WHERE F.DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

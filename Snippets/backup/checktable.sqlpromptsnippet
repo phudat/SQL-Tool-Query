@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checktable</Title>
+      <Shortcut>checktable</Shortcut>
+      <Description>kiem tra bang duoc su dung o dau</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT DISTINCT
+    'EXEC ' + o.name
+FROM
+    syscomments c
+    JOIN sysobjects o
+        ON c.id = o.id
+    JOIN INFORMATION_SCHEMA.TABLES t
+        ON c.text LIKE N'%$CURSOR$%';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

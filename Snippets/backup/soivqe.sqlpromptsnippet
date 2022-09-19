@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>soivqe</Title>
+      <Shortcut>soivqe</Shortcut>
+      <Description>Lấy OIVQ theo IMEI</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_POS.dbo.FRT_POS_OIVQ AS Q WITH (NOLOCK) WHERE Q.EMEI = '$CURSOR$' ORDER BY Q.Docdate]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

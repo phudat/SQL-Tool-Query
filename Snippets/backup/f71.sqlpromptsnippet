@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>f71</Title>
+      <Shortcut>f71</Shortcut>
+      <Description>Link 71</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[[10.1.13.71]]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

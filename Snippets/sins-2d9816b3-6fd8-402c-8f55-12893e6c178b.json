@@ -1,0 +1,6 @@
+{
+  "id": "2d9816b3-6fd8-402c-8f55-12893e6c178b",
+  "prefix": "sins",
+  "description": "INSIDE",
+  "body": "SELECT * FROM [10.1.13.77].FRTInsideV2.dbo$CURSOR$ WITH (NOLOCK) WHERE "
+}

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>book</Title>
+      <Shortcut>book</Shortcut>
+      <Description>Check book</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC FRT_POS.dbo.sp_COMMOND_GetHistoryProduct_New 
+	@ItemCode = '$CURSOR$', -- varchar(50)
+    @Serial = N'', -- nvarchar(100)
+    @TuNgay = '2016-12-07 16:06:49', -- datetime
+    @DenNgay = '2016-12-31 16:06:49', -- datetime
+    @Status = 'O', -- char(1)
+    @ShopCode = '', -- varchar(max)
+    @WhsCode = '', -- varchar(max)
+    @Paging = 0, -- int
+    @UserID = N'6017' -- nvarchar(40)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>delete_duplicate</Title>
+      <Shortcut>delete_duplicate</Shortcut>
+      <Description>Xoa cac row trung lap, chua lai 1 row</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[BEGIN
+    WITH CTE(id,SalesOrderCode,TransactionDate, 
+    duplicatecount)
+	AS (SELECT id,SalesOrderCode, TransactionDate,
+           ROW_NUMBER() OVER(PARTITION BY SalesOrderCode
+           ORDER BY id) AS DuplicateCount
+    FROM CRM_GetDataCheck_BI_AllInOne WITH (nolock) WHERE TransactionDate>'20210831')
+	DELETE FROM CTE WHERE CTE.DuplicateCount> 1;
+END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

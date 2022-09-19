@@ -1,0 +1,6 @@
+{
+  "id": "63175a3d-c65a-4654-99c0-16b8975509e3",
+  "prefix": "sma",
+  "description": "Select Active SIM",
+  "body": "SELECT SOPOS, * FROM [10.1.13.86].MPOS.dbo.FRT_ActiveSim WITH (NOLOCK) WHERE SOPOS = $CURSOR$"
+}

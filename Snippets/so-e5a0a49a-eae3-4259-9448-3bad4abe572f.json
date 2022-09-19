@@ -1,0 +1,6 @@
+{
+  "id": "e5a0a49a-eae3-4259-9448-3bad4abe572f",
+  "prefix": "so",
+  "description": "SELECT O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM ORDR AS O (NOLOCK) WHERE O.DocEntry = ",
+  "body": "SELECT O.U_ShpCod, O.U_NumECom, O.U_DocMap, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = $CURSOR$"
+}

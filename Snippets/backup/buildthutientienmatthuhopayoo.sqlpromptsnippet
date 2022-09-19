@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildthutientienmatthuhopayoo</Title>
+      <Shortcut>buildthutientienmatthuhopayoo</Shortcut>
+      <Description>Buil thu tiền hình thức Tiền Mặt cho thu hộ Payoo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+         CreatedDate
+       , CreatedBy
+       , Remark
+       , CashAmount
+       , PaymentType
+       , BillID
+       , TypePaymentVendor
+    )
+SELECT 
+	  P.BillDate
+	, P.CreatedBy
+	, N'Thanh toán bằng tiền mặt'
+	, ISNULL(P.TotalAmount, 0) + ISNULL(P.PaymentFee, 0)
+	, 'CASH' 
+	, p.ID
+	, 1
+FROM 
+	dbo.PaymentBillReceipts P (NOLOCK) 
+WHERE 
+	P.BillCode IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

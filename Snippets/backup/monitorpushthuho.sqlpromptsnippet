@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorpushthuho</Title>
+      <Shortcut>monitorpushthuho</Shortcut>
+      <Description>Monitorbảng push thu hộ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND PushStatus = 4
+SELECT * FROM dbo.CRM_POS_PAYMENT_ON_BEHALF_PUSH (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND PushStatus = 4]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fggpt</Title>
+      <Shortcut>fggpt</Shortcut>
+      <Description>Tìm cơ cấu theo giảm giá %</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT DISTINCT DocEntry INTO #tmpGGPT FROM dbo.CTKM_structure_detail (NOLOCK) WHERE Percent_Amount = 5
+UNION
+SELECT DISTINCT DocEntry FROM dbo.CTKM_structure_detail_ex (NOLOCK) WHERE Percent_Amount = 5
+
+SELECT * FROM dbo.CTKM_structure (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpGGPT) AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate)
+
+DROP TABLE #tmpGGPT]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

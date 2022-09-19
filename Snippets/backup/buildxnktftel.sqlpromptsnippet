@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildxnktftel</Title>
+      <Shortcut>buildxnktftel</Shortcut>
+      <Description>Build xác nhận kế toán thu hộ Ftel</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CashCollectionReceiptsNoVAT
+    (
+         ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , VendorCode
+       , RefCode
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , CreatedEmployeeBy
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+       , CardPaymentFee
+    )
+SELECT 
+	  'PT-' + C.ReceiptCode
+	, C.ReceiptDate
+	, C.WarehouseCode
+	, '0002'	
+	, C.ReceiptCode
+	, C.AgreementNo
+	, C.CustomerName
+	, C.MobilePhone
+	, C.TotalAmount
+	, 343
+	, 298
+	, N'Hệ thống tạo'
+	, C.CreatedDateTime
+	, C.CreatedBy
+	, 1
+	, C.ReceiptDate
+	, 'SYSTEM'
+	, 0
+FROM 
+	dbo.CashCollectionReceipts C (NOLOCK) 
+WHERE 
+	C.ReceiptCode IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

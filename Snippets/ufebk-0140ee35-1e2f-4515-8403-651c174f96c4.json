@@ -1,0 +1,6 @@
+{
+  "id": "0140ee35-1e2f-4515-8403-651c174f96c4",
+  "prefix": "ufebk",
+  "description": "Update voucher không giá",
+  "body": "DECLARE\n\t  @VC VARCHAR(50) = '$CURSOR$'\n\t, @GC INT = 0\n\nSELECT 'OLD', * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = @VC\nSELECT 'OLD_BK', * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = @VC\n\nINSERT INTO dbo.FPT_PROMS\n    (\n          DocEntry_SO\n\t\t, Status\n\t\t, Email\n\t\t, CreateDate\n\t\t, GroupCode\n\t\t, phone\n\t\t, UPDATEdate\n\t\t, email2\n\t\t, U_Desc\n\t\t, Remark\n\t)\nSELECT\n\t  DocEntry_SO\n\t, Status\n\t, Email\n\t, CreateDate\n\t, GroupCode\n\t, phone\n\t, UPDATEdate\n\t, email2\n\t, U_Desc\n\t, Remark\nFROM\n    dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK)\nWHERE\n    Email = @VC\n\tAND GroupCode = @GC\n\nDELETE FROM FPT_PROMS_BK_ARCHIVE WHERE Email = @VC AND GroupCode = @GC\n\nUPDATE FRT_POS.dbo.FPT_PROMS SET DocEntry_SO = 0, Status = 6 WHERE Email = @VC AND GroupCode = @GC\n\nSELECT 'NEW', * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = @VC\nSELECT 'NEW_BK', * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = @VC"
+}

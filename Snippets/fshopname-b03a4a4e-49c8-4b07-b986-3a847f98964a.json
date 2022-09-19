@@ -1,0 +1,6 @@
+{
+  "id": "b03a4a4e-49c8-4b07-b986-3a847f98964a",
+  "prefix": "fshopname",
+  "description": "SELECT SHOP BY NAME",
+  "body": "SELECT F.U_ComCode, * FROM FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK) WHERE F.Name LIKE N'%$CURSOR$%'"
+}

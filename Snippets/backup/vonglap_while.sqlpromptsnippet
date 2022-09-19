@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>vonglap_while</Title>
+      <Shortcut>vonglap_while</Shortcut>
+      <Description />
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT  o.ItemCode, COUNT(1) sl INTO #tmp FROM OITW_1 o WITH (NOLOCK) 
+LEFT JOIN dbo.Product_OITM p ON o.ItemCode=p.Itemcode 
+WHERE ISNULL(p.Itemcode,'')='' and o.Quantity_available >0 GROUP BY o.ItemCode ORDER BY COUNT(1) DESC
+
+Declare @itemcode VARCHAR(50)
+While (Select Count(*) From #tmp) > 0
+Begin
+    Select Top 1 @itemcode = ItemCode From #tmp
+	INSERT INTO dbo.Product_OITM
+	(
+		Itemcode,
+		shop_code,
+		inventory
+	)
+	SELECT 
+		@itemcode,
+		(SELECT dbo.ufn_get_shop_inventory(@itemcode,0)),		
+		(SELECT dbo.ufn_get_shop_inventory(@itemcode,1))
+    Delete #tmp Where ItemCode = @itemcode
+END
+DROP TABLE #tmp
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

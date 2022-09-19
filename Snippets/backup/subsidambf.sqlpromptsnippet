@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>subsidambf</Title>
+      <Shortcut>subsidambf</Shortcut>
+      <Description>Check SO Subsida Mobifone</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * INTO #tmpAS FROM [10.1.13.86].MPOS.dbo.FRT_ActiveSim with (NOLOCK) WHERE Provider = 'Mobifone' AND CONVERT(DATE, Createdate) >= '20171219'
+SELECT P.POSDocEntry, P.mPOSDocEntry, T.Phonenumber INTO #tmpPush FROM #tmpAS T INNER JOIN dbo.POS_mPOS_PUSH P ON T.SOPOS = P.mPOSDocEntry
+SELECT O.DocEntry, O.DocStatus, O.U_ExDate, O.U_ShpCod, T.Phonenumber  FROM #tmpPush T  (NOLOCK)  INNER JOIN dbo.ORDR O (NOLOCK) ON T.POSDocEntry = O.DocEntry WHERE O.Type_ReturnSO = 19 AND O.DocStatus IN ('F', 'T', 'W')]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

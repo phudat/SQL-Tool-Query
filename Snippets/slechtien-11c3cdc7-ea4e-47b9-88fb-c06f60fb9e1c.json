@@ -1,0 +1,6 @@
+{
+  "id": "11c3cdc7-ea4e-47b9-88fb-c06f60fb9e1c",
+  "prefix": "slechtien",
+  "description": "",
+  "body": "SELECT\n    T.CRMID\n    , T.TotalAmount + ISNULL(T.Fee,0)\t\t\t\t\t\t\t\t\tAS TotalAmount\n    , SUM(T.U_MoCash + T.U_MoCCad + T.U_MoVoCh + T.U_MoTran)\tAS TotalPayment\n\t\t\t\t\nFROM\n    CRM_POS_COLLECTION_ON_BEHALF_PUSH T\nWHERE T.CRMID=$CURSOR$\nGROUP BY\n        T.CRMID\n\t, T.TotalAmount + ISNULL(T.Fee,0)"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sno</Title>
+      <Shortcut>sno</Shortcut>
+      <Description>SELECT V.ConfirmedDate, V.CashCollectionReceiptsNoVATStatus, * FROM [10.96.254.19].FRTCRM.dbo.CashCollectionReceiptsNoVAT AS V WITH (NOLOCK) WHERE V.RefCode IN ('')</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT V.ConfirmedDate, V.CashCollectionReceiptsNoVATStatus, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT AS V WITH (NOLOCK) WHERE V.RefCode IN ('$CURSOR$')]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

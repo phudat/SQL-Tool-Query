@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkthecaoxuathoadon</Title>
+      <Shortcut>checkthecaoxuathoadon</Shortcut>
+      <Description>Check the cao xuất hóa đơn</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE	@Date DATETIME = GETDATE() - 1
+
+SELECT * INTO #tmpSO FROM dbo.SalesOrders (NOLOCK) WHERE CONVERT(DATE, SalesOrderDate) = CONVERT(DATE, @Date) AND ISNULL(POSIsPushed, 0) IN (0, 2, 3) AND SalesOrdersStatus IN (67, 588) AND PayooService IN (45, 46)
+SELECT * INTO #tmpLogHD FROM [10.1.13.71].FRT_POS.dbo.log_Finish_SO_TheCao_XuatHD WITH (NOLOCK) WHERE CONVERT(DATE, createdate) = CONVERT(DATE, @Date)
+
+SELECT DISTINCT T.SO, T.ListID, CONVERT(INT, F.VALUE) AS ID INTO #tmpLogHDID FROM #tmpLogHD T OUTER APPLY dbo.ufn_StringToTable(T.ListID, ',', 0) F
+SELECT * FROM #tmpSO
+SELECT * FROM #tmpLogHD
+SELECT * FROM #tmpLogHDID
+SELECT S.POSIsPushed, S.POSSODocNum, S.SalesOrdersStatus, I.SO, I.ID, * FROM #tmpSO S LEFT JOIN #tmpLogHDID I ON I.ID = S.ID
+
+--UPDATE S SET S.POSIsPushed = 1, S.POSSODocNum = I.SO, S.POSPushBy = '-1' FROM dbo.SalesOrders S INNER JOIN #tmpLogHDID I ON I.ID = S.ID WHERE ISNULL(POSIsPushed, 0) IN (0, 2, 3)
+SELECT POSSODocNum, POSIsPushed, SalesOrdersStatus, * FROM dbo.SalesOrders (NOLOCK) WHERE CONVERT(DATE, SalesOrderDate) = CONVERT(DATE, GETDATE() - 1) AND ISNULL(POSIsPushed, 0) IN (0, 2, 3) AND SalesOrdersStatus IN (67, 588) AND PayooService IN (45, 46)
+
+DROP TABLE #tmpLogHD, #tmpSO, #tmpLogHDID
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

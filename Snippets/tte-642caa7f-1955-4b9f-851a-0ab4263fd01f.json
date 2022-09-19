@@ -1,0 +1,6 @@
+{
+  "id": "642caa7f-1955-4b9f-851a-0ab4263fd01f",
+  "prefix": "tte",
+  "description": "Thu tiền ECOM",
+  "body": "SELECT * FROM FRT_CUSTOMIZE.dbo.[@FPTORCT] (NOLOCK) WHERE Ecomnum = $CURSOR$"
+}

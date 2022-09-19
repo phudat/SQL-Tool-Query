@@ -1,0 +1,6 @@
+{
+  "id": "86032a61-d7fa-4090-a934-d0176489e8e4",
+  "prefix": "checkiploi",
+  "description": "IP từ LOG",
+  "body": "SELECT DISTINCT\n    F.VALUE IP\nINTO\n    #tmpIPLog\nFROM\n    dbo.Log G (NOLOCK)\n    OUTER APPLY dbo.ufn_StringToTable(Content, ':', 0) F\nWHERE\n    G.CreateBy = ''\n    AND G.Content LIKE '%SP_KiemKe_SaveDetail%'\n    AND CONVERT(DATE, G.CreateDateTime) = CONVERT(DATE, GETDATE())\n    AND F.VALUE NOT LIKE '%SP_KiemKe_SaveDetail%'\n\nSELECT DISTINCT\n    L.IP\n  , F.Code ShopCode\n  , F.Code + ' - ' + F.Name ShopName\nFROM\n    #tmpIPLog T\n    INNER JOIN [10.1.13.77].FRTInsideV2.dbo.F01_ListIP L WITH (NOLOCK)\n        ON T.IP = L.IP\n    INNER JOIN [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)\n        ON L.WarehouseCode = W.WarehouseCode\n    INNER JOIN FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK)\n        ON W.WarehouseCodeB1 = F.Code COLLATE SQL_Latin1_General_CP1_CI_AS\n\nDROP TABLE #tmpIPLog"
+}

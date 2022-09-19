@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ukh</Title>
+      <Shortcut>ukh</Shortcut>
+      <Description>Update OCRD</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo.OCRD SET LicTradNum = Phone1 WHERE CardCode IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildpushchihomomo</Title>
+      <Shortcut>buildpushchihomomo</Shortcut>
+      <Description>Build bảng push chi hộ Momo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CRM_POS_PAYMENT_ON_BEHALF_PUSH
+        (
+         CRMID
+       , CRMCode
+       , VendorCode
+       , TotalAmount
+       , Fee
+       , CreateDate
+       , U_ShpCod
+       , U_CrdCod
+       , U_EplCod
+       , U_Desc
+       , U_MoCash
+       , IsAutoCard
+       , PushStatus
+       , POSMsg
+       , POSURCT
+       , Status
+        )
+SELECT
+      M.ID
+	, M.ID
+	, M.VendorCode
+	, M.TotalAmount
+	, 0
+	, M.CreatedDatetime
+	, M.WarehouseCode
+	, 0
+	, M.CreatedBy
+	, ''
+	, M.TotalAmount
+	, 'N'
+	, 1
+	, ''
+	, 0
+	, M.CashOutStatus
+FROM
+    dbo.CashOutMoMoHeader M (NOLOCK)
+WHERE
+    ID IN (
+$CURSOR$
+)
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

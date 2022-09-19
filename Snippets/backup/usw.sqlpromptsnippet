@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>usw</Title>
+      <Shortcut>usw</Shortcut>
+      <Description>UPDATE frament SET WHERE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo$CURSOR$ SET  WHERE DocEntry = ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

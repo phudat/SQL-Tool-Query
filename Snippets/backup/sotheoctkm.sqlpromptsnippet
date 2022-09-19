@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sotheoctkm</Title>
+      <Shortcut>sotheoctkm</Shortcut>
+      <Description>Lấy danh sách SO theo CTKM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+        @CTKM INT = 0
+      , @CC INT = $CURSOR$
+      , @IsValid BIT = 0
+	  , @FromDate DATE = '20170901'
+	  , @ToDate DATE = '20170930'
+
+SELECT
+    DocEntry
+INTO
+	#tmpCC
+FROM
+    dbo.CTKM_structure (NOLOCK)
+WHERE
+    (CTKM_Header_DocEntry = @CTKM OR @CTKM = 0)
+    AND (DocEntry = @CC OR @CC = 0)
+    AND (@CTKM > 0 OR @CC > 0)
+	AND (@IsValid = 0 OR (@IsValid = 1 AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate)))
+
+SELECT DocEntrySO, PromotionCode INTO #tmpCheckedSO FROM dbo.FRT_PROM_Detail (NOLOCK) WHERE PromotionCode IN (SELECT T.DocEntry FROM #tmpCC T)
+
+SELECT
+      O.DocEntry
+	, T.PromotionCode
+FROM
+    #tmpCheckedSO T
+		INNER JOIN dbo.ORDR O (NOLOCK)
+			ON T.DocEntrySO = O.DocEntry
+WHERE
+    O.DocStatus = 'F'
+    AND CONVERT(DATE, O.U_ExDate) BETWEEN @FromDate AND @ToDate;
+
+DROP TABLE #tmpCC, #tmpCheckedSO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

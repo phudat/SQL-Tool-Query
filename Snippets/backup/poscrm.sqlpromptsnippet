@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>poscrm</Title>
+      <Shortcut>poscrm</Shortcut>
+      <Description>Toàn bộ thông tin thu hộ / chi hộ CRM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @WarehouseCode		VARCHAR(40) = '$CURSOR$'
+	, @FromDate				DATE		= ''
+	, @ToDate				DATE		= ''
+	, @COB_Payoo			BIT			= 0
+	, @COB_FTel				BIT			= 0
+	, @COB_Agribank			BIT			= 0
+	, @COB_Viettel			BIT			= 0
+	, @COB_Momo				BIT			= 0
+	, @COB_inasure			BIT			= 0
+	, @COB_LognChau			BIT			= 0
+	, @RefundAll			BIT			= 0
+	, @POB_Momo				BIT			= 0
+
+IF @COB_Payoo = 1
+	BEGIN -- Payoo
+		SELECT
+			  P.BillCode																	AS 'Số phiếu'
+			, P.BillDate																	AS 'Ngày giao dịch'
+			, ISNULL(P.TotalAmount, 0)														AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, P.PaymentFee																	AS 'Phí'
+			, P.PaymentBillStatus															AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.PaymentBillReceipts AS P WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON P.ID = M.BillID
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON P.BillCode = V.RefCode        
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.BillDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.BillDate
+	END
+
+IF @COB_FTel = 1
+	BEGIN -- Ftel 
+		SELECT
+			  C.ReceiptCode																	AS 'Số phiếu'
+			, C.ReceiptDate																	AS 'Ngày giao dịch'
+			, ISNULL(C.TotalAmount, 0)														AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																				AS 'Phí'
+			, C.CashCollectionReceiptStatus													AS 'Tình trạng'
+			, C.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(C.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON C.ID = M.FtelBillID
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON C.ReceiptCode = V.RefCode        
+		WHERE
+			1 = 1
+			AND C.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, C.ReceiptDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			C.WarehouseCode, C.ReceiptDate
+	END
+
+IF @COB_Agribank = 1
+	BEGIN -- Agribank 
+		SELECT
+			  P.BillCode																	AS 'Số phiếu'
+			, P.BillDate																	AS 'Ngày giao dịch'
+			, ISNULL(P.TotalAmount, 0)														AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, P.PaymentBillStatus															AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.CRM_PaymentBillReceipt_AgriBank AS P WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON P.ID = M.PayBillAgriID
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON P.BillCode = V.RefCode
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.BillDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.BillDate
+	END
+
+IF @COB_Viettel = 1
+	BEGIN -- Viettel 
+		SELECT
+			  P.BillCode																	AS 'Số phiếu'
+			, P.BillDate																	AS 'Ngày giao dịch'
+			, ISNULL(P.TotalAmount, 0)														AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, P.PaymentBillStatus															AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.PaymentBillReceipts_Viettel AS P WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON P.ID = M.ViettelPayID
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON P.BillCode = V.RefCode
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.BillDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.BillDate
+	END
+
+IF @COB_Momo = 1
+	BEGIN -- Momo
+	    SELECT
+			  CONVERT(VARCHAR, P.Id)														AS 'Số phiếu'
+			, P.TransactionDate																AS 'Ngày giao dịch'
+			, ISNULL(P.Amount, 0)															AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, P.TransactionMoMoStatus														AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.TransactionMoMo AS P WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON P.ID = M.MoMoId
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON CONVERT(VARCHAR, P.ID) = V.RefCode
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.TransactionDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.TransactionDate
+	END
+
+IF @COB_inasure = 1
+	BEGIN -- Bảo hiểm Vinasure
+	    SELECT
+			  CONVERT(VARCHAR, P.ID)														AS 'Số phiếu'
+			, P.CreatedDateTime																AS 'Ngày giao dịch'
+			, ISNULL(P.Amount, 0)															AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, P.VinasureStatus																AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.VinasureHeader AS P WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON P.ID = M.VinasureID
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON CONVERT(VARCHAR, P.ID) = V.RefCode
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.CreatedDateTime) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.CreatedDateTime
+	END
+
+IF @COB_LognChau = 1
+	BEGIN -- Thu hộ Long Chau
+	    SELECT
+			  P.BillCode																	AS 'Số phiếu'
+			, P.BillDate																	AS 'Ngày giao dịch'
+			, ISNULL(P.TotalAmount, 0)														AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, P.LongChauStatus																AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, ISNULL(M.CashAmount, 0)														AS 'Tiền mặt'
+			, ISNULL(M.CardAmount, 0)														AS 'Cà thẻ'
+			, ISNULL(M.VoucherAmount, 0)													AS 'Voucher'
+			, ISNULL(M.TransferAmount, 0)													AS 'Chuyển khoản'
+			, ISNULL(M.Card_Fee, 0)															AS 'Phí cà thẻ'
+			, CASE WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Tiền mặt' 
+					WHEN ISNULL(M.CardFeeTM, -1) = 1 AND M.Card_Fee > 0 THEN N'Thẻ'
+																		ELSE N'Không'
+			END																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.PaymentBill_LongChauPharmacy AS P WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod M WITH (NOLOCK)
+					ON P.ID = M.ViettelPayID
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CashCollectionReceiptsNoVAT V (NOLOCK)
+					ON P.BillCode = V.RefCode
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.BillDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.BillDate
+	END
+
+IF @RefundAll = 1
+	BEGIN	-- Chi tiền hủy thu hộ
+	    SELECT
+			  CONVERT(VARCHAR, P.PaymentServiceCode)										AS 'Số phiếu chi'
+			, P.ReceiptCode																	AS 'Số phiếu thu'
+			, P.CreatedDateTime																AS 'Ngày giao dịch'
+			, ISNULL(P.Amount, 0)															AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, P.PaymentServiceStatus														AS 'Tình trạng'
+			, P.WarehouseCode																AS 'Mã shop'
+			, 0																				AS 'Tiền mặt'
+			, 0																				AS 'Cà thẻ'
+			, 0																				AS 'Voucher'
+			, 0																				AS 'Chuyển khoản'
+			, 0																				AS 'Phí cà thẻ'
+			, N'Không'																		AS N'Loại thu phí cà thẻ'
+			, P.ConfirmedDate																AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(P.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.PaymentServices AS P WITH (NOLOCK)
+		WHERE
+			1 = 1
+			AND P.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, P.PaymentServiceDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			P.WarehouseCode, P.CreatedDateTime
+	END
+
+IF @POB_Momo = 1	
+	BEGIN -- Chi hộ Momo
+		SELECT
+			  CONVERT(VARCHAR, C.ID)														AS 'Số phiếu'
+			, C.TransactionDate																AS 'Ngày giao dịch'
+			, C.TotalAmount
+			, ISNULL(C.Amount, 0)															AS 'Tổng tiền: TM + Thẻ + VC + CK'
+			, 0																			    AS 'Phí'
+			, C.CashOutStatus																AS 'Tình trạng'
+			, C.WarehouseCode																AS 'Mã shop'
+			, 0																				AS 'Tiền mặt'
+			, 0																				AS 'Cà thẻ'
+			, 0																				AS 'Voucher'
+			, 0																				AS 'Chuyển khoản'
+			, 0																				AS 'Phí cà thẻ'
+			, 0																				AS N'Loại thu phí cà thẻ'
+			, V.ConfirmDate																	AS 'Ngày xác nhận kế toán'
+			, CASE ISNULL(C.POSIsPushed, 0) WHEN 1 THEN N'Đã về POS' 
+											ELSE N'Chưa về POS' 
+			END																				AS 'POS'
+		FROM
+			[10.1.13.76].FRTCRM.dbo.CashOutMoMoHeader AS C WITH (NOLOCK)
+				INNER JOIN [10.1.13.76].FRTCRM.dbo.CRM_CashOutMoMo_AccCF V (NOLOCK)
+					ON C.ID = V.CashOutMoMoID
+		WHERE
+			1 = 1
+			AND C.WarehouseCode = @WarehouseCode
+			AND CONVERT(DATE, C.TransactionDate) BETWEEN @FromDate AND @ToDate
+		ORDER BY
+			C.WarehouseCode, C.CreatedDateTime
+	END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

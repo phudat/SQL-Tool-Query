@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fg</Title>
+      <Shortcut>fg</Shortcut>
+      <Description>Check Galaxy Gift</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @GalaxyGift VARCHAR(30) = '$CURSOR$'
+SELECT * FROM dbo.Log_Update_GalaxyGift (NOLOCK) WHERE Voucher = @GalaxyGift
+SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = @GalaxyGift
+SELECT * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = @GalaxyGift]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

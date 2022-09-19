@@ -1,0 +1,6 @@
+{
+  "id": "a439cb7d-eb92-44e2-8906-436383128c03",
+  "prefix": "snhan",
+  "description": "SELECT NHAN",
+  "body": "SELECT * FROM FRT_MDM.dbo.OMRC (NOLOCK)"
+}

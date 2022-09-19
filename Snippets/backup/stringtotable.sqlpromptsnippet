@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>stringtotable</Title>
+      <Shortcut>stringtotable</Shortcut>
+      <Description>string to table</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @xmlupdateresult NVARCHAR(max)= N'18826059,18826058,18826057,18826056,18826027,18826026,18826025,18826024,18826023,18826022'
+SELECT REPLACE(REPLACE(LTRIM(RTRIM(VALUE)),CHAR(13),''),NCHAR(10),'') AS saleorderid
+INTO #tempkeodata
+FROM dbo.ufn_StringToTable(@xmlupdateresult,',',0) 
+
+SELECT * FROM #tempkeodata WITH (NOLOCK)
+DROP TABLE #tempkeodata
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

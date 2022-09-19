@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildpushthuhopayoo</Title>
+      <Shortcut>buildpushthuhopayoo</Shortcut>
+      <Description>Build bảng push thu hộ Payoo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH
+    (
+         CRMID
+       , CRMCode
+       , VendorCode
+       , TotalAmount
+       , Fee
+       , CreateDate
+       , U_ShpCod
+       , U_CrdCod
+       , U_EplCod
+       , U_Desc
+       , U_MoCash
+       , U_MoCCad
+       , U_Acbank
+       , U_CTLKCode
+       , U_TypCre
+       , U_NumCre
+       , U_MoVoCh
+       , U_NumVch
+       , U_NaVoch
+       , U_AcVoch
+       , U_MoTran
+       , U_BankTs
+       , U_AccNum
+       , U_AccName
+       , IsAutoCard
+       , Card_Fee
+       , CardFeeTM
+       , LongChauShopCode
+       , UpdatedDate
+       , PushStatus
+       , POSMsg
+       , POSORCT
+       , MaChuanChi
+       , SplitFee
+       , SplitFeeType
+       , mPOSDocNum
+       , Status
+    )
+SELECT
+      B.ID
+	, B.BillCode
+	, B.VendorCode
+	, B.TotalAmount
+	, B.PaymentFee
+	, B.CreatedDateTime
+	, B.WarehouseCode
+	, 0
+	, B.CreatedEmployeeBy
+	, ''
+	, P.CashAmount
+	, P.CardAmount
+	, P.CardPaymentMethod
+	, P.U_CTLKCode
+	, P.CreditCardType
+	, P.CreditCardNumber
+	, P.VoucherAmount
+	, P.VoucherNumber
+	, P.VoucherName
+	, P.VoucherAccount
+	, P.TransferAmount
+	, P.BankCode
+	, P.BankAccountNumber
+	, P.BankAccountName
+	, CASE WHEN P.IsAutoCard = 1 THEN 'Y' ELSE 'N' END
+	, P.Card_Fee
+	, P.Card_Fee
+	, ''
+	, NULL
+	, 1
+	, NULL
+	, NULL
+	, P.CreditCardNumber
+	, 0
+	, 0
+	, NULL
+	, B.PaymentBillStatus 
+FROM
+    dbo.PaymentBillReceipts B (NOLOCK)
+		INNER JOIN dbo.POSPaymentMethod P (NOLOCK)
+				ON B.ID = P.BillID
+		
+WHERE
+    B.ID IN (
+$CURSOR$
+);]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

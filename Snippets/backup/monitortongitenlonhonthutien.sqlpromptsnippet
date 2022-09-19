@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitortongitenlonhonthutien</Title>
+      <Shortcut>monitortongitenlonhonthutien</Shortcut>
+      <Description>Monitor tổng tiền &gt; thu tiền</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT DocEntry INTO #tmpDocEntrySO FROM dbo.ORDRPUSH2COM (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND ISNULL(DocStatus, '') NOT IN ('', 'D')
+
+SELECT O.DocEntry, O.U_ExDate, O.DocDate, O.DocType, O.DocStatus, O.PickStatus, O.Type_ReturnSO, O.U_TMonBi, O.U_ShpCod, O.U_UsrCre INTO #tmpSO FROM #tmpDocEntrySO T INNER JOIN dbo.ORDR O (NOLOCK) ON T.DocEntry = O.DocEntry
+
+SELECT
+      T.*
+	, ISNULL(F.U_MoCash, 0) AS U_MoCash
+	, ISNULL(F.U_MoCCad, 0) AS U_MoCCad
+	, ISNULL(F.U_MoTran, 0) AS U_MoTran
+	, ISNULL(F.U_MoVoCh, 0) AS U_MoVoCh
+	, F.IsAutoCard
+INTO
+	#tmpThuTien
+FROM
+    #tmpSO T
+		LEFT JOIN dbo.[@FPTORCT] F (NOLOCK)
+			ON T.DocEntry = F.U_DocSO;
+
+SELECT
+    T.DocEntry
+  , T.U_TMonBi
+  , SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) AS TotalAmount
+FROM
+    #tmpThuTien T
+GROUP BY
+    T.DocEntry
+  , T.U_TMonBi
+HAVING
+	T.U_TMonBi < SUM(T.U_MoCash + T.U_MoCCad + T.U_MoTran + T.U_MoVoCh) - 10
+
+DROP TABLE #tmpDocEntrySO, #tmpSO, #tmpThuTien]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

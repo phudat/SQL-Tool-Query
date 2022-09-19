@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ften</Title>
+      <Shortcut>ften</Shortcut>
+      <Description>Tìm tên CTKM gần giống</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * INTO #tmpA FROM dbo.CTKM_structure (NOLOCK) WHERE name LIKE '%$CURSOR$%'
+SELECT * FROM dbo.CTKM_structure (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpA) AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate)
+DROP TABLE #tmpA]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

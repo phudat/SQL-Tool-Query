@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhatgiavongrponoibo</Title>
+      <Shortcut>capnhatgiavongrponoibo</Shortcut>
+      <Description>Cập nhật giá vốn GRPO nội bộ theo SO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+	  @SODocEntry	INT = $CURSOR$
+	, @GRPODocEntry INT = 0
+	, @IsUpdate		BIT = 0
+
+IF @IsUpdate = 1
+	BEGIN
+	    UPDATE
+			P
+		SET
+			P.Price = O.OpenStockPrice
+		FROM
+			dbo.PDN1 P (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON P.U_IMei = O.EMEI
+		WHERE
+			P.DocEntry = @GRPODocEntry
+			AND O.Docentry = @SODocEntry
+			AND O.TypeGD = 1
+			AND P.Price <> O.OpenStockPrice
+
+		UPDATE
+		    FRT_POS.dbo.PDN1
+		SET
+		      U_TaxAmo = ROUND((Price * U_Quantity) * (U_TaxRate / 100), 0)
+			, U_TaxAmL = ROUND((Price * U_Quantity), 0)
+			, U_TMoney = ROUND((Price * U_Quantity) * (1 + U_TaxRate / 100), 0)
+		WHERE
+		    DocEntry = @GRPODocEntry
+
+		UPDATE B SET  
+		      U_TMonBi	 = B1.U_TMoney
+		    , U_TMonTx	 = B1.U_TaxAmo
+		    , B.DocTotal = B1.U_TMoney
+			, B.U_TMonPr = B1.U_TMoney - B1.U_TaxAmo FROM 
+		FRT_POS.dbo.OPDN B WITH (NOLOCK), 
+		    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo 
+		    	FROM FRT_POS.dbo.PDN1 WITH (NOLOCK)
+		    	WHERE DocEntry = @GRPODocEntry
+		GROUP BY DocEntry) B1 WHERE 
+		    B.DocEntry = B1.DocEntry
+
+		UPDATE
+			R
+		SET
+			  R.U_Price = O.OpenStockPrice
+			, R.Price = O.OpenStockPrice
+		FROM
+			dbo.RDR1 R (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON R.U_IMei = O.EMEI
+		WHERE
+			R.DocEntry = @SODocEntry
+			AND O.Docentry = @SODocEntry
+			AND O.TypeGD = 1
+			AND R.U_Price <> O.OpenStockPrice
+
+		UPDATE
+		    FRT_POS.dbo.RDR1
+		SET
+		      U_TaxAmo = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (U_TaxRate / 100), 0)
+			, U_TaxAmL = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)), 0)
+			, U_TMoney = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (1 + U_TaxRate / 100), 0)
+		WHERE
+		    DocEntry = @SODocEntry
+
+		UPDATE B SET  
+		      U_TMonPr	= B1.U_TMoney - B1.U_TaxAmo
+		    , U_TMonTx	= B1.U_TaxAmo
+		    , U_TMonBi	= B1.U_TMoney FROM 
+		FRT_POS.dbo.ORDR B WITH (NOLOCK), 
+		    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo 
+		    	FROM FRT_POS.dbo.RDR1 WITH (NOLOCK)
+		    	WHERE DocEntry = @SODocEntry
+		GROUP BY DocEntry) B1 WHERE 
+		    B.DocEntry = B1.DocEntry
+
+	END
+ELSE
+	BEGIN
+	    SELECT
+			  P.DocEntry
+			, P.ItemCode
+			, P.Dscription
+			, P.U_WhsCod
+			, P.U_IMei
+			, P.Quantity
+			, P.Price
+			, '----'
+			, O.Docentry
+			, O.ItemCode
+			, O.EMEI
+			, O.Whscode
+			, O.Quantity
+			, O.OpenStockPrice
+		FROM
+			dbo.PDN1 P (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON P.U_IMei = O.EMEI
+		WHERE
+			P.DocEntry = @GRPODocEntry
+			AND O.Docentry = @SODocEntry
+			AND O.TypeGD = 1
+			AND P.Price <> O.OpenStockPrice
+
+		SELECT
+			  R.DocEntry
+			, R.ItemCode
+			, R.Dscription
+			, R.U_WhsCod
+			, R.U_IMei
+			, R.Quantity
+			, R.U_Price
+			, '----------'
+			, O.Docentry
+			, O.ItemCode
+			, O.EMEI
+			, O.Whscode
+			, O.Quantity
+			, O.OpenStockPrice
+		FROM
+			dbo.RDR1 R (NOLOCK)
+				INNER JOIN dbo.FRT_POS_OIVL O (NOLOCK)
+					ON R.U_IMei = O.EMEI
+		WHERE
+			R.DocEntry = @SODocEntry
+			AND O.Docentry = @SODocEntry
+			AND O.TypeGD = 1
+			AND R.U_Price <> O.OpenStockPrice
+	END
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

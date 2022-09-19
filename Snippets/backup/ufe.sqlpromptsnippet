@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ufe</Title>
+      <Shortcut>ufe</Shortcut>
+      <Description>Update voucher thành chưa sử dụng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo.FPT_PROMS SET DocEntry_SO = 0, Status = 6 WHERE Email = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

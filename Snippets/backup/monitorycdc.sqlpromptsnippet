@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorycdc</Title>
+      <Shortcut>monitorycdc</Shortcut>
+      <Description>Monitor YCDC sai tình trạng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+	  @FromDate DATE = DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0)
+	, @ToDate DATE = DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()) + 1, 0) - 1
+
+SELECT @FromDate, @ToDate
+SELECT
+    *
+INTO
+	#tmpYCDCKhacTCPNDaXuat
+FROM
+    dbo.[@FPTRQROTA] (NOLOCK)
+WHERE
+    CONVERT(DATE, CreateDate) BETWEEN @FromDate AND @ToDate
+	AND Status = 'X'
+	AND U_RqType = 1
+
+SELECT
+    T.DocEntry	AS YCDCDocEntry
+  , T.Status	AS YCDCStatus
+  , T.U_ShpRec	AS YCDCShopXuat
+  , T.U_ShpCod	AS YCDCShopNhap
+  , T.Series	AS YCDCLoai
+  , O.DocEntry	AS SODocEntry
+  , o.DocStatus	AS SODocStatus
+INTO
+	#tmpYCDC_SO
+FROM
+    #tmpYCDCKhacTCPNDaXuat T
+		INNER JOIN dbo.ORDR O (NOLOCK)
+			ON T.DocEntry = O.U_NumReq;
+
+SELECT
+	  T.*
+	, O.DocEntry	AS GRPODocEntry
+	, O.DocStatus	AS GRPODocStatus
+INTO
+	#tmpYCDc_SO_GRPO
+FROM
+    #tmpYCDC_SO T
+		LEFT JOIN dbo.OPDN O (NOLOCK)
+			ON T.YCDCDocEntry = O.U_NumReq
+				AND T.SODocEntry = O.U_NumSO
+
+SELECT
+    T.YCDCDocEntry
+  , COUNT(*) AS CountOfSO
+INTO
+    #tmpCountSO
+FROM
+    #tmpYCDc_SO_GRPO T
+WHERE
+    T.SODocStatus = 'F'
+GROUP BY
+	T.YCDCDocEntry
+
+SELECT
+    T.YCDCDocEntry
+  , COUNT(*) AS CountOfGRPO
+INTO
+    #tmpCountGRPO
+FROM
+    #tmpYCDc_SO_GRPO T
+WHERE
+    T.GRPODocStatus = 'F'
+GROUP BY
+	T.YCDCDocEntry
+
+SELECT
+    *
+FROM
+    #tmpCountSO S
+		LEFT JOIN #tmpCountGRPO G
+			ON G.YCDCDocEntry = S.YCDCDocEntry
+WHERE
+    G.CountOfGRPO = S.CountOfSO
+    AND G.CountOfGRPO > 0;
+
+DROP TABLE 
+	  #tmpCountGRPO
+	, #tmpCountSO
+	, #tmpYCDCKhacTCPNDaXuat
+	, #tmpYCDC_SO
+	, #tmpYCDc_SO_GRPO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>skh</Title>
+      <Shortcut>skh</Shortcut>
+      <Description>SELECT O.LicTradNum, O.Phone1, * FROM dbo.OCRD AS O (NOLOCK) WHERE O.CardCode IN ()</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.IsResident, O.DdctOffice, O.LicTradNum, O.Phone1, O.BPID, * FROM FRT_POS.dbo.OCRD AS O WITH (NOLOCK) WHERE O.CardCode IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

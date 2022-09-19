@@ -1,0 +1,12 @@
+{
+  "id": "ec4ee503-4d7f-4be4-8a85-55994f4948b2",
+  "prefix": "taosp",
+  "description": "create a new procedure",
+  "body": "USE [FRTCRM]\nGO\n-- ================================================\n-- Template generated from Template Explorer using:\n-- Create Procedure (New Menu).SQL\n--\n-- Use the Specify Values for Template Parameters \n-- command (Ctrl-Shift-M) to fill in the parameter \n-- values below.\n--\n-- This block of comments will not be included in\n-- the definition of the procedure.\n-- ================================================\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n/*====================================================================\nAuthor\t\t\t\t\t:\t\tDatnp5\nCreate date\t\t\t\t:\t\t28/01/2021 10:04:53\nDescription\t\t\t\t:\t\t\n====================================================================*/\nCREATE PROCEDURE $tensp$\n(\n\t  @$CURSOR$\tINT\n)\nAS\nBEGIN\n\tSET NOCOUNT ON;\n\tBEGIN TRY\n\t\t\n\tEND TRY\n\tBEGIN CATCH\n\t\tINSERT INTO dbo.Log\n\t\t    (\n\t\t         CreateDateTime\n\t\t       , CreateBy\n\t\t       , Content\n\t\t    )\n\t\tVALUES\n\t\t    (\n\t\t         GETDATE()\n\t\t       , N'$tensp$'\n\t\t       , N'Lỗi [$tensp$] - Err: ' + ERROR_MESSAGE() + ' Line: ' + CONVERT(VARCHAR, ERROR_LINE())\n\t\t    )\n\tEND CATCH\nEND\nGO\n",
+  "placeholders": [
+    {
+      "name": "tensp",
+      "defaultValue": ""
+    }
+  ]
+}

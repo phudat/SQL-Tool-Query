@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sdtssdmoi</Title>
+      <Shortcut>sdtssdmoi</Shortcut>
+      <Description>Cập nhật số điện thoại SSD mới</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE
+	T
+SET 
+	  T.Sdt_active_Old = T.Sdt_active
+	, T.Sdt_active = 
+					CASE WHEN LEFT(T.Sdt_active, LEN(M.Mamangcu)) = M.Mamangcu
+						THEN M.Mamangmoi + RIGHT(T.Sdt_active, LEN(T.Sdt_active) - LEN(M.Mamangcu))
+						WHEN LEFT(T.Sdt_active, LEN(M.Mamangmoi)) = M.Mamangmoi THEN T.Sdt_active
+					END
+FROM
+    dbo.ThongTinSSD T (NOLOCK)
+		INNER JOIN FRT_MDM.dbo.Mapsim_chuyendoi M
+			ON LEFT(T.Sdt_active, LEN(M.Mamangcu)) = M.Mamangcu
+WHERE
+	LEN(T.Sdt_active) = 11
+	AND M.Trangthai = 1]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

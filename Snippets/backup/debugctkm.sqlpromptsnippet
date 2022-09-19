@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>debugctkm</Title>
+      <Shortcut>debugctkm</Shortcut>
+      <Description>Bảng tạo debug CTKM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @tbl_SODetail UType_Table_SO_RDR1 
+
+	DECLARE @tbl_Detail_Search TABLE
+		(
+			  DocEntry			INT
+			, ItemCode			VARCHAR(20)
+			, ItemName			NVARCHAR(254)
+			, Serial			NVARCHAR(100)
+			, Price				NUMERIC(19, 6)
+			, FinalPrice		NUMERIC(19, 6)
+			, Quantity			INT
+			, DiscountInShop	NUMERIC(19, 6)
+			, Warranty			VARCHAR(50)
+			, Inventory			INT
+			, InvntItem			CHAR(1)
+			, TaxPrice			NUMERIC(19, 6)
+			, Unit				NVARCHAR(20)
+			, LocationCode		NVARCHAR(15)
+			, TaxPercent		NVARCHAR(254)
+			, TotalPrice		NUMERIC(19, 6)
+			, Discount			NUMERIC(19, 6)
+			, U_PROMOS			CHAR(1)
+			, U_ProCode			NVARCHAR(100)
+			, U_OnHand			INT
+			, ManSerNum			CHAR(1)
+			, TaxRate			NUMERIC(19, 6)
+			, U_TGBH			INT
+			, ReturnPrice		NUMERIC(19, 6)
+			, U_FIFO			INT
+			, U_WhsTo			NVARCHAR(100)
+			, LineNum			INT
+			, InvNum			NVARCHAR(254)
+			, InvSymbol			NVARCHAR(254)
+			, ConfirmBook		NUMERIC(19, 6)
+			, IsVoucher			NVARCHAR(10)
+			, IsNoPriceVoucher	NVARCHAR(10)
+			, IsPrice			NVARCHAR(10)
+			, U_Return			NVARCHAR(10)
+			, PriceReturn		NUMERIC(19, 6)
+			, U_DESC			NVARCHAR(254)
+			, U_AccDim2			NVARCHAR(100)
+			, U_AccDim3			NVARCHAR(100)
+			, ItemType			INT
+			, SoPhieu_BH		BIGINT
+			, U_LineRet			NVARCHAR(254)
+			, IDFormDK			INT
+			, U_ReaCode			VARCHAR(254)
+			, IsBookDoiTra		INT
+			, isCheck			INT
+			, VolUnit			SMALLINT
+			, BaseQty			INT
+			, BaseOpnQty		INT
+			, PackQty			INT
+			, U_BarCod			NVARCHAR(16)
+			, U_VoucherNum		NVARCHAR(50)
+			, FREE01			NVARCHAR(20)
+		)
+
+	INSERT INTO @tbl_Detail_Search
+	EXEC sp_COMMOND_SearchSODetail @SOID
+
+	INSERT INTO @tbl_SODetail
+	    (
+	         LineNum
+	       , ItemCode
+	       , ItemName
+	       , Serial
+	       , WhsCod
+	       , Quantity
+	       , Price
+	       , TotalPrice
+	       , TaxPrice
+	       , TGBH
+	       , DiscountInShop
+	       , U_DisOther
+	       , IsPromotion
+	       , Unit
+	       , TaxPercent
+	       , InvntItem
+	       , TaxRate
+	       , HasSerial
+	       , FIFO
+	       , ToWarehouseCode
+	       , ConfirmBook
+	       , Inventory
+	       , PromotionCode
+	       , IsVoucher
+	       , IsNoPriceVoucher
+	       , Remark
+	       , OrderedQty
+	       , U_DESC
+	       , U_AccDim2
+	       , U_AccDim3
+	       , ItemType
+	       , SoPhieu_BH
+	       , U_VoucherNum
+	       , U_IsNoPriceVoucher
+	       , U_IsVoucher
+	       , U_LineRet
+	       , IDFormDK
+	       , U_ReaCode
+	       , BaseQty
+	       , BaseOpnQty
+	       , PackQty
+	       , VolUnit
+	       , U_BarCod
+	       , FREE01
+	    )
+	SELECT
+		  T.LineNum
+		, T.ItemCode
+		, T.ItemName
+		, T.Serial
+		, T.LocationCode
+		, T.Quantity
+		, T.Price
+		, T.TotalPrice
+		, T.TaxPrice
+		, T.U_TGBH
+		, T.DiscountInShop
+		, T.Discount
+		, CASE T.U_PROMOS WHEN 'Y' THEN 1 ELSE 0 END
+		, T.Unit
+		, T.TaxPercent
+		, T.InvntItem
+		, T.TaxRate
+		, ''
+		, CASE T.U_FIFO WHEN 0 THEN 1 ELSE 0 END
+		, T.U_WhsTo
+		, T.ConfirmBook
+		, T.Inventory
+		, ''
+		, T.IsVoucher
+		, T.IsNoPriceVoucher
+		, ''
+		, T.ConfirmBook
+		, ''
+		, T.U_AccDim2
+		, T.U_AccDim3
+		, ''
+		, T.SoPhieu_BH
+		, T.U_VoucherNum
+		, T.IsNoPriceVoucher
+		, T.IsVoucher
+		, T.U_LineRet
+		, T.IDFormDK
+		, T.U_ReaCode
+		, T.BaseQty
+		, T.BaseOpnQty
+		, T.PackQty
+		, T.VolUnit
+		, T.U_BarCod
+		, T.FREE01
+	FROM
+		@tbl_Detail_Search T]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

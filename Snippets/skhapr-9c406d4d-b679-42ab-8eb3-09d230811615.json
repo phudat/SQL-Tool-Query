@@ -1,0 +1,12 @@
+{
+  "id": "9c406d4d-b679-42ab-8eb3-09d230811615",
+  "prefix": "skhapr",
+  "description": "Lấy hạn thẻ của KH APR",
+  "body": "SELECT * FROM [10.1.13.69].FRT_FSTUDIO.dbo.FRT_OCRD WITH (NOLOCK) WHERE SDT='$sdt$'\nSELECT O.IsResident, O.DdctOffice, O.LicTradNum, O.Phone1, O.BPID, * FROM FRT_POS.dbo.OCRD AS O WITH (NOLOCK) WHERE O.LicTradNum = '$sdt$'\n",
+  "placeholders": [
+    {
+      "name": "sdt",
+      "defaultValue": ""
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "2445c6c3-f3d0-47bd-add5-b10cb8092237",
+  "prefix": "snganh2",
+  "description": "Chọn ngành từ OOCR",
+  "body": "SELECT * FROM FRT_MDM.dbo.OOCR (NOLOCK) WHERE DimCode = 2 --Ngành"
+}

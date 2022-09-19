@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>soivqd</Title>
+      <Shortcut>soivqd</Shortcut>
+      <Description>SELECT * FROM dbo.FRT_POS_OIVQ AS Q (NOLOCK) WHERE Q.Docentry = </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_POS.dbo.FRT_POS_OIVQ AS Q WITH (NOLOCK) WHERE Q.Docentry = $CURSOR$ ORDER BY Q.Docdate ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

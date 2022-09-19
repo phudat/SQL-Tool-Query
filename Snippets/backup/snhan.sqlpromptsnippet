@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>snhan</Title>
+      <Shortcut>snhan</Shortcut>
+      <Description>SELECT NHAN</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_MDM.dbo.OMRC (NOLOCK)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

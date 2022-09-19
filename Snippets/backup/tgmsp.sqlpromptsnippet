@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tgmsp</Title>
+      <Shortcut>tgmsp</Shortcut>
+      <Description>Check thông tin trả góp ưu đã theo mã sản phẩm từ CRM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    D.FromDate
+  , D.ToDate
+  , *
+FROM
+    [10.96.254.98].FRTCRM_MDM.dbo.CRM_Amortizations_Definitions AS D (NOLOCK)
+WHERE
+    D.ID IN (
+    SELECT
+        P.ID
+    FROM
+        [10.96.254.98].FRTCRM_MDM.dbo.CRM_Amortizations_Definitions_Products P (NOLOCK)
+    WHERE
+        P.ItemCode = '$CURSOR$');]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

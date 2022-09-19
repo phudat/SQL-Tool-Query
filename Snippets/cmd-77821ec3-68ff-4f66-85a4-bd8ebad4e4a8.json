@@ -1,0 +1,6 @@
+{
+  "id": "77821ec3-68ff-4f66-85a4-bd8ebad4e4a8",
+  "prefix": "cmd",
+  "description": "",
+  "body": "EXEC xp_CMDShell  '\"D:\\RUNTIME\\bat\\mdm.bat\"'"
+}

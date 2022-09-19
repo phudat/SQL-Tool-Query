@@ -1,0 +1,6 @@
+{
+  "id": "34909b85-0d77-4f64-89de-44aaa6acb622",
+  "prefix": "stt",
+  "description": "SELECT ORCT",
+  "body": "SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, F.U_DocDown, * FROM FRT_POS.dbo.[@FPTORCT] AS F WITH (NOLOCK) WHERE F.U_DocSO = $CURSOR$"
+}

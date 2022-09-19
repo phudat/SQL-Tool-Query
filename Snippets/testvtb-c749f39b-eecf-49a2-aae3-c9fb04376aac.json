@@ -1,0 +1,6 @@
+{
+  "id": "c749f39b-eecf-49a2-aae3-c9fb04376aac",
+  "prefix": "testvtb",
+  "description": "Link API demo test máy POS VietinBank",
+  "body": "SELECT 'http://'+ IP + '/ecr?rqt=SO: 123 | 11004&cmd=sale|1000' FROM dbo.POSBankIP (NOLOCK) WHERE ShopCode = '$CURSOR$'"
+}

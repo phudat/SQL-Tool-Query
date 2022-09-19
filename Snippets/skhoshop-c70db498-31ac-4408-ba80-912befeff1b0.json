@@ -1,0 +1,6 @@
+{
+  "id": "c70db498-31ac-4408-ba80-912befeff1b0",
+  "prefix": "skhoshop",
+  "description": "Lấy thông tin kho theo shop",
+  "body": "SELECT * FROM FRT_MDM.dbo.OWHS (NOLOCK) WHERE U_Code_SH = '$CURSOR$'"
+}

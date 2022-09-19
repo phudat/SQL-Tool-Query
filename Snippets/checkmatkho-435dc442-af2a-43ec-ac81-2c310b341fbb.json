@@ -1,0 +1,6 @@
+{
+  "id": "435dc442-af2a-43ec-ac81-2c310b341fbb",
+  "prefix": "checkmatkho",
+  "description": "Check SO bị mất kho",
+  "body": "DECLARE @SO INT = $CURSOR$\nSELECT O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @SO\nSELECT U_WhsCod, U_Imei, U_OnHand, OrderedQty, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @SO\nSELECT O.ItemCode, O.itemName, O.DistNumber, O.WhsCode, O.Quantity, O.CommitQty, O.LastPurPrice, O.AbsEntry FROM FRT_POS.dbo.OSRN AS O WITH (NOLOCK) WHERE O.DistNumber = '' AND O.Quantity = 1 \nSELECT O.ItemCode, O.WhsCode, O.OnHand, O.Qty_Available, O.Qty_Order, O.OnOrder, O.LastPurPrice FROM FRT_POS.dbo.OITW AS O WITH (NOLOCK) WHERE O.ItemCode = '' AND O.WhsCode = ''"
+}

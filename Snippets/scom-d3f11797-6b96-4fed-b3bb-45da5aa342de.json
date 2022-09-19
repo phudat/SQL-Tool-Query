@@ -1,0 +1,6 @@
+{
+  "id": "d3f11797-6b96-4fed-b3bb-45da5aa342de",
+  "prefix": "scom",
+  "description": "Lấy tên company theo comcode",
+  "body": "SELECT * FROM FRT_MDM.dbo.[@FPTITM11] (NOLOCK) WHERE U_ItemCode = '$CURSOR$'"
+}

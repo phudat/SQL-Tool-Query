@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sttb</Title>
+      <Shortcut>sttb</Shortcut>
+      <Description>Lấy thu tiền bảng BK</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, F.U_DocDown, * FROM FRT_POS.dbo.[@FPTORCT_BK_ARCHIVE] AS F WITH (NOLOCK) WHERE F.U_DocSO = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "4d0b2343-1b50-438f-af33-16d6e1a6646b",
+  "prefix": "checklaikm",
+  "description": "Cho check lại KM ở SO cũ",
+  "body": "DECLARE\n\t  @OldDocEntry INT = $CURSOR$\n\t, @NewDocEntry INT = \n\t, @ItemCode VARCHAR(32) = ''\n\nINSERT INTO dbo.Promotion_Datcoc\n    (\n         MaCoCau\n       , SoSO\n       , createdate\n       , Createby\n       , Status\n       , itemcode\n       , Doc_MayCu\n       , TongTien\n       , Phone\n    )\nSELECT\n\t  PromotionCode\n\t, @NewDocEntry\n\t, GETDATE()\n\t, '-1'\n\t, 1\n\t, ItemCode\n\t, NULL\n\t, NULL\n\t, NULL\nFROM\n    dbo.FRT_PROM_Detail (NOLOCK)\nWHERE\n    DocEntrySO = @OldDocEntry\n\tAND (ItemCode = @ItemCode OR @ItemCode = '')\n\nUPDATE\n    FRT_POS.dbo.ORDR\nSET\n    PickStatus = '1'\n -- , PayBlock = 'Y'\nWHERE\n    DocEntry = @NewDocEntry;"
+}

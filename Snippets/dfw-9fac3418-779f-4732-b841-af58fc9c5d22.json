@@ -1,0 +1,6 @@
+{
+  "id": "9fac3418-779f-4732-b841-af58fc9c5d22",
+  "prefix": "dfw",
+  "description": "DELTE FROM WHERE",
+  "body": "RETURN\nDELETE FROM $CURSOR$ WHERE DocEntry = "
+}

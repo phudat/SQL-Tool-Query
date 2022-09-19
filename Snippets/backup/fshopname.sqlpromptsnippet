@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fshopname</Title>
+      <Shortcut>fshopname</Shortcut>
+      <Description>SELECT SHOP BY NAME</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_ComCode, * FROM FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK) WHERE F.Name LIKE N'%$CURSOR$%']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

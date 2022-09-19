@@ -1,0 +1,6 @@
+{
+  "id": "0d95db42-ded2-45f2-ab8d-a4a470188a8c",
+  "prefix": "vonglap",
+  "description": "",
+  "body": "\tDECLARE CUR_PO CURSOR \n\tFOR \n\t$CURSOR$\n\tOPEN CUR_PO\t\t\n\tDECLARE @ID INT \n\tFETCH NEXT FROM CUR_PO INTO @ID\n\twhile ( @@FETCH_STATUS = 0)\n\tbegin\n\t\t\t\n\t\tFETCH NEXT FROM CUR_PO INTO @ID\n\tEND\n\tCLOSE CUR_PO\n\tDEALLOCATE CUR_PO"
+}

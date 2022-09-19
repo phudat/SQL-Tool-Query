@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>soivl</Title>
+      <Shortcut>soivl</Shortcut>
+      <Description>SELECT * FROM dbo.FRT_POS_OIVL AS V (NOLOCK) WHERE V.ItemCode = '' AND V.Whscode = ''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_POS.dbo.FRT_POS_OIVL AS V WITH (NOLOCK) WHERE V.ItemCode = '$CURSOR$' AND V.Whscode = '' ORDER BY V.Docdate]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

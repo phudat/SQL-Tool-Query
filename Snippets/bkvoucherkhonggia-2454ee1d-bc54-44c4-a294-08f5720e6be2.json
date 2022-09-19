@@ -1,0 +1,12 @@
+{
+  "id": "2454ee1d-bc54-44c4-a294-08f5720e6be2",
+  "prefix": "bkvoucherkhonggia",
+  "description": "BackUp lại voucher không giá",
+  "body": "INSERT  INTO dbo.tbl_Voucher_Ordr_BK_ARCHIVE\n    (\n         DocEntrySO\n       , Voucher\n       , U_Status\n       , CreateDate\n       , CreateBy\n    )\nSELECT\n\t  DocEntrySO\n\t, Voucher\n\t, U_Status\n\t, CreateDate\n\t, CreateBy\nFROM\n    dbo.tbl_Voucher_Ordr (NOLOCK)\nWHERE\n    Voucher = '$voucher$';\n\nDELETE FROM\n    dbo.tbl_Voucher_Ordr\nWHERE\n    Voucher = '$voucher$';",
+  "placeholders": [
+    {
+      "name": "voucher",
+      "defaultValue": ""
+    }
+  ]
+}

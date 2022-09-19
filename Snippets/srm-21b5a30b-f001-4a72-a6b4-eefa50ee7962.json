@@ -1,0 +1,6 @@
+{
+  "id": "21b5a30b-f001-4a72-a6b4-eefa50ee7962",
+  "prefix": "srm",
+  "description": "SELECT SO DETAIL MONEY",
+  "body": "SELECT R.ItemCode, R.U_IMei, R.U_WhsCod, R.U_Price, R.Quantity, R.U_TaxAmo, R.U_TMoney, R.DiscPrcnt, R.U_DisOther, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$"
+}

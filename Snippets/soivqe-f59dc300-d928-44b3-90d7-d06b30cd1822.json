@@ -1,0 +1,6 @@
+{
+  "id": "f59dc300-d928-44b3-90d7-d06b30cd1822",
+  "prefix": "soivqe",
+  "description": "Lấy OIVQ theo IMEI",
+  "body": "SELECT * FROM FRT_POS.dbo.FRT_POS_OIVQ AS Q WITH (NOLOCK) WHERE Q.EMEI = '$CURSOR$' ORDER BY Q.Docdate"
+}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sotp</Title>
+      <Shortcut>sotp</Shortcut>
+      <Description>Lấy mã OTP</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>SDT</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.69].FRT_FSTUDIO.dbo.FRT_FSOFT_OTP_User WITH (NOLOCK) WHERE OtpCode='$SDT$'
+SELECT * FROM [10.1.13.69].FRT_Customer.dbo.FRT_OTT WITH (NOLOCK) WHERE ChuoiOTT='$SDT$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

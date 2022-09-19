@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>matkho</Title>
+      <Shortcut>matkho</Shortcut>
+      <Description>Cập nhật mất kho</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo.RDR1 SET U_WhsCod = '', U_OnHand = 1, OrderedQty = 1 WHERE DocEntry = $CURSOR$ 
+UPDATE FRT_POS.dbo.OITW SET Qty_Available-=1, Qty_Order +=1 WHERE ItemCode = '' AND WhsCode = '']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

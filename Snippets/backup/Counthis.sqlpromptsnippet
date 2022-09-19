@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Counthis</Title>
+      <Shortcut>Counthis</Shortcut>
+      <Description>dem tat ca giao dich </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @payoo INT, @payoohis INT, @thecao INT, @thecaohis INT, @ftel INT,@ftelhis INT,@viettel INT,@viettelhis INT, @smartpay INT, @smartpayhis INT,@momo INT, @momohis INT,@vinasure INT,@momosend INT, @momorec INT, @viettelpay INT, @longchau INT, @his BIGINT, @now BIGINT
+SELECT @payoo=COUNT(1) FROM dbo.PaymentBillReceipts WITH (NOLOCK) 
+SELECT @payoohis=COUNT(1) FROM dbo.PaymentBillReceipts_History WITH (NOLOCK) 
+SELECT @ftel=COUNT(1) FROM dbo.CashCollectionReceipts WITH (NOLOCK) 
+SELECT @ftelhis=COUNT(1) FROM dbo.CashCollectionReceipts_History WITH (NOLOCK) 
+SELECT @thecao=COUNT(1) FROM dbo.SalesOrders WITH (NOLOCK)
+SELECT @thecaohis=COUNT(1) FROM dbo.SalesOrders_History_Full WITH (NOLOCK)
+SELECT @viettel=COUNT(1) FROM dbo.PaymentBillReceipts_Viettel WITH (NOLOCK)
+SELECT @viettelhis=COUNT(1) FROM dbo.PaymentBillReceipts_Viettel_History WITH (NOLOCK)
+SELECT @smartpay=COUNT(1) FROM dbo.PaymentBillReceipts_SmartPay WITH (NOLOCK)
+SELECT @smartpayhis=COUNT(1) FROM dbo.PaymentBillReceipts_SmartPay_History WITH (NOLOCK)
+SELECT @momo=COUNT(1) FROM dbo.TransactionMoMo WITH (NOLOCK) 
+SELECT @momohis=COUNT(1) FROM dbo.TransactionMoMo_BK WITH (NOLOCK) 
+SELECT @momosend=COUNT(1) FROM dbo.CRM_MomoC2CSend_Header WITH (NOLOCK) 
+SELECT @momorec=COUNT(1) FROM dbo.CRM_MomoC2CReceiver_Header WITH (NOLOCK) 
+SELECT @viettelpay=COUNT(1) FROM dbo.Pay_Services WITH (NOLOCK) 
+SELECT @vinasure=COUNT(1) FROM dbo.VinasureHeader WITH (NOLOCK) 
+SELECT @longchau=COUNT(1) FROM dbo.PaymentBill_LongChauPharmacy WITH (NOLOCK)
+SET @now=@longchau+@vinasure+@viettelpay+@momorec+@momosend+@momo+@smartpay+@viettel+@thecao+@ftel+@payoo
+SET @his=@payoohis+@thecaohis+@ftelhis+@viettelhis+@smartpayhis+@momohis
+SELECT  @payoo [@payoo], @payoohis [@payoohis], @thecao [@thecao], @thecaohis [@thecaohis], @ftel [@ftel],@ftelhis [@ftelhis],
+@viettel [@viettel],@viettelhis [@viettelhis], @smartpay [@smartpay], @smartpayhis [@smartpayhis],@momo [@momo], @momohis [@momohis],@vinasure [@vinasure],@momosend [@momosend], @momorec [@momorec], @viettelpay [@viettelpay], @longchau [@longchau], @his his, @now [now]]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

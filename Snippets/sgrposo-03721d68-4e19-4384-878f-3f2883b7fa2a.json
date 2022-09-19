@@ -1,0 +1,6 @@
+{
+  "id": "03721d68-4e19-4384-878f-3f2883b7fa2a",
+  "prefix": "sgrposo",
+  "description": "SELECT GRPO BY SO",
+  "body": "SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_DocSOReturn, O.U_NumSO, * FROM FRT_POS.dbo.OPDN AS O WITH (NOLOCK) WHERE O.U_DocSOReturn = $CURSOR$"
+}

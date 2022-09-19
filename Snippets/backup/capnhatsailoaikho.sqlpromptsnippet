@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhatsailoaikho</Title>
+      <Shortcut>capnhatsailoaikho</Shortcut>
+      <Description>Cập nhật sai loại kho</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT WhsCode, U_WHS_TYPE, SUBSTRING(WhsCode, 6, 2), * FROM FRT_MDM.dbo.OWHS (NOLOCK)  WHERE LEFT(U_Code_SH, 1) IN ('3', '4') AND WhsCode <> '' AND U_WHS_TYPE <> SUBSTRING(WhsCode, 6, 2)
+--UPDATE FRT_MDM.dbo.OWHS SET U_WHS_TYPE = SUBSTRING(WhsCode, 6, 2) WHERE LEFT(U_Code_SH, 1) IN ('3', '4') AND WhsCode <> '' AND U_WHS_TYPE <> SUBSTRING(WhsCode, 6, 2)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>payooHTTT_feeTM</Title>
+      <Shortcut>payooHTTT_feeTM</Shortcut>
+      <Description />
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+		BillID
+		,Status
+       , CreatedDate
+       , CreatedBy
+       , Remark
+	   , CashAmount
+       , TransferAmount
+	   ,CreditCardType
+	   ,CardPaymentMethod
+	   ,CardAmount
+	   ,VoucherAmount
+       , PaymentType
+	   , Card_Fee
+	   , Card_FeeTM   
+    )
+SELECT 
+	s.ID
+	,1
+	,  S.CreatedDateTime
+	, s.CreatedBy
+	, N'Thanh Toán Bằng Thẻ'
+	, 0
+	, 0
+	, '7'
+	,1
+	, ISNULL(S.TotalAmount, 0)
+	, 0
+	,'CARD'
+	,0
+	, ISNULL(S.TotalAmount*1/100, 0)
+FROM 
+	dbo.PaymentBillReceipts S (NOLOCK) 
+WHERE 
+	S.Id IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

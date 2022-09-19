@@ -1,0 +1,6 @@
+{
+  "id": "3e5f66ae-66de-48a6-958c-a0736f835faa",
+  "prefix": "sttdb",
+  "description": "Lấy thu tiền theo DocEntry ở bảng BK",
+  "body": "SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, F.U_DocDown, * FROM FRT_POS.dbo.[@FPTORCT_BK_ARCHIVE] AS F WITH (NOLOCK) WHERE F.DocEntry =$CURSOR$ "
+}

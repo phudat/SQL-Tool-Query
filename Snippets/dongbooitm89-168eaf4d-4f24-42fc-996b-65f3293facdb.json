@@ -1,0 +1,6 @@
+{
+  "id": "168eaf4d-4f24-42fc-996b-65f3293facdb",
+  "prefix": "dongbooitm89",
+  "description": "Đồng bộ OITM về con 89",
+  "body": "INSERT  INTO [10.1.13.89].FRT_MDM.dbo.OITM\n    (\n         ItemCode\n       , ItemName\n       , U_NG_CODE\n       , ItmsGrpCod\n       , FirmCode\n       , Model_ID\n       , U_NHOM\n       , InvntItem\n       , Createdate\n       , frozenFor\n       , VatGourpSa\n    )\nSELECT\n\tItemCode\n\t, ItemName\n\t, U_NG_CODE\n\t, ItmsGrpCod\n\t, FirmCode\n\t, Model_ID\n\t, U_Nhom\n\t, InvntItem\n\t, CreateDate\n\t, frozenFor\n\t, VatGourpSa\nFROM\n    FRT_MDM.dbo.OITM AS O WITH (NOLOCK)\nWHERE\n    O.ItemCode = '';"
+}

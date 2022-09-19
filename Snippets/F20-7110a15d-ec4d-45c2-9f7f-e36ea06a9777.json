@@ -1,0 +1,6 @@
+{
+  "id": "7110a15d-ec4d-45c2-9f7f-e36ea06a9777",
+  "prefix": "F20",
+  "description": "truy van tren thuc",
+  "body": "SELECT * FROM [10.96.97.20].FRTCRM.DBO$CURSOR$ WITH (NOLOCK) WHERE ID = "
+}

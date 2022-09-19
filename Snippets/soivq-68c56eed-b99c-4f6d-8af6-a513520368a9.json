@@ -1,0 +1,6 @@
+{
+  "id": "68c56eed-b99c-4f6d-8af6-a513520368a9",
+  "prefix": "soivq",
+  "description": "SELECT * FROM dbo.FRT_POS_OIVQ AS Q (NOLOCK) WHERE Q.ItemCode = '' AND Q.Whscode = ''",
+  "body": "SELECT * FROM FRT_POS.dbo.FRT_POS_OIVQ AS Q WITH (NOLOCK) WHERE Q.ItemCode = '$CURSOR$' AND Q.Whscode = '' ORDER BY Q.Docdate"
+}

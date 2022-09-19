@@ -1,0 +1,6 @@
+{
+  "id": "8ded402b-1eba-469d-8daa-ebc5a843f059",
+  "prefix": "soivle",
+  "description": "Lấy OIVL theo IMEI",
+  "body": "SELECT * FROM FRT_POS.dbo.FRT_POS_OIVL AS V WITH (NOLOCK) WHERE V.EMEI = '$CURSOR$' ORDER BY V.Docdate"
+}

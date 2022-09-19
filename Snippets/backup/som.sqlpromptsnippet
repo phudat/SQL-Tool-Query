@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>som</Title>
+      <Shortcut>som</Shortcut>
+      <Description>Lấy SO theo số mPOS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.U_DocMap = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

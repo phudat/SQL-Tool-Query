@@ -1,0 +1,6 @@
+{
+  "id": "d5f3cc3f-7425-46f8-b9f5-5e454123396e",
+  "prefix": "po",
+  "description": "Select PO",
+  "body": "SELECT * FROM dbo.OPOR (NOLOCK) WHERE DocEntry IN ($CURSOR$)"
+}

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chiloi</Title>
+      <Shortcut>chiloi</Shortcut>
+      <Description>chi loi cac phieu huy va day ve BCQ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC dbo.spPaymentServices_Refund_TriNTM @billCode = '$CURSOR$', -- varchar(255)
+	                                     @type = '',     -- varchar(50) payoo,viettelpay,viettelpayTH,momo,Ftel,SmartPay
+										 @remark = N' $MACHINE$ $DATE$ $TIME$',
+										 @employeecode= ''
+										 
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "df263fbe-cdb1-4808-ba3c-6904109513e5",
+  "prefix": "checksaigiank",
+  "description": "Check sai giá nhập khác",
+  "body": "SELECT\n    W.DocEntry\n  , W.ItemCode\n  , W.U_IMei\n  , W.U_WhsTo\n  , W.Price\n  , '--------------------------'\n  , O.Docentry\n  , O.ItemCode\n  , O.EMEI\n  , O.Whscode\n  , O.OpenStockPrice\n  , O.TypeGD\nFROM\n    FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK)\n    INNER JOIN dbo.FRT_POS_OIVL_0405 O (NOLOCK)\n        ON W.DocEntry = O.Docentry\n           AND W.ItemCode = O.ItemCode\n           AND W.U_WhsTo = O.Whscode\n           AND ISNULL(W.U_IMei, '') = ISNULL(O.EMEI, '')\n\t\t   AND O.TypeGD = 6\nWHERE\n    W.DocEntry = $CURSOR$\n    AND W.Price <> O.OpenStockPrice;"
+}

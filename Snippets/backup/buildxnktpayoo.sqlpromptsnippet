@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildxnktpayoo</Title>
+      <Shortcut>buildxnktpayoo</Shortcut>
+      <Description>Build xác nhận kế toán Payoo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CashCollectionReceiptsNoVAT
+    (
+         ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , VendorCode
+       , RefCode
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , CreatedEmployeeBy
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+       , CardPaymentFee
+    )
+SELECT 
+	'PT' + P.BillCode
+	, P.BillDate
+	, P.WarehouseCode
+	, P.VendorCode
+	, P.BillCode
+	, P.CustomerPayoo
+	, P.CustomerName
+	, P.PayersMobiphone
+	, P.TotalAmount
+	, 343
+	, 298
+	, N'Hệ thống tạo'
+	, P.CreatedDateTime
+	, P.CreatedBy
+	, 1
+	, P.BillDate
+	, 'SYSTEM'
+	, 0
+FROM 
+	dbo.PaymentBillReceipts P (NOLOCK) 
+WHERE 
+	P.BillCode IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chkhddt</Title>
+      <Shortcut>chkhddt</Shortcut>
+      <Description>Kiểm tra HDDT không tải được</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT d.Phone1 AS Phone,r.DocEntry,r.DocDate,r.U_NuBill , U_EInvStatus  AS [Status], '1' AS InvType 
+FROM [10.1.13.62].POSEInv.dbo.ORDR r WITH(NOLOCK)
+ INNER JOIN FRT_POS.dbo.OCRD d WITH (NOLOCK) ON d.CardCode = r.CardCode 
+WHERE d.Phone1 = '$CURSOR$'
+ AND r.U_NuBill = ''
+ AND r.DocStatus = 'F']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

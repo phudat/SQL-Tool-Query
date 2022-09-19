@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dfw</Title>
+      <Shortcut>dfw</Shortcut>
+      <Description>DELTE FROM WHERE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+DELETE FROM $CURSOR$ WHERE DocEntry = ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

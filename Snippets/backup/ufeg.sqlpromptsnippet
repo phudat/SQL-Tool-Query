@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ufeg</Title>
+      <Shortcut>ufeg</Shortcut>
+      <Description>Update đã active nếu ghi nhận đã active trên App</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE
+	F
+SET
+	  F.Status = 6
+	, F.Email = L.Voucher
+FROM 
+	dbo.Log_Update_GalaxyGift L (NOLOCK) 
+		INNER JOIN dbo.FPT_PROMS F (NOLOCK)
+			ON LEFT(L.Voucher, 8) = F.Email
+WHERE 
+	L.Voucher = '$CURSOR$'
+	AND	F.Status = 0]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

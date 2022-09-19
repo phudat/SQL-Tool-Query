@@ -1,0 +1,6 @@
+{
+  "id": "39a761df-8b05-41c6-87f3-b8751ade7513",
+  "prefix": "RegionUser",
+  "description": "Kiểm tra Uuser theo shop / khu vực",
+  "body": "SELECT\n    W.WarehouseCode\n  , W.WarehouseCodeB1\n  , W.WarehouseName\n  , W.RegionL1ID\n  , F1.RegionHierachyName\n  , W.RegionL2ID\n  , F2.RegionHierachyName\n  , W.RegionL3ID\n  , F3.RegionHierachyName\n  , W.RegionL4ID\n  , F4.RegionHierachyName\nFROM\n    [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)\n\t\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F1 WITH (NOLOCK)\n\t\t\tON W.RegionL1ID = F1.ID\n\t\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F2 WITH (NOLOCK)\n\t\t\tON W.RegionL2ID = F2.ID\n\t\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F3 WITH (NOLOCK)\n\t\t\tON W.RegionL3ID = F3.ID\n\t\tINNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_RegionHierachies AS F4 WITH (NOLOCK)\n\t\t\tON W.RegionL4ID = F4.ID\nWHERE\n    WarehouseCodeB1 = '$CURSOR$'\n    AND W.Status = 'A'\n\nSELECT\n    J.*\nFROM\n    [10.1.13.77].FRTInsideV2.dbo.F03_EmployeeJobTitles AS J WITH (NOLOCK)\nWHERE\n    J.JobTitleCode = '00241'\t\t\t\t\t--ASM\n    AND J.Status = 'A'\t\t\t\t\t\t\t--Còn làm việc\n    AND J.RegionHierachyID IN (\n\t\t\t\t\t\t\t\t  '126'\t\t\t--RegionL3ID\n\t\t\t\t\t\t\t\t, '65'\t\t\t--RegionL4ID\n\t\t\t\t\t\t\t   )\t--Thuộc khu vực"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "5ad9db94-821c-409e-b666-faa87b2c4f61",
+  "prefix": "buildxnktmomo",
+  "description": "Build xác nhận kế toán Momo",
+  "body": "INSERT INTO dbo.CashCollectionReceiptsNoVAT\n    (\n         ReceiptCode\n       , ReceiptDate\n       , WarehouseCode\n       , VendorCode\n       , RefCode\n       , CustomerCode\n       , CustomerName\n       , MobilePhoneNumber\n       , Amount\n       , CashCollectionReceiptsNoVATType\n       , CashCollectionReceiptsNoVATStatus\n       , Remark\n       , CreatedDateTime\n       , CreatedEmployeeBy\n       , IsConfirmed\n       , ConfirmedDate\n       , ConfirmedEmployeeBy\n    )\nSELECT \n\t  'PT-MoMo-' + CONVERT(VARCHAR, C.TransactionDate, 112) + CONVERT(VARCHAR, C.Id)\n\t, C.TransactionDate\n\t, C.WarehouseCode\n\t, C.VendorCode\n\t, CONVERT(VARCHAR, C.Id)\n\t, C.MobilePhoneNumber\n\t, C.CustomerName\n\t, C.PayerPhone\n\t, C.Amount\n\t, 343\n\t, 298\n\t, N'Hệ thống tạo'\n\t, C.CreatedDateTime\n\t, C.CreatedBy\n\t, 1\n\t, C.TransactionDate\n\t, 'SYSTEM'\nFROM \n\tdbo.TransactionMoMo C (NOLOCK) \nWHERE \n\tC.Id IN (\n$CURSOR$\n)"
+}

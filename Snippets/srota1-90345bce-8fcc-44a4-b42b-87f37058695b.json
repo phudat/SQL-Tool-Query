@@ -1,0 +1,6 @@
+{
+  "id": "90345bce-8fcc-44a4-b42b-87f37058695b",
+  "prefix": "srota1",
+  "description": "SELECT YCDC Detail",
+  "body": "SELECT U_WhsEx, U_WhsRec, U_IMEI, * FROM FRT_POS.dbo.[@FPTRQROTA1] AS F WITH (NOLOCK) WHERE F.DocEntry = "
+}

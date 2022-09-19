@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildxnktvinasure</Title>
+      <Shortcut>buildxnktvinasure</Shortcut>
+      <Description>Build xác nhận kế toán Vinasure</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CashCollectionReceiptsNoVAT
+    (
+         ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , VendorCode
+       , RefCode
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , CreatedEmployeeBy
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+       , CardPaymentFee
+    )
+SELECT 
+	'BH-' + CONVERT(VARCHAR, GETDATE(), 112) + CONVERT(VARCHAR, P.ID)
+	, P.CreatedDateTime
+	, P.WarehouseCode
+	, P.VendorCode
+	, CONVERT(VARCHAR, P.ID)
+	, ''
+	, P.buyer_name
+	, P.buyer_mobile
+	, P.Amount
+	, 343
+	, 298
+	, N'Hệ thống tạo'
+	, P.CreatedDateTime
+	, P.CreatedBy
+	, 1
+	, P.CreatedDateTime
+	, 'SYSTEM'
+	, 0
+FROM 
+	dbo.VinasureHeader P (NOLOCK) 
+WHERE 
+	P.ID IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

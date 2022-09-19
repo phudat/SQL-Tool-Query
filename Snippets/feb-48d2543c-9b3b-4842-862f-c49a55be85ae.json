@@ -1,0 +1,6 @@
+{
+  "id": "48d2543c-9b3b-4842-862f-c49a55be85ae",
+  "prefix": "feb",
+  "description": "Tìm voucher không giá ở bảng Backup",
+  "body": "SELECT * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = '$CURSOR$'"
+}

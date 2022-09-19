@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Warehouse</Title>
+      <Shortcut>Warehouse</Shortcut>
+      <Description>get infor warehouse from employee code</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT 
+	ISNULL(W.WarehouseCode,W.WarehouseCodeB1)
+FROM 
+	dbo.CRM_Employees AS E WITH (NOLOCK) 
+	INNER JOIN dbo.Warehouse AS W 
+	ON E.WarehouseCode=w.WarehouseCode 
+WHERE 
+	E.EmployeeCode = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

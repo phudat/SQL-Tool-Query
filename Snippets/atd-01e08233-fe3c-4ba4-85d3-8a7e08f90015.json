@@ -1,0 +1,12 @@
+{
+  "id": "01e08233-fe3c-4ba4-85d3-8a7e08f90015",
+  "prefix": "atd",
+  "description": "Drop column",
+  "body": "ALTER TABLE $table_name$ DROP COLUMN ",
+  "placeholders": [
+    {
+      "name": "table_name",
+      "defaultValue": "[schema].[table_name]"
+    }
+  ]
+}

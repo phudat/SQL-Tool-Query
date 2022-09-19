@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>lechtienhoctien</Title>
+      <Shortcut>lechtienhoctien</Shortcut>
+      <Description>Lệch tiền hộc tiền</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    *
+INTO
+	#tmpInno
+FROM
+    dbo.push_TheCao_CRM_innovation (NOLOCK)
+WHERE
+    CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())
+    AND ShopCode = '$CURSOR$'
+    AND U_status = 1;
+
+SELECT
+      T.Mpos_DocEntry
+	, T.Eplcode
+	, T.Saleoder_ID
+	, T.Bill_Code
+	, T.Type
+	, T.TongTien
+	, ISNULL(P.Mocash, 0) AS Mocash
+	, ISNULL(P.Mocard, 0) AS Mocard
+	, P.ID
+INTO
+	#tmpInnoThuTien
+FROM
+    #tmpInno T
+		LEFT JOIN dbo.Push_ThuTien_TheCao_ThuHo_innovation P (NOLOCK)
+			ON T.Mpos_DocEntry = P.Mpos
+
+SELECT
+    T.Mpos_DocEntry
+	, T.Type
+	, T.TongTien
+	, T.Saleoder_ID
+	, T.Bill_Code
+	, SUM(T.Mocash) + SUM(T.Mocard) AS TongThuTien
+FROM
+    #tmpInnoThuTien T
+GROUP BY 
+	  T.Mpos_DocEntry
+	, T.Type
+	, T.TongTien
+	, T.Saleoder_ID
+	, T.Bill_Code
+HAVING
+	SUM(T.Mocash) + SUM(T.Mocard) <> TongTien
+
+/*
+SELECT
+	  Eplcode
+    , SUM(TongTien) AS TongTien
+INTO
+	#tmpInnoEpl
+FROM
+    dbo.push_TheCao_CRM_innovation (NOLOCK)
+WHERE
+    CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())
+    AND ShopCode = '30418'
+    AND U_status = 1
+GROUP BY
+	Eplcode
+*/
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

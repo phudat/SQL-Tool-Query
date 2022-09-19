@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>searchstore</Title>
+      <Shortcut>searchstore</Shortcut>
+      <Description />
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>tenstore</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT DISTINCT
+    'EXEC ' + o.name
+FROM
+    syscomments c
+    JOIN sysobjects o
+        ON c.id = o.id
+    JOIN INFORMATION_SCHEMA.TABLES t
+        ON c.text LIKE N'%$tenstore$%';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

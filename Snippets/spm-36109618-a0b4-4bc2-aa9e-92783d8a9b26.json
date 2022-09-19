@@ -1,0 +1,6 @@
+{
+  "id": "36109618-a0b4-4bc2-aa9e-92783d8a9b26",
+  "prefix": "spm",
+  "description": "Lấy thu tiền phiếu Momo",
+  "body": "SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.MoMoId IN ($CURSOR$)"
+}

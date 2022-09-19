@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pushct</Title>
+      <Shortcut>pushct</Shortcut>
+      <Description>Insert vàp push chi tiền</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @DocEntry INT = $CURSOR$ 
+UPDATE FRT_POS.dbo.ORDR SET DocStatus= 'C' WHERE DocEntry = @DocEntry AND DocStatus ='D' AND DocType = '05'
+
+IF @@ROWCOUNT > 0
+	BEGIN
+		INSERT INTO dbo.POS_Cancel_Deposit
+				(
+				 DocEntry
+			   , PushStatus
+			   , APIErr
+			   , U_CompCod
+			   , DocEntryB1
+			   , CreateDate
+			   , SOPOS_DocEntry
+				)
+		SELECT
+			F.DocEntry
+		  , 1
+		  , ''
+		  , O.U_ComTo
+		  , NULL
+		  , GETDATE()
+		  , O.DocEntry
+		FROM
+			dbo.ORDR O (NOLOCK)
+			INNER JOIN dbo.[@FPTURCT] F (NOLOCK)
+				ON O.DocEntry = F.U_DocSO
+		WHERE
+			O.DocEntry = @DocEntry
+			AND O.DocStatus = 'C'
+			AND O.DocType = '05'
+	END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

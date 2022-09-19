@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>taokh</Title>
+      <Shortcut>taokh</Shortcut>
+      <Description />
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT  INTO OCRD
+        (
+         CardName
+       , CardType
+       , GroupCode
+       , CmpPrivate
+       , Address
+       , ZipCode
+       , MailZipCod
+       , CntctPrsn
+       , GroupNum
+       , LicTradNum
+       , Currency
+       , DebPayAcct
+       , DpmClear
+       , LangCode
+       , Phone1
+       , U_ID
+       , U_PlaceID
+       , U_Passport
+       , U_DateID
+       , U_Citizen
+       , CreateDate
+       , E_Mail
+				
+        )
+SELECT
+    N'Nguyễn Văn Lâm'
+  , 'C'
+  , 100
+  , 'I'
+  , LEFT(N'Vĩnh Hưng, Vĩnh Lộc, An Phú, An Giang', 100)
+  , LEFT('084', 20)
+  , LEFT('084', 20)
+  , '01657312654'
+  , 1
+  , '01657312654'
+  , 'VND'
+  , '131100100'
+  , '131200100'
+  , 8
+  , '01657312654'
+  , '352493571'
+  , N'An Giang'
+  , ''
+  , '2015-11-23 00:00:00.000'
+  , 'VN'
+  , GETDATE()
+  , NULL;			]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

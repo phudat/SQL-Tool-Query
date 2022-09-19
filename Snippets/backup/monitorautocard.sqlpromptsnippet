@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorautocard</Title>
+      <Shortcut>monitorautocard</Shortcut>
+      <Description>Monitor double Autocard</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT SODocEntry, Amount, POSBankID, CardNo INTO #tmpDoubleAutoCard FROM dbo.[@FPTORCT_POSBank_Log] (NOLOCK) WHERE CONVERT(DATE, ChargedDateTime) = CONVERT(DATE, GETDATE())
+SELECT T.*, O.U_TMonBi INTO #tmpDoubleAutoCard_SO FROM #tmpDoubleAutoCard T INNER JOIN dbo.ORDR O (NOLOCK) ON T.SODocEntry = O.DocEntry
+
+SELECT
+    T.*
+  , O.U_MoCCad
+  , O.U_NumCre
+  , O.IsAutoCard
+  , O.U_Acbank
+INTO
+    #tmpDoubleAutoCard_ThuTien
+FROM
+    #tmpDoubleAutoCard_SO T
+    INNER JOIN dbo.[@FPTORCT] O (NOLOCK)
+        ON T.SODocEntry = O.U_DocSO
+			AND CONVERT(VARCHAR, T.POSBankID) = O.U_Acbank
+			AND RIGHT(T.CardNo, 4) = RIGHT(O.U_NumCre, 4)
+			AND T.Amount = O.U_MoCCad
+			AND O.U_MoCCad > 0
+ORDER BY 
+	T.SODocEntry
+
+SELECT * FROM #tmpDoubleAutoCard_ThuTien
+SELECT SODocEntry, COUNT(*) AS CountMore INTO #tmpDoubleAutoCard_DocEntryGroup FROM #tmpDoubleAutoCard_ThuTien GROUP BY SODocEntry HAVING COUNT(*) > 1
+SELECT * FROM #tmpDoubleAutoCard_DocEntryGroup
+DROP TABLE #tmpDoubleAutoCard, #tmpDoubleAutoCard_SO, #tmpDoubleAutoCard_ThuTien, #tmpDoubleAutoCard_DocEntryGroup]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

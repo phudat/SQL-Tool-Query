@@ -1,0 +1,6 @@
+{
+  "id": "bf34e9e4-4e2e-4fb6-971a-9fc5ea40f400",
+  "prefix": "sthue",
+  "description": "SELECT * FROM frt_ho.dbo.OVTG AS O (NOLOCK) ",
+  "body": "SELECT * FROM FRT_MDM.dbo.OVTG AS O (NOLOCK)"
+}

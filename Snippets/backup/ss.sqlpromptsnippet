@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ss</Title>
+      <Shortcut>ss</Shortcut>
+      <Description>CRM Card</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT S.POSSODocNum, S.POSIsPushed, S.TotalReferAmount, S.TotalSellingAmount, S.SalesOrdersStatus, S.VendorCode, * FROM [10.1.13.76].FRTCRM.dbo.SalesOrders AS S WITH (NOLOCK) WHERE S.SalesOrderCode IN ('$CURSOR$')]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

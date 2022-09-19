@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tnecom</Title>
+      <Shortcut>tnecom</Shortcut>
+      <Description>Lấy voucher từ tin nhắn Ecom</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.13.254.249].FPTShopVer2.dbo.LogSMS with (NOLOCK) WHERE Phone='$CURSOR$'
+SELECT * FROM [10.13.254.249].FPTShopVer2.dbo.GetVoucherFromPos_Using with (NOLOCK) WHERE Phone=''
+SELECT * FROM [10.13.254.249].FPTShopVer2.dbo.MiniGameCardPhone with (NOLOCK) WHERE Phone=''
+SELECT * FROM [10.13.254.249].FPTShopVer2.dbo.MiniGameCardPhone with (NOLOCK) WHERE Note='' --Số báo danh]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

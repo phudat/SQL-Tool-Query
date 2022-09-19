@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chkvo</Title>
+      <Shortcut>chkvo</Shortcut>
+      <Description>CHECK VOUCHER REMAIN</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT CONVERT(NVARCHAR, DocEntry) +',', *
+FROM FRT_POS.dbo.[@FPTVOCH] WITH (NOLOCK)
+WHERE U_ItmCod = '$CURSOR$'
+AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, U_StartD) AND CONVERT(DATE, U_EndD )
+AND U_Status = 'N' 
+AND U_ExBill = 'N' 
+AND U_IssBill = 'N'
+ORDER BY LineId DESC]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

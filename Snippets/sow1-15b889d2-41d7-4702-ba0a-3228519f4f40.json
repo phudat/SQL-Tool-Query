@@ -1,0 +1,6 @@
+{
+  "id": "15b889d2-41d7-4702-ba0a-3228519f4f40",
+  "prefix": "sow1",
+  "description": "SELECT OWTQ Detail",
+  "body": "SELECT W.U_WhsCod, W.U_WhsTo, W.U_IMei, W.Price, * FROM FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK) WHERE W.DocEntry = $CURSOR$"
+}

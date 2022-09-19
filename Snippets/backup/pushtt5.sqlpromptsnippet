@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pushtt5</Title>
+      <Shortcut>pushtt5</Shortcut>
+      <Description>Insert vào push loại chứng từ = 5</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.PUSH_RETURN_GOODS_ORCT
+    (
+         DocEntry
+       , DocEntrySO
+       , DocReturn
+       , Type
+       , PushStatus
+       , CreateBy
+       , CreateDate
+       , ComCode
+       , LoaiCT
+    )
+SELECT
+    F.DocEntry
+  , F.U_DocAR
+  , ISNULL(R.DocEntry, P.DocEntry)
+  , CASE WHEN R.DocEntry IS NOT NULL THEN 1 ELSE 2 END
+  , 1
+  , ISNULL(R.CreateBy, P.CreateBy)
+  , GETDATE()
+  , S.U_ComCode
+  ,F.U_loaiCT
+FROM
+    dbo.[@FPTORCT] F (NOLOCK)
+    LEFT JOIN dbo.ORDN R (NOLOCK)
+        ON F.U_DocAR = R.U_NumSO
+    LEFT JOIN dbo.OPDN P (NOLOCK)
+        ON F.U_DocAR = P.U_DocSOReturn
+	LEFT JOIN FRT_MDM.dbo.[@FPTSHOP] S
+		ON F.U_ShpCod = S.Code COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE
+    F.DocEntry IN ($CURSOR$) -- Số DocEntry ORCT
+    AND F.U_loaiCT = 5]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

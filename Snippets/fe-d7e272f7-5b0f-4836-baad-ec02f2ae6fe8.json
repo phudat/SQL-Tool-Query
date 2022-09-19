@@ -1,0 +1,6 @@
+{
+  "id": "d7e272f7-5b0f-4836-baad-ec02f2ae6fe8",
+  "prefix": "fe",
+  "description": "Tìm Voucher không giá",
+  "body": "SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = '$CURSOR$'"
+}

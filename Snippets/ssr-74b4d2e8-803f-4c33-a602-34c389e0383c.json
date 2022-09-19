@@ -1,0 +1,6 @@
+{
+  "id": "74b4d2e8-803f-4c33-a602-34c389e0383c",
+  "prefix": "ssr",
+  "description": "SELECT * FROM RDR1",
+  "body": "SELECT * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$"
+}

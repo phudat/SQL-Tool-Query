@@ -1,0 +1,6 @@
+{
+  "id": "d190a056-483b-4c49-90cf-d7010c71372e",
+  "prefix": "fixvtb",
+  "description": "Fix lỗi VTB",
+  "body": "DECLARE @tblThuTienVTBLoi TABLE (DocEntry INT)\nINSERT INTO  @tblThuTienVTBLoi (DocEntry)\nSELECT\n\tF.SODocEntry\nFROM\n    dbo.[@FPTORCT_POSBank_Log] F (NOLOCK)\n    INNER JOIN dbo.[@FPTORCT] O (NOLOCK)\n        ON F.SODocEntry = O.U_DocSO\nWHERE\n    CONVERT(DATE, F.ChargedDateTime) = CONVERT(DATE, GETDATE())\n\tAND O.U_MoCCad > 0\n\tAND F.SODocEntry > 0\n\tAND O.U_CTLKCode = 'VTB'\n\tAND O.U_Acbank = 'VTB'\nORDER BY \n\tF.SODocEntry\n\nSELECT\n    U_DocSO\n  , U_MoCash\n  , U_MoCCad\n  , U_MoVoCh\n  , U_MoTran\n  , U_Acbank\n  , U_CTLKCode\n  , IsAutoCard\nFROM\n    dbo.[@FPTORCT] (NOLOCK)\nWHERE\n    U_DocSO IN (SELECT DocEntry FROM @tblThuTienVTBLoi)\n\n--DELETE FROM dbo.[@FPTORCT] WHERE U_DocSO IN (SELECT DocEntry FROM @tblThuTienVTBLoi) AND U_Acbank = 'VTB'"
+}

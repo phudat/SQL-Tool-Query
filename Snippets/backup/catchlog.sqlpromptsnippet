@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>catchlog</Title>
+      <Shortcut>catchlog</Shortcut>
+      <Description>Insert Catch Log</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>sp</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.Log
+	(
+		  CreateDateTime
+		, CreateBy
+		, Content
+	)
+	VALUES
+		(
+			  GETDATE()
+		    , N'$sp$'
+		    , N'Lỗi [$sp$] - ' + ERROR_MESSAGE() + ' - Line: ' + CONVERT(VARCHAR, ERROR_LINE())
+		)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

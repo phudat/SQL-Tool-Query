@@ -1,0 +1,6 @@
+{
+  "id": "c3c513e7-2702-4070-b2d6-aa1d64dc0b27",
+  "prefix": "buildxnktftel",
+  "description": "Build xác nhận kế toán thu hộ Ftel",
+  "body": "INSERT INTO dbo.CashCollectionReceiptsNoVAT\n    (\n         ReceiptCode\n       , ReceiptDate\n       , WarehouseCode\n       , VendorCode\n       , RefCode\n       , CustomerCode\n       , CustomerName\n       , MobilePhoneNumber\n       , Amount\n       , CashCollectionReceiptsNoVATType\n       , CashCollectionReceiptsNoVATStatus\n       , Remark\n       , CreatedDateTime\n       , CreatedEmployeeBy\n       , IsConfirmed\n       , ConfirmedDate\n       , ConfirmedEmployeeBy\n       , CardPaymentFee\n    )\nSELECT \n\t  'PT-' + C.ReceiptCode\n\t, C.ReceiptDate\n\t, C.WarehouseCode\n\t, '0002'\t\n\t, C.ReceiptCode\n\t, C.AgreementNo\n\t, C.CustomerName\n\t, C.MobilePhone\n\t, C.TotalAmount\n\t, 343\n\t, 298\n\t, N'Hệ thống tạo'\n\t, C.CreatedDateTime\n\t, C.CreatedBy\n\t, 1\n\t, C.ReceiptDate\n\t, 'SYSTEM'\n\t, 0\nFROM \n\tdbo.CashCollectionReceipts C (NOLOCK) \nWHERE \n\tC.ReceiptCode IN (\n$CURSOR$\n)"
+}

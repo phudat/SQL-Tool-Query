@@ -1,0 +1,6 @@
+{
+  "id": "e7a47bb2-9cf7-42f8-abb3-d8da4b71562c",
+  "prefix": "capnhatnganhang",
+  "description": "Cập nhật lại ngân hàng bị sai trong ORCT",
+  "body": "UPDATE\n\tF\nSET\n\tF.U_Acbank = CONVERT(VARCHAR, O.CrTypeCode)\n\t, F.U_CTLKCode=O.CrTypeName\nFROM\n    dbo.[@FPTORCT] F (NOLOCK)\n\t\tinner JOIN FRT_MDM.dbo.OCRP O (NOLOCK)\n\t\t\tON F.U_Acbank = O.CrTypeName\nWHERE\n    CONVERT(DATE, U_AcDate) = CONVERT(DATE, GETDATE())\n    AND LEN(U_Acbank) > 1"
+}

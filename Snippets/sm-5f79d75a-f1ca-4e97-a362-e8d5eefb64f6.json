@@ -1,0 +1,6 @@
+{
+  "id": "5f79d75a-f1ca-4e97-a362-e8d5eefb64f6",
+  "prefix": "sm",
+  "description": "Lấy thông tin phiếu thu hộ Momo",
+  "body": "SELECT Id, TransactionMoMoStatus, Amount, WarehouseCode, POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.TransactionMoMo WITH (NOLOCK) WHERE Id IN ($CURSOR$)"
+}

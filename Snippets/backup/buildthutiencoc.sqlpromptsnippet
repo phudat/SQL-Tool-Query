@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildthutiencoc</Title>
+      <Shortcut>buildthutiencoc</Shortcut>
+      <Description>Kéo lại dòng tiền cọc trong ORCT từ ORCT_ODPI</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.[@FPTORCT]
+    (
+         DocNum
+       , Period
+       , Instance
+       , Series
+       , Handwrtten
+       , Canceled
+       , Object
+       , LogInst
+       , UserSign
+       , Transfered
+       , Status
+       , CreateDate
+       , CreateTime
+       , UpdateDate
+       , UpdateTime
+       , DataSource
+       , U_ShpCod
+       , U_CrdCod
+       , U_EplCod
+       , U_CrDate
+       , U_AcDate
+       , U_TypeOb
+       , U_PerPay
+       , U_Desc
+       , U_TMoney
+       , U_AcCash
+       , U_BankTs
+       , U_Acbank
+       , U_DateTs
+       , U_AcTran
+       , U_RefNTr
+       , U_MoTran
+       , U_AcVoch
+       , U_DocSO
+       , U_MoCash
+       , U_MoVoCh
+       , U_MoCCad
+       , U_DocTotal
+       , U_TMonBi
+       , U_MapB1
+       , U_Status
+       , U_CName
+       , U_IPAdd
+       , U_CrDoc
+       , U_DoTotal
+       , U_APIErr
+       , U_DocB1
+       , U_DocDown
+       , U_DocAR
+       , U_CTLKCode
+       , U_CTLKName
+       , U_AccNum
+       , U_AccName
+       , U_NumVch
+       , U_NaVoch
+       , U_EDate
+       , CardType
+       , U_TypCre
+       , U_Acount
+       , U_NumCre
+       , U_DocEntryORCT
+       , U_DocSO_New
+       , U_loaiCT
+       , IS_VC_CRM
+       , U_CRMCode
+       , U_DocReturn
+       , U_DocGRPO
+       , IsAutoCard
+    )
+SELECT 
+	DocNum
+       , Period
+       , Instance
+       , Series
+       , Handwrtten
+       , Canceled
+       , Object
+       , LogInst
+       , UserSign
+       , Transfered
+       , Status
+       , CreateDate
+       , CreateTime
+       , UpdateDate
+       , UpdateTime
+       , DataSource
+       , U_ShpCod
+       , U_CrdCod
+       , U_EplCod
+       , U_CrDate
+       , U_AcDate
+       , U_TypeOb
+       , U_PerPay
+       , U_Desc
+       , U_TMoney
+       , U_AcCash
+       , U_BankTs
+       , U_Acbank
+       , U_DateTs
+       , U_AcTran
+       , U_RefNTr
+       , U_MoTran
+       , U_AcVoch
+       , U_DocSO
+       , U_MoCash
+       , U_MoVoCh
+       , U_MoCCad
+       , U_DocTotal
+       , U_TMonBi
+       , U_MapB1
+       , U_Status
+       , U_CName
+       , U_IPAdd
+       , U_CrDoc
+       , U_DoTotal
+       , U_APIErr
+       , U_DocB1
+       , U_DocDown
+       , U_DocAR
+       , U_CTLKCode
+       , U_CTLKName
+       , U_AccNum
+       , U_AccName
+       , U_NumVch
+       , U_NaVoch
+       , U_EDate
+       , CardType
+       , U_TypCre
+       , U_Acount
+       , U_NumCre
+       , U_DocEntryORCT
+       , U_DocSO_New
+       , U_loaiCT
+       , IS_VC_CRM
+       , U_CRMCode
+       , U_DocReturn
+       , U_DocGRPO
+       , IsAutoCard
+FROM 
+	dbo.[@FPTORCT_ODPI] (NOLOCK) 
+WHERE 
+	U_DocSO = $CURSOR$
+	AND U_DocDown > 0
+	AND ISNULL(U_MoCash, 0) + ISNULL(U_MoCCad, 0 ) + ISNULL(U_MoTran, 0) > 0]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

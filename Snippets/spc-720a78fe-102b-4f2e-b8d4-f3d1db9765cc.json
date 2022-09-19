@@ -1,0 +1,6 @@
+{
+  "id": "720a78fe-102b-4f2e-b8d4-f3d1db9765cc",
+  "prefix": "spc",
+  "description": "SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.FtelBillID IN ()",
+  "body": "SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.FtelBillID IN ($CURSOR$)"
+}

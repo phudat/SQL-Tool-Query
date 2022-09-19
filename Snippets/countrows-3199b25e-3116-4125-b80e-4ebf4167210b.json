@@ -1,0 +1,6 @@
+{
+  "id": "3199b25e-3116-4125-b80e-4ebf4167210b",
+  "prefix": "countrows",
+  "description": "Count Rows All Tables",
+  "body": "SELECT\n      QUOTENAME(SCHEMA_NAME(sOBJ.schema_id)) + '.' + QUOTENAME(sOBJ.name) AS [TableName]\n      , SUM(sPTN.Rows) AS [RowCount]\nFROM \n      sys.objects AS sOBJ\n      INNER JOIN sys.partitions AS sPTN\n            ON sOBJ.object_id = sPTN.object_id\nWHERE\n      sOBJ.type = 'U'\n      AND sOBJ.is_ms_shipped = 0x0\n      AND index_id < 2 -- 0:Heap, 1:Clustered\n\t  AND sOBJ.name LIKE '%$CURSOR$%'\nGROUP BY \n      sOBJ.schema_id\n      , sOBJ.name\nORDER BY [TableName]"
+}

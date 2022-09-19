@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>nhabooksimthuc</Title>
+      <Shortcut>nhabooksimthuc</Shortcut>
+      <Description> Nha book va loai sim tren thuc</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC dbo.FRT_SP_SIM_NHABOOK @SDT = N'',   -- nvarchar(20)
+                       @MaShop = N'' -- nvarchar(20)
+--loai sim check các thông tin BookDate=null, ShopBook=null, isActive=1 và status=I => có th? update
+UPDATE [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline  SET IsActived=0,Status='E',Remark='Ho tro anh Gia 20201028' WHERE  PhoneAdjusted in (
+''
+)
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

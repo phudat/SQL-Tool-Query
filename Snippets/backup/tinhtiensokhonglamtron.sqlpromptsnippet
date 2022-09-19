@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tinhtiensokhonglamtron</Title>
+      <Shortcut>tinhtiensokhonglamtron</Shortcut>
+      <Description>Tính lại tiền SO, không làm tròn</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE
+    FRT_POS.dbo.RDR1
+SET
+      U_TaxAmo = (U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (U_TaxRate / 100)
+	, U_TaxAmL = (U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0))
+	, U_TMoney = (U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (1 + U_TaxRate / 100)
+WHERE
+    DocEntry = $CURSOR$
+	AND LineNum =]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

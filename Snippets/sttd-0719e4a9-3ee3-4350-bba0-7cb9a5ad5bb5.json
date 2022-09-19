@@ -1,0 +1,6 @@
+{
+  "id": "0719e4a9-3ee3-4350-bba0-7cb9a5ad5bb5",
+  "prefix": "sttd",
+  "description": "Lấy thu tiền theo số Chứng từ",
+  "body": "SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, F.U_DocDown, * FROM FRT_POS.dbo.[@FPTORCT] AS F WITH (NOLOCK) WHERE F.DocEntry = $CURSOR$"
+}

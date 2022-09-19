@@ -1,0 +1,6 @@
+{
+  "id": "92caf2df-cebb-4b49-813a-afe9647e3ea3",
+  "prefix": "sp",
+  "description": "SELECT * FROM [10.1.13.76].FRTCRM.dbo.PaymentBillReceipts AS P WITH (NOLOCK) WHERE P.BillCode IN ('')",
+  "body": "SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.PaymentBillReceipts AS P WITH (NOLOCK) WHERE P.BillCode IN ('$CURSOR$')"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "35957e14-7205-4f34-a27f-df36427b7731",
+  "prefix": "fshop",
+  "description": "SELECT * FROM frt_ho.dbo.[@FPTSHOP] AS F (NOLOCK) WHERE F.Code = ''",
+  "body": "SELECT F.U_ComCode, * FROM FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK) WHERE F.Code = '$CURSOR$'"
+}

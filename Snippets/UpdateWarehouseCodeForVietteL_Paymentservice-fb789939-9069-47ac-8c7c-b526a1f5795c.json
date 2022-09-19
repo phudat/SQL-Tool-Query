@@ -1,0 +1,6 @@
+{
+  "id": "fb789939-9069-47ac-8c7c-b526a1f5795c",
+  "prefix": "UpdateWarehouseCodeForVietteL_Paymentservice",
+  "description": "cap nhat phieu chi viettel bi mat ma shop",
+  "body": "DECLARE @warehousecodereceipt VARCHAR(50),@warehousecode VARCHAR(50), @id INT = $CURSOR$\nSELECT BillCode,PaymentBillStatus,WarehouseCode INTO #temp FROM dbo.PaymentBillReceipts_Viettel WITH (NOLOCK) WHERE id = @id\nSET @warehousecode = (SELECT WarehouseCode FROM #temp )\nSET @warehousecodereceipt = (SELECT WarehouseCode FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode IN (SELECT BillCode FROM #temp))\nIF ISNULL(@warehousecodereceipt,'')=''\nBEGIN\nPRINT 1\n\t--SELECT POSPayReceipt,POSIsPushed,WarehouseCode,* FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode IN (SELECT BillCode FROM #temp)\n    UPDATE dbo.PaymentServices SET WarehouseCode=@warehousecode WHERE ReceiptCode IN (SELECT BillCode FROM #temp)\nEND\nSELECT POSPayReceipt,POSIsPushed,WarehouseCode,* FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode IN (SELECT BillCode FROM #temp)\nDROP TABLE #temp\n\n"
+}

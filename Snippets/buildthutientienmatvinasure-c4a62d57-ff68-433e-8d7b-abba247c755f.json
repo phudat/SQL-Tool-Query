@@ -1,0 +1,6 @@
+{
+  "id": "c4a62d57-ff68-433e-8d7b-abba247c755f",
+  "prefix": "buildthutientienmatvinasure",
+  "description": "Build thu tiền, tiền mặt Vinasure",
+  "body": "INSERT INTO dbo.POSPaymentMethod\n    (\n         CreatedDate\n       , CreatedBy\n       , Remark\n       , CashAmount\n       , PaymentType\n       , VinasureID\n       , TypePaymentVendor\n    )\nSELECT \n\t  V.CreatedDateTime\n\t, V.CreatedBy\n\t, N'Thanh toán bằng tiền mặt'\n\t, ISNULL(V.Amount, 0)\n\t, 'CASH'\n\t, V.ID\n\t, 1\nFROM \n\tdbo.VinasureHeader V (NOLOCK) \nWHERE \n\tV.Id IN (\n$CURSOR$\n)"
+}

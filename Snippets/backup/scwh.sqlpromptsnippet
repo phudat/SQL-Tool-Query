@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>scwh</Title>
+      <Shortcut>scwh</Shortcut>
+      <Description>Select Ftel từ bảng His</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT C.TotalAmount, C.CashCollectionReceiptStatus, C.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts_History AS C WITH (NOLOCK) WHERE C.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, C.ReceiptDate) = '' AND C.CashCollectionReceiptStatus = 37]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

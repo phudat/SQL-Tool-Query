@@ -1,0 +1,6 @@
+{
+  "id": "e186c976-1f41-4332-85a2-3b1b454cd11f",
+  "prefix": "chkhddt",
+  "description": "Kiểm tra HDDT không tải được",
+  "body": "SELECT d.Phone1 AS Phone,r.DocEntry,r.DocDate,r.U_NuBill , U_EInvStatus  AS [Status], '1' AS InvType \nFROM [10.1.13.62].POSEInv.dbo.ORDR r WITH(NOLOCK)\n INNER JOIN FRT_POS.dbo.OCRD d WITH (NOLOCK) ON d.CardCode = r.CardCode \nWHERE d.Phone1 = '$CURSOR$'\n AND r.U_NuBill = ''\n AND r.DocStatus = 'F'"
+}

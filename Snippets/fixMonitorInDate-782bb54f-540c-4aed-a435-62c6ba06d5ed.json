@@ -1,0 +1,6 @@
+{
+  "id": "782bb54f-540c-4aed-a435-62c6ba06d5ed",
+  "prefix": "fixMonitorInDate",
+  "description": "pull to pos and write what you do to colum descrip in table monitor",
+  "body": "EXEC dbo.Fix_MonitorInDate_sp_POS_CRMv2_AllInOne \n\t@type = 1,                              -- tinyint 1 thu 2 chi 3 the\n\t@IDList = '',                           -- varchar(max)\n\t@VendorCode = '',                       -- varchar(40)\n\t@ShopCode = '',                         -- varchar(40)\n\t@ConfirmedDate = '2020-10-16 03:45:54', -- datetime\n\t@POSDate = '2020-10-16 03:45:54',       -- datetime\n\t@Description = N'',                     -- nvarchar(max)\n\t@fixedBy = '29099'                      -- varchar(20)\n"
+}

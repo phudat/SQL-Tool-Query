@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkphanquyengiamgia</Title>
+      <Shortcut>checkphanquyengiamgia</Shortcut>
+      <Description>Check phân quyền giảm giá</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT DISTINCT
+      '---- Roles ---'
+    , R.JobtitleCode
+	, R.FromAmount
+	, R.ToAmount
+	, R.U_Nganh
+	, R.U_Loai
+	, R.U_Nhan
+	, '---- OITM ---'
+	, O.ItemCode
+	, O.ItemName
+	, O.U_NG_CODE
+	, O.ItmsGrpCod
+	, O.FirmCode
+	, '---- F03_Employees ---'
+	, E.EmployeeCode
+	, E.EmployeeName
+	, E.JobTitle
+	, E.Status
+	, '---- F03_JobTitles ---'
+	, J.JobTitleName
+	, '---- F02_UserProductHierarchy ---'
+	, U.HierarchyCodeL4
+	, U.HierarchyCodeL5
+	, U.HierarchyCodeL6
+	, U.Status
+FROM
+    dbo.Roles R (NOLOCK)
+		INNER JOIN FRT_MDM.dbo.OITM O (NOLOCK)
+			ON (R.U_Nganh = O.U_NG_CODE OR R.U_Nganh IN('', 'All'))
+				AND (R.U_Loai = O.ItmsGrpCod OR R.U_Loai IN ('', '0'))
+				AND (R.U_Nhan = O.FirmCode OR R.U_Nhan IN ('', '0'))
+		LEFT JOIN [10.1.13.77].FRTInsideV2.dbo.F03_Employees E WITH (NOLOCK)
+			ON R.JobtitleCode = E.JobTitle
+		LEFT JOIN [10.1.13.77].FRTInsideV2.dbo.F03_JobTitles J WITH (NOLOCK)
+			ON J.JobTitleCode = E.JobTitle
+		LEFT JOIN [10.1.13.77].FRTInsideV2.dbo.F02_UserProductHierarchy U WITH (NOLOCK)
+			ON (R.U_Nganh = U.HierarchyCodeL4 OR U.HierarchyCodeL4 = '')
+				AND (R.U_Loai = U.HierarchyCodeL5 OR U.HierarchyCodeL5 = '')
+				AND (R.U_Nhan = U.HierarchyCodeL6 OR U.HierarchyCodeL6 = '')
+				AND E.EmployeeCode = U.EmployeeCode
+
+WHERE
+    R.U_Group = 6
+    AND R.Status = 1
+	AND R.DocType = 1
+	AND O.ItemCode = '$CURSOR$'
+	--AND E.Status = 'A'
+	--AND U.Status = 'A']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "6308a3ce-6350-4e51-8e09-222c06c1961b",
+  "prefix": "thembhpk",
+  "description": "Thêm MSP bảo hành phụ kiện",
+  "body": "INSERT INTO dbo.[@FPT_ItemConfig]\n        (\n         ItemCode\n       , Nganh\n       , Loai\n       , Nhan\n       , Type\n       , CheckImei\n       , Status\n       , ItemCodeBH\n        )\nSELECT\n      O.ItemCode\n\t, O.U_NG_CODE\n\t, O.ItmsGrpCod\n\t, O.FirmCode\n\t, 3\n\t, 0\n\t, 'S'\n\t, O.ItemCode\nFROM\n    FRT_MDM.dbo.OITM AS O WITH (NOLOCK)\nWHERE\n    O.ItemCode = '$CURSOR$';"
+}

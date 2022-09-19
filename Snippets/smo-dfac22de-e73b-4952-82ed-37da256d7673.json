@@ -1,0 +1,6 @@
+{
+  "id": "dfac22de-e73b-4952-82ed-37da256d7673",
+  "prefix": "smo",
+  "description": "Select Header MPOS",
+  "body": "SELECT VNMobile, * FROM [10.1.13.86].MPOS.dbo.FRT_ORDR WITH (NOLOCK) WHERE DocEntry = $CURSOR$  "
+}

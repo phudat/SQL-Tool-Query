@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>themmdmnh</Title>
+      <Shortcut>themmdmnh</Shortcut>
+      <Description>Thêm định gnhĩa MSP là mdmh</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT  INTO dbo.[@FPT_ItemConfig]
+    (
+         ItemCode
+       , ItemName
+       , Nganh
+       , Loai
+       , Nhan
+       , Type
+       , CreateBy
+       , CreateDate
+       , NhomHang
+       , DongHang
+    )
+SELECT
+	  O.ItemCode
+	, O.ItemName
+	, O.U_NG_CODE
+	, O.ItmsGrpCod
+	, O.FirmCode
+	, 2
+	, '-1'
+	, GETDATE()
+	, O.U_Nhom
+	, O.U_DongHH
+FROM
+    FRT_MDM.dbo.OITM O (NOLOCK)
+WHERE
+    O.ItemCode = '$CURSOR$';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

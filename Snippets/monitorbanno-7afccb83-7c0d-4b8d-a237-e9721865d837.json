@@ -1,0 +1,6 @@
+{
+  "id": "7afccb83-7c0d-4b8d-a237-e9721865d837",
+  "prefix": "monitorbanno",
+  "description": "Monitor đơn hàng bán nợ",
+  "body": "SELECT DocEntry INTO #tmp03 FROM dbo.ORDRPUSH2COM (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND DocStatus='F'\nSELECT O.DocEntry, O.U_TMonBi INTO #tmpSO FROM #tmp03 T INNER JOIN dbo.ORDR O (NOLOCK) ON T.DocEntry = O.DocEntry WHERE O.DocStatus = 'F'\nSELECT T.*, ISNULL(O.U_MoCash, 0) AS U_MoCash, ISNULL(O.U_MoCCad, 0) AS U_MoCCad, ISNULL(O.U_MoVoCh, 0) AS U_MoVoCh, ISNULL(O.U_MoTran, 0) AS U_MoTran INTO #tmpPayemnt FROM #tmpSO T INNER JOIN dbo.[@FPTORCT] O (NOLOCK) ON T.DocEntry = O.U_DocSO\nSELECT T.DocEntry, T.U_TMonBi, SUM(T.U_MoCash + T.U_MoCCad + T.U_MoVoCh + T.U_MoTran) AS Total INTO #tmpTotal FROM #tmpPayemnt T GROUP BY T.DocEntry, T.U_TMonBi\nSELECT * FROM #tmpTotal T WHERE T.Total > T.U_TMonBi + 10\nSELECT N'Âm tiền mặt', U_DocSO, * FROM dbo.[@FPTORCT] (NOLOCK) WHERE CONVERT(DATE, U_AcDate) = CONVERT(DATE, GETDATE()) AND U_MoCash < 0\nDROP TABLE #tmp03, #tmpSO, #tmpPayemnt, #tmpTotal"
+}

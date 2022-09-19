@@ -1,0 +1,6 @@
+{
+  "id": "9efd19fc-0ba9-4d1c-b459-184f52dbe03b",
+  "prefix": "buildxnktpayoo",
+  "description": "Build xác nhận kế toán Payoo",
+  "body": "INSERT INTO dbo.CashCollectionReceiptsNoVAT\n    (\n         ReceiptCode\n       , ReceiptDate\n       , WarehouseCode\n       , VendorCode\n       , RefCode\n       , CustomerCode\n       , CustomerName\n       , MobilePhoneNumber\n       , Amount\n       , CashCollectionReceiptsNoVATType\n       , CashCollectionReceiptsNoVATStatus\n       , Remark\n       , CreatedDateTime\n       , CreatedEmployeeBy\n       , IsConfirmed\n       , ConfirmedDate\n       , ConfirmedEmployeeBy\n       , CardPaymentFee\n    )\nSELECT \n\t'PT' + P.BillCode\n\t, P.BillDate\n\t, P.WarehouseCode\n\t, P.VendorCode\n\t, P.BillCode\n\t, P.CustomerPayoo\n\t, P.CustomerName\n\t, P.PayersMobiphone\n\t, P.TotalAmount\n\t, 343\n\t, 298\n\t, N'Hệ thống tạo'\n\t, P.CreatedDateTime\n\t, P.CreatedBy\n\t, 1\n\t, P.BillDate\n\t, 'SYSTEM'\n\t, 0\nFROM \n\tdbo.PaymentBillReceipts P (NOLOCK) \nWHERE \n\tP.BillCode IN (\n$CURSOR$\n)"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sclc</Title>
+      <Shortcut>sclc</Shortcut>
+      <Description>Lấy trao đổi call log</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.73].FRTCallLogV2.dbo.Conversations AS D (NOLOCK) WHERE D.RequestId = $CURSOR$ ORDER BY D.Id ASC]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

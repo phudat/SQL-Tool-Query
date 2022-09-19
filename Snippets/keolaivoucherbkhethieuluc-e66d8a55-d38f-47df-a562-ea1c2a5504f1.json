@@ -1,0 +1,6 @@
+{
+  "id": "e66d8a55-d38f-47df-a562-ea1c2a5504f1",
+  "prefix": "keolaivoucherbkhethieuluc",
+  "description": "Kéo lại voucher không giá ở bảng BK bị hết hiệu lực -> gia hạn",
+  "body": "SELECT\n    C.Value\nINTO\n    #tmpActiveGroupCode\nFROM\n    dbo.CTKM_Condition C (NOLOCK)\n\t\tINNER JOIN dbo.CTKM_structure S (NOLOCK)\n\t\t\tON C.DocEntry_structure = S.DocEntry\n\t\t\t\tAND C.Object = 3\n\t\t\t\tAND C.Properties = 2\n\t\t\t\tAND GETDATE() BETWEEN S.ActiveDate AND S.InActiveDate;\n\nINSERT INTO dbo.FPT_PROMS\n    (\n         DocEntry_SO\n       , Status\n       , Email\n       , CreateDate\n       , GroupCode\n       , Phone\n       , updatedate\n       , Email2\n       , Status_push_mpos\n       , U_Desc\n       , Remark\n       , type\n    )\nSELECT\n      DocEntry_SO\n    , Status\n    , Email\n    , CreateDate\n    , GroupCode\n    , Phone\n    , updatedate\n    , Email2\n    , Status_push_mpos\n    , U_Desc\n    , Remark\n    , type\nFROM\n\t#tmpActiveGroupCode T\n\t\tINNER JOIN dbo.FPT_PROMS_BK_ARCHIVE B (NOLOCK)\n\t\t\tON T.Value = B.GroupCode\nWHERE\n    Status = 6\n\tAND B.GroupCode > 1000"
+}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>nhabookfado</Title>
+      <Shortcut>nhabookfado</Shortcut>
+      <Description>Nhả Book Fado</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>makho</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT O.ItemCode, O.WhsCode, O.OnHand, O.Qty_Available, O.Qty_Order, O.OnOrder, O.LastPurPrice FROM FRT_POS.dbo.OITW AS O WITH (NOLOCK) WHERE O.ItemCode = '00587999' AND O.WhsCode = '$makho$'
+UPDATE FRT_POS.dbo.OITW SET Qty_Available += Qty_Order, Qty_Order -= Qty_Order WHERE ItemCode = '00587999' AND WhsCode = '$makho$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

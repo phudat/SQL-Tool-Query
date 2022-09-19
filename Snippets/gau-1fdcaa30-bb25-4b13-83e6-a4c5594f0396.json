@@ -1,0 +1,6 @@
+{
+  "id": "1fdcaa30-bb25-4b13-83e6-a4c5594f0396",
+  "prefix": "gau",
+  "description": "Gửi lại code đăng nhập CRM sau khi thu công nợ SO thẻ cào",
+  "body": "EXEC [10.1.13.76].FRTCRM.dbo.sp_CRM_GenerateCode_Auth_CreateCode_By_User '$CURSOR$'"
+}

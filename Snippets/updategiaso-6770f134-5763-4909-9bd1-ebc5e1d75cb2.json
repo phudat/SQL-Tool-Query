@@ -1,0 +1,6 @@
+{
+  "id": "6770f134-5763-4909-9bd1-ebc5e1d75cb2",
+  "prefix": "updategiaso",
+  "description": "Sửa giá SO",
+  "body": "UPDATE FRT_POS.dbo.RDR1 SET U_Price =  WHERE DocEntry = $CURSOR$ AND LineNum = "
+}

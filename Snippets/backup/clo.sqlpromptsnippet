@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>clo</Title>
+      <Shortcut>clo</Shortcut>
+      <Description>COLLATE SQL_Latin1_General_CP1_CI_AS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[COLLATE SQL_Latin1_General_CP1_CI_AS]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

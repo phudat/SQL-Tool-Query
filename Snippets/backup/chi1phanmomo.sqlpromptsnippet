@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chi1phanmomo</Title>
+      <Shortcut>chi1phanmomo</Shortcut>
+      <Description>chi 1 phan tien momo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC dbo.Refund_Percent_For_Collection @loai = 1,                -- tinyint
+                                       @TotalAmountAccept = $CURSOR$, -- float
+                                       @id = 0,                  -- int
+                                       @EmployeeCode = '29099'        -- varchar(50)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

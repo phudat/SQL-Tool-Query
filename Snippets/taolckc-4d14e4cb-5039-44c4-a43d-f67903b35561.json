@@ -1,0 +1,6 @@
+{
+  "id": "4d14e4cb-5039-44c4-a43d-f67903b35561",
+  "prefix": "taolckc",
+  "description": "Tạo luân chuyển kho con",
+  "body": "DECLARE \n\t  @Result INT\n\t, @Msg NVARCHAR(500)\n\t, @DocEntry INT\n\t, @A nvarchar(MAX)\n\n\tDECLARE @DetailXML NVARCHAR(MAX) = N'\n\t\t<DATA>\n\t\t\t<LineItem>\n\t\t\t\t<ItemCode>00555884</ItemCode>\n\t\t\t\t<IMEI>355915101966422</IMEI>\n\t\t\t\t<Quantity>1</Quantity>\n\t\t\t\t<WhsEx>30227010</WhsEx>\n\t\t\t\t<WhsRec>30227030</WhsRec>\n\t\t\t</LineItem>\n\t\t</DATA>'\n\nEXEC sp_COMMON_CreateRequestTransfer_W2W\n\t\t@DetailXML = @DetailXML\n\t, @Serie = 50\n\t, @Remarks = N'Trả hàng 1408 - Lỗi NSX'\n\t, @CreatedBy = '17321'\n\t, @ResultOut = @Result OUTPUT\n\t, @MsgOut = @Msg OUTPUT\n\t, @ReturnDocEntry = @DocEntry OUTPUT\n\nSELECT @Result, @Msg, @DocEntry"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>saw</Title>
+      <Shortcut>saw</Shortcut>
+      <Description>Thu hộ theo shop</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CRM_PaymentBillReceipt_AgriBank AS P WITH (NOLOCK) WHERE P.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, P.BillDate) = '' AND P.PaymentBillStatus = 570]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

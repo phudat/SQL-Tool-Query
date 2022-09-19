@@ -1,0 +1,6 @@
+{
+  "id": "decedcb2-2a06-4f65-83d8-0bca58e5502b",
+  "prefix": "snt",
+  "description": "SELECT FROM NHATTIN",
+  "body": "SELECT * FROM FRT_INTERGRATION.dbo.NhatTin_DOInfo AS N WITH (NOLOCK) WHERE N.orderNumber = '$CURSOR$'"
+}

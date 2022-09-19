@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sod</Title>
+      <Shortcut>sod</Shortcut>
+      <Description>SELECT * FROM dbo.OSRN AS O (NOLOCK) WHERE O.DistNumber = 'IMEI' AND O.Quantity = 1</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.ItemCode, O.itemName, O.DistNumber, O.WhsCode, O.Quantity, O.CommitQty, O.LastPurPrice, O.Indate, O.AbsEntry, DATEDIFF(DAY, O.InDate, GETDATE()) + 1 FROM FRT_POS.dbo.OSRN AS O WITH (NOLOCK) WHERE O.DistNumber = '$CURSOR$' AND O.Quantity = 1 ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

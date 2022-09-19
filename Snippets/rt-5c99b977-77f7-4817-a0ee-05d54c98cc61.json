@@ -1,0 +1,6 @@
+{
+  "id": "5c99b977-77f7-4817-a0ee-05d54c98cc61",
+  "prefix": "rt",
+  "description": "Rollback transaction",
+  "body": "ROLLBACK TRANSACTION "
+}

@@ -1,0 +1,6 @@
+{
+  "id": "a1f26754-af4a-4282-b9e8-e3ee5d7b6e96",
+  "prefix": "pushthuho",
+  "description": "",
+  "body": "DECLARE @DocEntry INT = $CURSOR$\nINSERT INTO dbo.POS_PUSH_CRM_PAYOO_FTEL\n        (\n         DocEntry\n       , PushStatus\n       , ComCode\n       , PushDate\n       , DocEntryB1\n       , U_MoCash\n       , CreateDateTime\n       , U_LoaiCT\n        )\nSELECT\n    F.DocEntry\n\t, 1\n\t, S.U_ComCode\n\t, GETDATE()\n\t, NULL\n\t, ISNULL(F.U_MoCash , 0) + ISNULL(F.U_MoCCad, 0)\n\t, GETDATE()\n\t, F.U_loaiCT\nFROM\n    dbo.[@FPTORCT] F (NOLOCK)\n\t\tINNER JOIN FRT_MDM.dbo.[@FPTSHOP] S (NOLOCK)\n\t\t\tON F.U_ShpCod = S.Code COLLATE SQL_Latin1_General_CP1_CI_AS\nWHERE\n    F.DocEntry IN (@DocEntry)\n    AND F.U_loaiCT IN (2, 4, 11, 12, 13);"
+}

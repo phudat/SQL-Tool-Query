@@ -1,0 +1,6 @@
+{
+  "id": "1b646efa-6d8c-476a-acb0-ada64b6cc7b8",
+  "prefix": "pushct",
+  "description": "Insert vàp push chi tiền",
+  "body": "DECLARE @DocEntry INT = $CURSOR$ \nUPDATE FRT_POS.dbo.ORDR SET DocStatus= 'C' WHERE DocEntry = @DocEntry AND DocStatus ='D' AND DocType = '05'\n\nIF @@ROWCOUNT > 0\n\tBEGIN\n\t\tINSERT INTO dbo.POS_Cancel_Deposit\n\t\t\t\t(\n\t\t\t\t DocEntry\n\t\t\t   , PushStatus\n\t\t\t   , APIErr\n\t\t\t   , U_CompCod\n\t\t\t   , DocEntryB1\n\t\t\t   , CreateDate\n\t\t\t   , SOPOS_DocEntry\n\t\t\t\t)\n\t\tSELECT\n\t\t\tF.DocEntry\n\t\t  , 1\n\t\t  , ''\n\t\t  , O.U_ComTo\n\t\t  , NULL\n\t\t  , GETDATE()\n\t\t  , O.DocEntry\n\t\tFROM\n\t\t\tdbo.ORDR O (NOLOCK)\n\t\t\tINNER JOIN dbo.[@FPTURCT] F (NOLOCK)\n\t\t\t\tON O.DocEntry = F.U_DocSO\n\t\tWHERE\n\t\t\tO.DocEntry = @DocEntry\n\t\t\tAND O.DocStatus = 'C'\n\t\t\tAND O.DocType = '05'\n\tEND"
+}

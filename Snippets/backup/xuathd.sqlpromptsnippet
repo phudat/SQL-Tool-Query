@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>xuathd</Title>
+      <Shortcut>xuathd</Shortcut>
+      <Description>Cập nhật khách hàng xuất hóa đơn công ty</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.CardCode, O.CardName, O.CardCodePoint, O.CardNamePoint, O.CardCodeEx, O.CardNameEx, O.LicTradNum, O.U_ExDate, O.U_ComTo, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

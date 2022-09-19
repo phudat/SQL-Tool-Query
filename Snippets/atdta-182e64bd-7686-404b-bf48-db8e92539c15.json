@@ -1,0 +1,6 @@
+{
+  "id": "182e64bd-7686-404b-bf48-db8e92539c15",
+  "prefix": "atdta",
+  "description": "Disable all triggers on table",
+  "body": "ALTER TABLE $SELECTIONEND$[schema].[table_name]$SELECTIONSTART$ DISABLE TRIGGER ALL"
+}

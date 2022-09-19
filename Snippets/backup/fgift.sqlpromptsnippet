@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fgift</Title>
+      <Shortcut>fgift</Shortcut>
+      <Description>Tìm CTKM theo MSP tặng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+        @Gift VARCHAR(20) = '$CURSOR$'
+      , @CC INT;
+
+SELECT
+    DocEntry
+  , CTKM_structure_DocEntry
+INTO
+    #tmpA
+FROM
+    dbo.CTKM_Gift (NOLOCK)
+WHERE
+    ItemCode = @Gift
+UNION
+SELECT
+    DocEntry
+  , 0 CTKM_structure_DocEntry
+FROM
+    dbo.CTKM_Gift_ex (NOLOCK)
+WHERE
+    ItemCode = @Gift;
+
+SELECT
+    *
+FROM
+    dbo.CTKM_structure (NOLOCK)
+WHERE
+    DocEntry IN (SELECT CTKM_structure_DocEntry FROM #tmpA WHERE CTKM_structure_DocEntry > 0)
+	AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate);
+
+DROP TABLE #tmpA;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

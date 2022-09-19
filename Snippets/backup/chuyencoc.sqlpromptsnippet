@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chuyencoc</Title>
+      <Shortcut>chuyencoc</Shortcut>
+      <Description>Chuyển cọc từ shop A qua shop B</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @DocEntry INT = $CURSOR$
+	, @ShopNew VARCHAR(20) = ''
+UPDATE FRT_POS.dbo.ORDR SET U_ShpCod = @ShopNew WHERE DocEntry = @DocEntry
+UPDATE FRT_POS.dbo.RDR1 SET U_WhsCod = @ShopNew + RIGHT(U_WhsCod, 3), WhsCode = @ShopNew + RIGHT(U_WhsCod, 3) WHERE DocEntry = @DocEntry
+UPDATE FRT_POS.dbo.[@FPTORCT] SET U_ShpCod = @ShopNew WHERE U_DocSO = @DocEntry
+UPDATE FRT_POS.dbo.[@FPTODPI] SET U_ShpCod = @ShopNew WHERE U_NumSO = @DocEntry]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

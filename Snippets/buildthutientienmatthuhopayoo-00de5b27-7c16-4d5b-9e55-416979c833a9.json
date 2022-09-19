@@ -1,0 +1,6 @@
+{
+  "id": "00de5b27-7c16-4d5b-9e55-416979c833a9",
+  "prefix": "buildthutientienmatthuhopayoo",
+  "description": "Buil thu tiền hình thức Tiền Mặt cho thu hộ Payoo",
+  "body": "INSERT INTO dbo.POSPaymentMethod\n    (\n         CreatedDate\n       , CreatedBy\n       , Remark\n       , CashAmount\n       , PaymentType\n       , BillID\n       , TypePaymentVendor\n    )\nSELECT \n\t  P.BillDate\n\t, P.CreatedBy\n\t, N'Thanh toán bằng tiền mặt'\n\t, ISNULL(P.TotalAmount, 0) + ISNULL(P.PaymentFee, 0)\n\t, 'CASH' \n\t, p.ID\n\t, 1\nFROM \n\tdbo.PaymentBillReceipts P (NOLOCK) \nWHERE \n\tP.BillCode IN (\n$CURSOR$\n)"
+}

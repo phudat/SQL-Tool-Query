@@ -1,0 +1,6 @@
+{
+  "id": "8bdf8afa-91e5-4bfd-8e8b-638c85b99f4b",
+  "prefix": "lsgd",
+  "description": "Lịch sử giao dịch",
+  "body": "EXEC dbo.sp_COMMOND_GetHistoryProduct_New_LSGD_New_1 \n\t@ItemCode = '', -- varchar(50)\n    @Serial = N'$CURSOR$', -- nvarchar(100)\n    @TuNgay = '2014-06-28 01:52:22', -- datetime\n    @DenNgay = '2017-06-28 01:52:22', -- datetime\n    @Status = '', -- char(1)\n    @ShopCode = '', -- varchar(max)\n    @WhsCode = '', -- varchar(max)\n    @Paging = 0, -- int\n    @UserID = N'' -- nvarchar(40)"
+}

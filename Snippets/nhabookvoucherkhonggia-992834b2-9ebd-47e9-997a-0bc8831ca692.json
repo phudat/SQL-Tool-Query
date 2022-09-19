@@ -1,0 +1,6 @@
+{
+  "id": "992834b2-9ebd-47e9-997a-0bc8831ca692",
+  "prefix": "nhabookvoucherkhonggia",
+  "description": "Nhả book voucher không giá",
+  "body": "DECLARE @voucher VARCHAR(100) = '$CURSOR$'\nINSERT INTO dbo.tbl_Voucher_Ordr_BK_ARCHIVE (DocEntrySO, Voucher, U_Status, CreateDate, CreateBy)\nSELECT DocEntrySO, Voucher, U_Status, CreateDate, CreateBy FROM dbo.tbl_Voucher_Ordr (NOLOCK) WHERE Voucher = @voucher\nDELETE FROM dbo.tbl_Voucher_Ordr WHERE Voucher = @voucher"
+}

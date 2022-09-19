@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>goctach</Title>
+      <Shortcut>goctach</Shortcut>
+      <Description>Tách mà không xóa gốc</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @Goc INT = $CURSOR$
+	, @Tach INT = 
+	
+SELECT 'ORDR', O.DocEntry, O.Type_ReturnSO, O.U_ProSplit, O.U_DocSplit, O.U_ShpCod, O.U_ExDate, O.DocDate, O.DocStatus FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @Goc
+SELECT 'RDR1', R.DocEntry, R.LineNum, R.ItemCode, R.Dscription, U_Imei, R.U_WhsCod, R.U_Price, R.U_PROMOS, R.U_OnHand FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @Goc
+SELECT 'RDR1_62', R.DocEntry, R.LineNum, R.ItemCode, R.Dscription, U_Imei, R.U_WhsCod, R.U_Price, R.U_PROMOS, R.U_OnHand FROM [10.1.13.62].POSEInv.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @Goc
+SELECT 'OIVL', * FROM FRT_POS.dbo.FRT_POS_OIVL AS V WITH (NOLOCK) WHERE V.Docentry = @Goc
+
+SELECT 'ORDR_TACH', O.DocEntry, O.Type_ReturnSO, O.U_ProSplit, O.U_DocSplit, O.U_ShpCod, O.U_ExDate, O.DocDate, O.DocStatus FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @Tach
+SELECT 'RDR1_TACH', R.DocEntry, R.LineNum, R.ItemCode, R.Dscription, U_Imei, R.U_WhsCod, R.U_Price, R.U_PROMOS, R.U_OnHand FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @Tach
+
+RETURN
+--DELETE FROM dbo.RDR1 WHERE DocEntry = AND LineNum = ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

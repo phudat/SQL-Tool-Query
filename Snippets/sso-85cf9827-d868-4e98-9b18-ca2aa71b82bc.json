@@ -1,0 +1,6 @@
+{
+  "id": "85cf9827-d868-4e98-9b18-ca2aa71b82bc",
+  "prefix": "sso",
+  "description": "SELECT ORDR",
+  "body": "SELECT * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = $CURSOR$"
+}

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>uphongban</Title>
+      <Shortcut>uphongban</Shortcut>
+      <Description>Cập nhật phòng ban và ngành của XKNK</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE
+	W
+SET
+	  W.OcrCode2 = O.U_OcrCode2
+	, W.OcrCode = LEFT(W.U_WhsCod, 5)
+FROM
+    FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK)
+		INNER JOIN FRT_MDM.dbo.OITM O WITH (NOLOCK)
+			ON W.ItemCode = O.ItemCode COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE
+    W.DocEntry IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

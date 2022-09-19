@@ -1,0 +1,6 @@
+{
+  "id": "d1b01829-db38-473f-a4b9-d8de6ce88439",
+  "prefix": "chayvc",
+  "description": "Chạy line voucher",
+  "body": "EXEC dbo.sp_AutoLineVoucher_new @ItemCodeVoucher = '$CURSOR$'"
+}

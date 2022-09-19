@@ -1,0 +1,6 @@
+{
+  "id": "d9f6d867-8f14-42fa-a071-5a63f1ee5746",
+  "prefix": "thfxu",
+  "description": "Thông tin Fxu",
+  "body": "SELECT * FROM [10.1.13.69].FRT_Platform.dbo.TongHopGiaoDichKH C WITH (NOLOCK) WHERE C.SoDienThoai = '$CURSOR$'"
+}

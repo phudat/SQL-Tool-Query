@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>UpdateSOCardforMpos</Title>
+      <Shortcut>UpdateSOCardforMpos</Shortcut>
+      <Description>Update cac so phieu the cao topup cua mpos ve theo ID trong mail monitor</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[CREATE TABLE #tempidpending (id INT)
+CREATE TABLE #Temposstatus (U_status TINYINT,DocEntry_POS INT,Saleoder_ID INT)
+INSERT INTO #tempidpending
+(
+    id
+)
+SELECT id FROM dbo.SalesOrders WITH (NOLOCK) WHERE id IN (
+SELECT id FROM dbo.SalesOrders WITH (NOLOCK) 
+WHERE CreatedDateTime>CAST(GETDATE() AS date) AND SalesOrdersStatus=67 AND PayooService IN (45,46) AND ISNULL(POSSODocNum,0)=0 AND POSIsPushed=1
+) 
+INSERT INTO #Temposstatus
+(
+    U_status,
+    DocEntry_POS,
+    Saleoder_ID
+)
+SELECT U_status,DocEntry_POS,Saleoder_ID FROM [10.1.13.71].FRT_POS.dbo.push_TheCao_CRM_innovation with (NOLOCK) WHERE Saleoder_ID  IN (
+SELECT * FROM #tempidpending 
+)
+
+$CURSOR$
+--UPDATE s SET s.POSIsPushed=1,s.POSSODocNum=Temp.DocEntry_POS 
+--FROM dbo.SalesOrders AS s WITH (NOLOCK) INNER JOIN #Temposstatus AS Temp ON s.id=Temp.Saleoder_ID 
+--WHERE Temp.DocEntry_POS IS NOT NULL AND Temp.U_status=2
+
+
+
+SELECT Temp.*,s.POSSODocNum,s.POSIsPushed FROM dbo.SalesOrders AS s WITH (NOLOCK) INNER JOIN #Temposstatus AS Temp ON s.id=Temp.Saleoder_ID 
+WHERE Temp.DocEntry_POS IS NOT NULL AND Temp.U_status=2
+DROP TABLE #tempidpending,#Temposstatus
+
+SELECT POSSODocNum,POSIsPushed, * FROM dbo.SalesOrders WITH (NOLOCK) 
+WHERE CreatedDateTime>CAST(GETDATE() AS date) AND SalesOrdersStatus=67 AND ISNULL(POSIsPushed,'')='' AND PayooService IN (45,46)
+--EXEC dbo.sp_CRMv2_POS_PrePaidCard_AllInOne
+--	@WarehouseCode = '30905', -- varchar(40)
+ --   @IDList = '17575975,17575989,17575991,17576001,17576003,17575980,17575984', -- varchar(max)
+  --  @PushBy = '-1'
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chiho</Title>
+      <Shortcut>chiho</Shortcut>
+      <Description>Cập nhật các phiếu chi hỗ đã có về thành công</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXECUTE [sp_CRM_UpdateStatusPayService_Recieve_ToPOS] 
+@type = 'viettelpay',				-- viettelpay, momo
+@id = 208894,						-- bigint,
+@pro_code = '200610669761408',		-- varchar(50),
+@empcode = '29099',					-- varchar(10),
+@rm = N'Da Xac Nhan NCC', 			-- nvarchar(max),
+@sm = N''							-- nvarchar(255) = '' OUTPUT,]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

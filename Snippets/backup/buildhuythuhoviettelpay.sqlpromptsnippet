@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildhuythuhoviettelpay</Title>
+      <Shortcut>buildhuythuhoviettelpay</Shortcut>
+      <Description>Build bảng hủy thu hộ ViettelPay</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.PaymentServices
+	(
+	      PaymentServiceCode
+	    , PaymentServiceDate
+	    , CashCollectionVendorID
+	    , VendorCode
+	    , ReceiptCode
+	    , WarehouseCode
+	    , AgreementNo
+	    , CustomerCode
+	    , CustomerName
+	    , IDCardNo
+	    , MobilePhoneNumber
+	    , Amount
+	    , Remark
+	    , CreatedBy
+	    , CreatedDateTime
+	    , LastUpdatedBy
+	    , LastUpdatedDateTime
+	    , PaymentServiceStatus
+	    , CreatedEmployeeBy
+	    , LastUpdatedEmployeeBy
+	    , Status
+	    , RefInvoiceCode
+	    , IsConfirmed
+	    , ConfirmedDate
+	    , ConfirmedEmployeeBy
+	    , Notes
+	    , CashCollectionNoVATUserCreate
+	    , POSIsPushed
+	    , POSPayReceipt
+	    , ReasonCancel
+	)
+SELECT
+        'PC-VTPay-' + CONVERT(VARCHAR, P.ID)
+	, P.CreateDate
+	, CASE WHEN P.Pay_Type = 1 THEN 49 WHEN P.Pay_Type = 3 THEN 41 END
+	, CASE WHEN P.Pay_Type = 1 THEN '0049' WHEN P.Pay_Type = 3 THEN '0041' END
+	, CONVERT(VARCHAR, P.ID)
+	, P.From_ShopCode
+	, CONVERT(VARCHAR, P.ID)
+	, P.U_Phone_Sender
+	, P.CardName_Sender
+	, ''
+	, P.U_Phone_Sender
+	, -(P.U_Tmoney + (CASE WHEN P.isReturnFee = 1 THEN P.U_Fee ELSE 0 END))
+	, 'system'
+	, ISNULL(P.UpdateBy, P.Createby)
+	, GETDATE()
+	, ISNULL(P.UpdateBy, P.Createby)
+	, NULL
+	, 100
+	, P.Createby
+	, P.UpdateBy
+	, 1
+	, NULL
+	, NULL
+	, NULL
+	, NULL
+	, NULL
+	, NULL
+	, NULL
+	, NULL
+	, NULL
+FROM
+    dbo.Pay_Services P (NOLOCK)
+WHERE
+    P.ID IN ($CURSOR$)
+    AND P.Pay_Type IN (1, 3)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "a31257b1-4b1c-4236-96b5-99bffa5f7490",
+  "prefix": "sss",
+  "description": "SELECT * FROM  WITH (NOLOCK) WHERE ID = ",
+  "body": "SELECT * FROM $CURSOR$ WITH (NOLOCK) WHERE ID = "
+}

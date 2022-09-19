@@ -1,0 +1,6 @@
+{
+  "id": "9c10a358-cff1-4db3-967d-011106059ed3",
+  "prefix": "monitorautocard",
+  "description": "Monitor double Autocard",
+  "body": "SELECT SODocEntry, Amount, POSBankID, CardNo INTO #tmpDoubleAutoCard FROM dbo.[@FPTORCT_POSBank_Log] (NOLOCK) WHERE CONVERT(DATE, ChargedDateTime) = CONVERT(DATE, GETDATE())\nSELECT T.*, O.U_TMonBi INTO #tmpDoubleAutoCard_SO FROM #tmpDoubleAutoCard T INNER JOIN dbo.ORDR O (NOLOCK) ON T.SODocEntry = O.DocEntry\n\nSELECT\n    T.*\n  , O.U_MoCCad\n  , O.U_NumCre\n  , O.IsAutoCard\n  , O.U_Acbank\nINTO\n    #tmpDoubleAutoCard_ThuTien\nFROM\n    #tmpDoubleAutoCard_SO T\n    INNER JOIN dbo.[@FPTORCT] O (NOLOCK)\n        ON T.SODocEntry = O.U_DocSO\n\t\t\tAND CONVERT(VARCHAR, T.POSBankID) = O.U_Acbank\n\t\t\tAND RIGHT(T.CardNo, 4) = RIGHT(O.U_NumCre, 4)\n\t\t\tAND T.Amount = O.U_MoCCad\n\t\t\tAND O.U_MoCCad > 0\nORDER BY \n\tT.SODocEntry\n\nSELECT * FROM #tmpDoubleAutoCard_ThuTien\nSELECT SODocEntry, COUNT(*) AS CountMore INTO #tmpDoubleAutoCard_DocEntryGroup FROM #tmpDoubleAutoCard_ThuTien GROUP BY SODocEntry HAVING COUNT(*) > 1\nSELECT * FROM #tmpDoubleAutoCard_DocEntryGroup\nDROP TABLE #tmpDoubleAutoCard, #tmpDoubleAutoCard_SO, #tmpDoubleAutoCard_ThuTien, #tmpDoubleAutoCard_DocEntryGroup"
+}

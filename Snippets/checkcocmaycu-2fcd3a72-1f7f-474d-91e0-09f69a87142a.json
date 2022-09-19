@@ -1,0 +1,6 @@
+{
+  "id": "2fcd3a72-1f7f-474d-91e0-09f69a87142a",
+  "prefix": "checkcocmaycu",
+  "description": "Check MSP cọc máy cũ",
+  "body": "SELECT\n      O.DocEntry\n\t, O.U_ShpCod\n\t, R.U_ItmCod\n\t, R.U_ItmName\nFROM\n    FRT_CUSTOMIZE.dbo.[@FPTORDRTMP] O (NOLOCK)\n    INNER JOIN FRT_CUSTOMIZE.dbo.[@FPTRDR1TMP] R (NOLOCK)\n        ON R.DocEntry = O.DocEntry\nWHERE\n    R.U_ItmCod = '$CURSOR$'\n    AND O.SOStatus = 'P'"
+}

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>keothutienvtb</Title>
+      <Shortcut>keothutienvtb</Shortcut>
+      <Description>Kéo lại GD thu tiền SO của máy cà thẻ VTB</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @DocSO			INT = $CURSOR$
+	, @CardCode			INT
+	, @EplCode			INT
+	, @POSBankDocStatus CHAR(1)
+
+SELECT * INTO #tmpPOSBankPayment FROM dbo.[@FPTORCT_POSBank_Log] (NOLOCK) WHERE SODocEntry = @DocSO
+DELETE FROM dbo.[@FPTORCT] WHERE U_DocSO = @DocSO AND IsAutoCard = 'Y' AND U_Acbank = 7 AND U_MoCCad > 0
+SELECT @CardCode = CardCode, @EplCode = CreateBy, @POSBankDocStatus = DocStatus FROM dbo.ORDR (NOLOCK) WHERE DocEntry = @DocSO
+INSERT  INTO [@FPTORCT]
+	(
+		  CardType
+		, U_CName
+		, U_Acbank
+		, U_CTLKCode
+		, U_CTLKName
+		, U_MoCash
+		, U_MoCCad
+		, U_CrDate
+		, U_AccNum
+		, U_AccName
+		, U_BankTs
+		, U_MoTran
+		, U_DateTs
+		, U_NumVch
+		, U_NaVoch
+		, U_MoVoCh
+		, U_EDate
+		, U_DocSO
+		, U_DocDown
+		, U_ShpCod
+		, U_AcCash
+		, U_TypCre
+		, U_Acount
+		, U_NumCre
+		, U_AcVoch
+		, U_Status
+		, U_CrdCod
+		, U_AcDate
+		, U_EplCod
+		, CreateDate
+		, U_Desc
+		, Is_VC_CRM
+		, U_loaiCT
+		, U_DocAR
+		, IsAutoCard
+							   
+	)
+SELECT
+		C.FRTCreditCard
+	, C.FRTCreditCard
+	, C.POSBankID
+	, C.POSBankName
+	, ''
+	, 0
+	, T.Amount
+	, T.ChargedDateTime
+	, ''
+	, ''
+	, ''
+	, 0
+	, T.ChargedDateTime
+	, ''
+	, ''
+	, 0
+	, T.ChargedDateTime
+	, @DocSO
+	, NULL
+	, T.ShopCode
+	, F.U_AccCash
+	, C.FRTCreditCard
+	, '113100100'
+	, RIGHT(T.CardNo, 4)
+	, ''
+	, 1
+	, @CardCode
+	, T.ChargedDateTime
+	, T.ChargedBy
+	, T.ChargedDateTime
+	, 'THU SO'
+	, 1
+	, NULL
+	, 0
+	, 'Y'
+							
+FROM
+	#tmpPOSBankPayment T
+		LEFT JOIN FRT_MDM.dbo.OCRC_POSBank C (NOLOCK)
+			ON T.POSBankID = C.POSBankID AND T.CardType = C.POSBankCardName
+		LEFT JOIN FRT_MDM.dbo.[@FPTSHOP] F WITH (NOLOCK)
+			ON T.ShopCode = F.Code COLLATE SQL_Latin1_General_CP1_CI_AS
+
+DROP TABLE #tmpPOSBankPayment]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>addip</Title>
+      <Shortcut>addip</Shortcut>
+      <Description>AddIPCRM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @IP VARCHAR(50) = '$CURSOR$'
+IF NOT EXISTS(SELECT TOP 1 1 FROM [10.1.13.76].FRTCRM.dbo.F01_ListIP WITH (NOLOCK) WHERE IP = @IP)
+	BEGIN	
+		INSERT INTO [10.1.13.76].FRTCRM.dbo.F01_ListIP
+			(
+				 ID
+			   , IP
+			   , WarehouseCode
+			   , WarehouseName
+			   , Status
+			   , Quantity
+			   , OfficeCode
+			   , OfficeName
+			   , CreatedDate
+			   , CreateBy
+			   , IDOld
+			   , LastUpdateDatetime
+			   , LastUpdateBy
+			   , Flag3G
+			   , Remark
+			)
+		SELECT
+				 I.ID
+			   , I.IP
+			   , I.WarehouseCode
+			   , I.WarehouseName
+			   , I.Status
+			   , I.Quantity
+			   , I.OfficeCode
+			   , I.OfficeName
+			   , I.CreatedDate
+			   , I.CreateBy
+			   , I.IDOld
+			   , I.LastUpdateDatetime
+			   , I.LastUpdateBy
+			   , I.Flag3G
+			   , I.Remark
+		FROM
+			[10.1.13.77].FRTInsideV2.dbo.F01_ListIP I WITH (NOLOCK)
+				LEFT JOIN [10.1.13.76].FRTCRM.dbo.F01_ListIP C WITH (NOLOCK)
+					ON I.ID = C.ID
+		WHERE
+			C.ID IS NULL
+			AND I.IP = @IP
+
+		SELECT * FROM [10.1.13.76].FRTCRM.dbo.F01_ListIP WITH (NOLOCK) WHERE IP = @IP
+	END
+ELSE
+	BEGIN
+	    SELECT N'IP này đã được ADD.'
+	END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

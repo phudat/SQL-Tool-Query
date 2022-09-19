@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pushthuho</Title>
+      <Shortcut>pushthuho</Shortcut>
+      <Description />
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @DocEntry INT = $CURSOR$
+INSERT INTO dbo.POS_PUSH_CRM_PAYOO_FTEL
+        (
+         DocEntry
+       , PushStatus
+       , ComCode
+       , PushDate
+       , DocEntryB1
+       , U_MoCash
+       , CreateDateTime
+       , U_LoaiCT
+        )
+SELECT
+    F.DocEntry
+	, 1
+	, S.U_ComCode
+	, GETDATE()
+	, NULL
+	, ISNULL(F.U_MoCash , 0) + ISNULL(F.U_MoCCad, 0)
+	, GETDATE()
+	, F.U_loaiCT
+FROM
+    dbo.[@FPTORCT] F (NOLOCK)
+		INNER JOIN FRT_MDM.dbo.[@FPTSHOP] S (NOLOCK)
+			ON F.U_ShpCod = S.Code COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE
+    F.DocEntry IN (@DocEntry)
+    AND F.U_loaiCT IN (2, 4, 11, 12, 13);]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

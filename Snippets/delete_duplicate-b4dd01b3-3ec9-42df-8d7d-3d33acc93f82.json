@@ -1,0 +1,6 @@
+{
+  "id": "b4dd01b3-3ec9-42df-8d7d-3d33acc93f82",
+  "prefix": "delete_duplicate",
+  "description": "Xoa cac row trung lap, chua lai 1 row",
+  "body": "BEGIN\n    WITH CTE(id,SalesOrderCode,TransactionDate, \n    duplicatecount)\n\tAS (SELECT id,SalesOrderCode, TransactionDate,\n           ROW_NUMBER() OVER(PARTITION BY SalesOrderCode\n           ORDER BY id) AS DuplicateCount\n    FROM CRM_GetDataCheck_BI_AllInOne WITH (nolock) WHERE TransactionDate>'20210831')\n\tDELETE FROM CTE WHERE CTE.DuplicateCount> 1;\nEND"
+}

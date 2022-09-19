@@ -1,0 +1,6 @@
+{
+  "id": "b79c0d62-0eda-450a-98b1-09a467786c5b",
+  "prefix": "tonkhoduan",
+  "description": "Xem tồn kho SO dự án",
+  "body": "DECLARE @SO INT = $CURSOR$;\n\nSELECT\n    R.ItemCode\n  , R.Dscription\n  , R.U_WhsCod\n  , SUM(R.Quantity) AS Quantity\nINTO\n    #tmpSODetail\nFROM\n    FRT_POS.dbo.RDR1 AS R WITH (NOLOCK)\nWHERE\n    R.DocEntry = @SO\nGROUP BY\n    R.ItemCode\n  , R.Dscription\n  , R.U_WhsCod;\n\nSELECT\n    T.*\n  , O.ItemCode\n  , O.WhsCode\n  , O.OnHand\n  , O.Qty_Available\n  , O.Qty_Order\nFROM\n    #tmpSODetail T\n    INNER JOIN dbo.OITW O (NOLOCK)\n        ON O.ItemCode = T.ItemCode\n           AND T.U_WhsCod = O.WhsCode;\n\nSELECT\n    R.ItemCode\n  , R.U_WhsCod\n  , R.U_IMei\n  , O.ItemCode\n  , O.WhsCode\n  , O.DistNumber\n  , O.Quantity\n  , O.CommitQty\nFROM\n    FRT_POS.dbo.RDR1 AS R WITH (NOLOCK)\n    INNER JOIN dbo.OSRN O (NOLOCK)\n        ON R.ItemCode = O.ItemCode\n           AND R.U_WhsCod = O.WhsCode\n           AND R.U_IMei = O.DistNumber\nWHERE\n    R.DocEntry = @SO;\n\nDROP TABLE #tmpSODetail;"
+}

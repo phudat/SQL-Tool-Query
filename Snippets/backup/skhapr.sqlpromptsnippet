@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>skhapr</Title>
+      <Shortcut>skhapr</Shortcut>
+      <Description>Lấy hạn thẻ của KH APR</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>sdt</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.69].FRT_FSTUDIO.dbo.FRT_OCRD WITH (NOLOCK) WHERE SDT='$sdt$'
+SELECT O.IsResident, O.DdctOffice, O.LicTradNum, O.Phone1, O.BPID, * FROM FRT_POS.dbo.OCRD AS O WITH (NOLOCK) WHERE O.LicTradNum = '$sdt$'
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

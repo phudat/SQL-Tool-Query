@@ -1,0 +1,6 @@
+{
+  "id": "f6a7f699-cc88-4641-a0df-8a7208476f30",
+  "prefix": "imeiam",
+  "description": "Monitor IMEI Book âm",
+  "body": "SELECT ItemCode, DistNumber, WhsCode, AbsEntry, Quantity, CommitQty, * FROM dbo.OSRN (NOLOCK) WHERE CommitQty < 0$CURSOR$\nSELECT O.ItemCode, O.WhsCode, O.OnHand, O.Qty_Available, O.Qty_Order, O.OnOrder, O.LastPurPrice FROM FRT_POS.dbo.OITW AS O WITH (NOLOCK) WHERE O.ItemCode = '00372391' AND O.WhsCode = '31228010'\n\nRETURN\n--UPDATE FRT_POS.dbo.OSRN SET CommitQty = 0 WHERE AbsEntry = \n"
+}

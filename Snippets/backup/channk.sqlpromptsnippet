@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>channk</Title>
+      <Shortcut>channk</Shortcut>
+      <Description>Chặn nhập khác qua SAP</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo.POSPUSHGR2COM SET PushStatus = 4, APIErr = N'Chặn' WHERE DocEntry = $CURSOR$ AND PushStatus = 1]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "685ef947-bddf-4564-a88f-4d6b65d87bc8",
+  "prefix": "monitordupchitientrahang",
+  "description": "Monitor đúp chi tiền trả hàng",
+  "body": "SELECT\n    U_DocSO\n  , ISNULL(U_DocReturn, 0) AS U_DocReturn\n  , ISNULL(U_DocGRPO, 0) AS U_DocGRPO\n  , U_MoCash\nINTO\n    #tmpDupChiTienTraHang\nFROM\n    dbo.[@FPTURCT](NOLOCK)\nWHERE\n    CONVERT(DATE, U_CrDate) = CONVERT(DATE, GETDATE())\n    AND U_DocSO > 0\n    AND (U_MoCash) > 0;\n\nSELECT\n    U_DocSO\n  , U_DocReturn\n  , U_DocGRPO\n  , COUNT(*) SL\nINTO\n\t#tmpDupChiTienTraHangKQ\nFROM\n    #tmpDupChiTienTraHang\nGROUP BY\n    U_DocSO\n  , U_DocReturn\n  , U_DocGRPO\nHAVING\n    COUNT(*) > 1;\n\nSELECT F.U_DocSO, F.U_DocReturn, F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, * FROM FRT_POS.dbo.[@FPTURCT] AS F WITH (NOLOCK) INNER JOIN #tmpDupChiTienTraHangKQ T ON F.U_DocSO = T.U_DocSO AND T.U_DocReturn = F.U_DocReturn\n\nDROP TABLE #tmpDupChiTienTraHang, #tmpDupChiTienTraHangKQ"
+}

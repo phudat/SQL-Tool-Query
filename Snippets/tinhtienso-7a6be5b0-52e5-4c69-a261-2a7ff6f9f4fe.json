@@ -1,0 +1,6 @@
+{
+  "id": "7a6be5b0-52e5-4c69-a261-2a7ff6f9f4fe",
+  "prefix": "tinhtienso",
+  "description": "Tính lại tiền detail SO",
+  "body": "UPDATE\n    FRT_POS.dbo.RDR1\nSET\n      U_TaxAmo = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (U_TaxRate / 100), 0)\n\t, U_TaxAmL = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)), 0)\n\t, U_TMoney = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (1 + U_TaxRate / 100), 0)\nWHERE\n    DocEntry = $CURSOR$\n\tAND LineNum ="
+}

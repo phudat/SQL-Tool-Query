@@ -1,0 +1,6 @@
+{
+  "id": "6f699096-dccd-48c4-80a5-710072c9bc9d",
+  "prefix": "remove_last",
+  "description": "remove_last",
+  "body": "select substring($CURSOR$, 1, (len($CURSOR$) - 1))"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "dbab554f-6045-4c65-acef-f4b28d50c86b",
+  "prefix": "apr",
+  "description": "Tính tiền trả thưởng APR",
+  "body": "SELECT R.U_TMoney, (R.U_TMoney/1.1)*0.1 Thue, R.U_TaxAmo, R.U_TMoney/1.1*-1 Gia, R.U_Price, ( R.U_TMoney/1.1*-1)-(R.U_TMoney/1.1) GiamGia,R.DiscPrcnt, *  FROM dbo.RDR1 R (NOLOCK) WHERE DocEntry = $CURSOR$ AND ItemCode = '00001891'"
+}

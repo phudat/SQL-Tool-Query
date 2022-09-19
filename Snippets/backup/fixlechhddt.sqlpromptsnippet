@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fixlechhddt</Title>
+      <Shortcut>fixlechhddt</Shortcut>
+      <Description>Fix lệch Hóa đơn điện tử</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+        @ComCode VARCHAR(10)= '090800'
+      , @MaxLineNum INT
+      , @DaSuDung INT
+      , @LineNum INT
+
+SELECT @DaSuDung = COUNT(*) FROM dbo.[@FPT_BILL_HDDT_TEMP] (NOLOCK) WHERE ComCode = @ComCode
+SELECT @MaxLineNum = MaxLineNum FROM dbo.[@FPT_BILL_HDDT_TEMP_INDEX] (NOLOCK) WHERE ComCode = @ComCode
+--SELECT * FROM dbo.[@FPTBILL_HDDT] (NOLOCK) WHERE U_ComCode = '090800' AND U_Status = 1 ORDER BY LineNum
+
+SET @LineNum = @MaxLineNum + @DaSuDung
+SELECT @MaxLineNum MaxLineNum, @DaSuDung N'Đã sử dụngh', @MaxLineNum + @DaSuDung AS LineNum
+
+SELECT * FROM dbo.[@FPTBILL_HDDT] (NOLOCK) WHERE U_ComCode = @ComCode AND LineNum BETWEEN @LineNum - 20 AND @LineNum + 20
+
+RETURN
+-- Khúc này fix lệch HDDT, insert 1 dòng, update 1 dòng
+--INSERT INTO dbo.[@FPT_BILL_HDDT_TEMP]
+--    (
+--         DocEntry_SO
+--       , ComCode
+--       , U_SysBill
+--       , U_NuBill
+--       , U_MauHD
+--       , CreateDate
+--    )
+--VALUES
+--    (
+--         0  -- DocEntry_SO - bigint
+--       , '090800'  -- ComCode - varchar(10)
+--       , 'BL/17E'  -- U_SysBill - varchar(20)
+--       , '0618015'  -- U_NuBill - varchar(20)
+--       , '01GTKT0/001'  -- U_MauHD - varchar(50)
+--       , GETDATE()  -- CreateDate - datetime
+--    )
+
+--UPDATE [@FPTBILL_HDDT] SET U_Status = 1 WHERE DocEntry = 13069260 AND U_NuBill = '0618015' AND U_Symbol = 'BL/17E' AND U_MauHD = '01GTKT0/001' AND U_ComCode = '090800'
+
+--UPDATE FRT_POS.dbo.[@FPT_BILL_HDDT_TEMP] SET DocEntry_SO = 16262441  WHERE DocEntry_SO = 0]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

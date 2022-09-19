@@ -1,0 +1,6 @@
+{
+  "id": "4e400d14-3443-4871-a9f0-2f1577797e1c",
+  "prefix": "w2",
+  "description": "Execute sp_who2",
+  "body": "EXEC sp_who2"
+}

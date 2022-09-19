@@ -1,0 +1,6 @@
+{
+  "id": "fbb15e39-8018-44c9-a5e7-02fedd6418e0",
+  "prefix": "innolech",
+  "description": "Lệch tiền Innovation",
+  "body": "SELECT\n      P.Mpos_DocEntry\n\t, P.Saleoder_ID\n\t, P.Bill_Code\n\t, P.TongTien\n\t, ISNULL(I.Mocash, 0) + ISNULL(I.Mocard, 0) + ISNULL(I.Movoch, 0) + ISNULL(I.Motran, 0) AS InnoThuTien\n\t, I.Mocash\n\t, I.Mocard\n\t, I.Movoch\n\t, I.Motran\nFROM\n    dbo.push_TheCao_CRM_innovation P (NOLOCK)\n\t\tLEFT JOIN dbo.Push_ThuTien_TheCao_ThuHo_innovation I (NOLOCK)\n\t\t\tON P.Mpos_DocEntry = i.Mpos\nWHERE\n    P.CreateBy = '$CURSOR$'\n    AND P.ShopCode = ''\n    AND P.U_status = 1\n    AND CONVERT(DATE, P.CreateDate) = CONVERT(DATE, GETDATE())\n\tAND P.TongTien <> ISNULL(I.Mocash, 0) + ISNULL(I.Mocard, 0) + ISNULL(I.Movoch, 0) + ISNULL(I.Motran, 0)"
+}

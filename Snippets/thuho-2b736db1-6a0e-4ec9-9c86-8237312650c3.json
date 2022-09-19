@@ -1,0 +1,6 @@
+{
+  "id": "2b736db1-6a0e-4ec9-9c86-8237312650c3",
+  "prefix": "thuho",
+  "description": "cap nhat trang thai ve thanh cong, tao HTTT, day Push, keo ve BCQ",
+  "body": "EXECUTE sp_CollectedForErrorTransaction_TriNTM\n@billCode = 'PB-20200608-32181459',-- payoo : BillCode ; viettelpay : ID\n@type ='payoo',-- payoo, viettelpay, momo, ftel,viettel\n@remark =N'Hải, 10:55 AM', -- remark nvarchar\n@employeecode ='29099', --emlpoyeecode varchar\n@paymentmethod = 1, --0 tien mat, 1 the\n@U_CTLKCode ='BIDV', --BIDV,VTB,AGR,Vinamilk,TCB,SCB,VCB\n@CardPaymentMethod ='7', --7,8,1,9,2,4\n@CreditCardType ='1',--1:VISA 2:Master Card 3:Amex 4:Nội địa 5:Ví MOMO 6:VN PAY\n@feeTM = 1, --0 tien mat, 1 the\n@CreditCardNumber ='2177'"
+}

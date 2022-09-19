@@ -1,0 +1,6 @@
+{
+  "id": "360df5e9-0413-4c99-a6bd-0539e549cd6d",
+  "prefix": "spa",
+  "description": "Thu tiền ARB",
+  "body": "SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.PayBillAgriID IN ($CURSOR$)"
+}

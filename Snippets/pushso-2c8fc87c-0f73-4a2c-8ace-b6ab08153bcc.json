@@ -1,0 +1,6 @@
+{
+  "id": "2c8fc87c-0f73-4a2c-8ace-b6ab08153bcc",
+  "prefix": "pushso",
+  "description": "Insert vào push so",
+  "body": "INSERT  INTO dbo.ORDRPUSH2COM\n    (\n         DocEntry\n       , PushStatus\n       , APIErr\n       , U_CompCod\n       , DocEntryB1\n       , CreateDate\n       , Type\n       , U_Tmoney\n       , ShopCode\n       , DocType\n       , Disperct\n       , DocStatus\n       , Type_ReturnSO\n       , Phone\n       , U_DocSplit\n       , IDFormDK\n       , U_NuBill\n\t)\nSELECT\n\t  DocEntry\n\t, 1\n\t, ''\n\t, U_ComTo\n\t, NULL\n\t, GETDATE()\n\t, NULL\n\t, U_TMonBi\n\t, U_ShpCod\n\t, DocType\n\t, NULL\n\t, DocStatus\n\t, Type_ReturnSO\n\t, LicTradNum\n\t, U_DocSplit\n\t, IDFormDK\n\t, U_NuBill\nFROM\n    dbo.ORDR (NOLOCK)\nWHERE\n    DocEntry = $CURSOR$;"
+}

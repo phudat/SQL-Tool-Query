@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ctfxu</Title>
+      <Shortcut>ctfxu</Shortcut>
+      <Description>Hiển thị chi tiết giao dịch Fxu</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    C.ID
+  , C.MaKH
+  , C.TenKH
+  , C.SoDienThoai
+  , C.MaDoiTuong
+  , D.TenDoiTuong
+  , C.MaSuKien
+  , S.TenSuKien
+  , C.HanThe
+  , C.TenHangThe
+  , C.Diem
+  , C.Heso
+  , C.U_DESC
+  , C.NgayTao
+  , C.NgayCapNhat
+FROM
+    [10.1.13.69].FRT_Platform.dbo.ChiTietGiaoDichKH C WITH (NOLOCK)
+		INNER JOIN [10.1.13.69].FRT_Platform.dbo.DinhNghiaDoiTuong D WITH (NOLOCK)
+			ON C.MaDoiTuong = D.MaDoiTuong
+	INNER JOIN [10.1.13.69].FRT_Platform.dbo.DinhNghiaSuKien S WITH (NOLOCK)
+			ON C.MaSuKien = S.MaSuKien
+WHERE
+    C.SoDienThoai = '$CURSOR$'
+ORDER BY
+    C.ID DESC;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

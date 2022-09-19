@@ -1,0 +1,6 @@
+{
+  "id": "72c74ea1-23e9-49ed-bbb7-3b475ebe796c",
+  "prefix": "smp",
+  "description": "Lấy Active theo số điện thoại ",
+  "body": "SELECT SOPOS, * FROM [10.1.13.86].MPOS.dbo.FRT_ActiveSim WITH (NOLOCK) WHERE Phonenumber = '$CURSOR$'"
+}

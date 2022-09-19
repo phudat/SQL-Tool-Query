@@ -1,0 +1,6 @@
+{
+  "id": "3806de99-6963-487b-9431-9bf9e210fe53",
+  "prefix": "svoi",
+  "description": "SELECT VOUCHER BY SO",
+  "body": "SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH] AS F WITH (NOLOCK) WHERE F.U_IssIn = '$CURSOR$' AND F.U_Status <> 'C'"
+}

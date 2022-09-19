@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sr</Title>
+      <Shortcut>sr</Shortcut>
+      <Description>SELECT * FROM RDR1 AS R (NOLOCK) WHERE R.DocEntry = </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT U_WhsCod, U_Imei, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

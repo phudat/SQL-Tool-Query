@@ -1,0 +1,6 @@
+{
+  "id": "2b562f5e-e6d2-4064-bead-1ecc4f82b687",
+  "prefix": "monitogrpo",
+  "description": "Monitor GRPO mở mà vào PUSH",
+  "body": "SELECT\n    *\nFROM\n    dbo.GRPOPUSH2COM P (NOLOCK)\n\t\tINNER JOIN dbo.OPDN O (NOLOCK)\n\t\t\tON P.DocEntry= O.DocEntry\nWHERE\n    CONVERT(DATE, P.CreateDate) = CONVERT(DATE, GETDATE())\n\tAND O.DocStatus = 'O'"
+}

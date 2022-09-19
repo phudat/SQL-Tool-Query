@@ -1,0 +1,6 @@
+{
+  "id": "a085c20e-cbf1-4697-b1ce-483b38ea91ff",
+  "prefix": "vonglap_while",
+  "description": "",
+  "body": "SELECT  o.ItemCode, COUNT(1) sl INTO #tmp FROM OITW_1 o WITH (NOLOCK) \nLEFT JOIN dbo.Product_OITM p ON o.ItemCode=p.Itemcode \nWHERE ISNULL(p.Itemcode,'')='' and o.Quantity_available >0 GROUP BY o.ItemCode ORDER BY COUNT(1) DESC\n\nDeclare @itemcode VARCHAR(50)\nWhile (Select Count(*) From #tmp) > 0\nBegin\n    Select Top 1 @itemcode = ItemCode From #tmp\n\tINSERT INTO dbo.Product_OITM\n\t(\n\t\tItemcode,\n\t\tshop_code,\n\t\tinventory\n\t)\n\tSELECT \n\t\t@itemcode,\n\t\t(SELECT dbo.ufn_get_shop_inventory(@itemcode,0)),\t\t\n\t\t(SELECT dbo.ufn_get_shop_inventory(@itemcode,1))\n    Delete #tmp Where ItemCode = @itemcode\nEND\nDROP TABLE #tmp\n"
+}

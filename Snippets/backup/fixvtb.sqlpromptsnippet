@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fixvtb</Title>
+      <Shortcut>fixvtb</Shortcut>
+      <Description>Fix lỗi VTB</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @tblThuTienVTBLoi TABLE (DocEntry INT)
+INSERT INTO  @tblThuTienVTBLoi (DocEntry)
+SELECT
+	F.SODocEntry
+FROM
+    dbo.[@FPTORCT_POSBank_Log] F (NOLOCK)
+    INNER JOIN dbo.[@FPTORCT] O (NOLOCK)
+        ON F.SODocEntry = O.U_DocSO
+WHERE
+    CONVERT(DATE, F.ChargedDateTime) = CONVERT(DATE, GETDATE())
+	AND O.U_MoCCad > 0
+	AND F.SODocEntry > 0
+	AND O.U_CTLKCode = 'VTB'
+	AND O.U_Acbank = 'VTB'
+ORDER BY 
+	F.SODocEntry
+
+SELECT
+    U_DocSO
+  , U_MoCash
+  , U_MoCCad
+  , U_MoVoCh
+  , U_MoTran
+  , U_Acbank
+  , U_CTLKCode
+  , IsAutoCard
+FROM
+    dbo.[@FPTORCT] (NOLOCK)
+WHERE
+    U_DocSO IN (SELECT DocEntry FROM @tblThuTienVTBLoi)
+
+--DELETE FROM dbo.[@FPTORCT] WHERE U_DocSO IN (SELECT DocEntry FROM @tblThuTienVTBLoi) AND U_Acbank = 'VTB']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "cbd02af5-db92-41ff-9389-e066bf773808",
+  "prefix": "sai",
+  "description": "Thu hộ ARB theo ID",
+  "body": "SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CRM_PaymentBillReceipt_AgriBank AS P WITH (NOLOCK) WHERE P.ID IN ($CURSOR$)"
+}

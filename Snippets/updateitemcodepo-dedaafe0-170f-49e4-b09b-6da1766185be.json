@@ -1,0 +1,12 @@
+{
+  "id": "dedaafe0-170f-49e4-b09b-6da1766185be",
+  "prefix": "updateitemcodepo",
+  "description": "Cập nhật tên sản phẩm trên POS",
+  "body": "SELECT\n    P.*\nFROM\n    dbo.OPOR O (NOLOCK)\n\t\tINNER JOIN dbo.POR1 P (NOLOCK)\n\t\t\tON P.DocEntry = O.DocEntry\nWHERE\n    P.ItemCode = '$itemcode$'\n    AND O.DocStatus = 'O';\n\nRETURN\nUPDATE\n\tP\nSET\n\tP.Dscription = N'$CURSOR$'\nFROM\n    dbo.OPOR O (NOLOCK)\n\t\tINNER JOIN dbo.POR1 P (NOLOCK)\n\t\t\tON P.DocEntry = O.DocEntry\nWHERE\n    P.ItemCode = '$itemcode$'\n    AND O.DocStatus = 'O';\n",
+  "placeholders": [
+    {
+      "name": "itemcode",
+      "defaultValue": ""
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "91a2a9e1-43ea-4674-a112-380ef3e2a013",
+  "prefix": "sow",
+  "description": "SELECT PXPN",
+  "body": "SELECT U_Status, * FROM FRT_POS.dbo.OWTQ AS O WITH (NOLOCK) WHERE O.DocEntry = $CURSOR$ "
+}

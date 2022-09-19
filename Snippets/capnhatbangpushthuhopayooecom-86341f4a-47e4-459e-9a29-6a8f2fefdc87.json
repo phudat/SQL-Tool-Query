@@ -1,0 +1,6 @@
+{
+  "id": "86341f4a-47e4-459e-9a29-6a8f2fefdc87",
+  "prefix": "capnhatbangpushthuhopayooecom",
+  "description": "Cập nhật lại ti6èn bảng push thu hộ Realtime Payoo Ecom",
+  "body": "UPDATE\n    P\nSET\n    P.TotalAmount = B.TotalAmount\n  , P.CRMCode = B.BillCode\n  , P.Fee = B.PaymentFee\n  , P.U_EplCod = '-1'\n  , P.U_Desc = N'[Khởi tạo Phiếu IP:::1] keo tu ecom ve'\n  , P.U_MoTran = B.TotalAmount + B.PaymentFee\nFROM\n    dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH P (NOLOCK)\n\t\tINNER JOIN FRTCRM.dbo.PaymentBillReceipts AS B (NOLOCK)\n\t\t\tON P.CRMID = B.ID\nWHERE\n    P.CRMID IN ($CURSOR$)"
+}

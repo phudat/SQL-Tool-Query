@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dongbooitm89</Title>
+      <Shortcut>dongbooitm89</Shortcut>
+      <Description>Đồng bộ OITM về con 89</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT  INTO [10.1.13.89].FRT_MDM.dbo.OITM
+    (
+         ItemCode
+       , ItemName
+       , U_NG_CODE
+       , ItmsGrpCod
+       , FirmCode
+       , Model_ID
+       , U_NHOM
+       , InvntItem
+       , Createdate
+       , frozenFor
+       , VatGourpSa
+    )
+SELECT
+	ItemCode
+	, ItemName
+	, U_NG_CODE
+	, ItmsGrpCod
+	, FirmCode
+	, Model_ID
+	, U_Nhom
+	, InvntItem
+	, CreateDate
+	, frozenFor
+	, VatGourpSa
+FROM
+    FRT_MDM.dbo.OITM AS O WITH (NOLOCK)
+WHERE
+    O.ItemCode = '';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

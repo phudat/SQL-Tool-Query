@@ -1,0 +1,6 @@
+{
+  "id": "fd874d94-0a6e-47d5-88ee-769841b5828a",
+  "prefix": "ctkm",
+  "description": "Lấy thông tin CTKM",
+  "body": "DECLARE\n        @CC INT = $CURSOR$\n      , @GiftDocEntry INT;\n\nSELECT * FROM dbo.CTKM_structure (NOLOCK) WHERE DocEntry = @CC\nSELECT * FROM dbo.CTKM_structure_detail (NOLOCK) WHERE DocEntry = @CC\nSELECT * FROM dbo.CTKM_structure_detail_ex (NOLOCK) WHERE DocEntry = @CC\n\nSELECT * FROM dbo.CTKM_Condition (NOLOCK) WHERE DocEntry_structure = @CC\nSELECT * FROM dbo.CTKM_Condition_EX (NOLOCK) WHERE DocEntry_structure = @CC\n\nSELECT * FROM dbo.CTKM_Gift (NOLOCK) WHERE CTKM_structure_DocEntry = @CC\nSELECT @GiftDocEntry = DocEntry FROM dbo.CTKM_Gift (NOLOCK) WHERE CTKM_structure_DocEntry = @CC\nSELECT * FROM dbo.CTKM_Gift_ex (NOLOCK) WHERE DocEntry = @GiftDocEntry"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "32851a41-f869-4b17-8cc0-89583b7dc136",
+  "prefix": "ctr",
+  "description": "Commit transaction",
+  "body": "COMMIT TRANSACTION "
+}

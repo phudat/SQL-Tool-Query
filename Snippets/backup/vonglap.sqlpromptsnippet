@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>vonglap</Title>
+      <Shortcut>vonglap</Shortcut>
+      <Description>vonglap</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[	DECLARE CUR_PO CURSOR 
+	FOR 
+	$CURSOR$
+	OPEN CUR_PO		
+	DECLARE @ID INT 
+	FETCH NEXT FROM CUR_PO INTO @ID
+	while ( @@FETCH_STATUS = 0)
+	begin
+			
+		FETCH NEXT FROM CUR_PO INTO @ID
+	END
+	CLOSE CUR_PO
+	DEALLOCATE CUR_PO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

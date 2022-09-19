@@ -1,0 +1,6 @@
+{
+  "id": "26c1cb3d-0264-4211-b4fa-fda37133506b",
+  "prefix": "ssw",
+  "description": "CRM Card by Warehousecode",
+  "body": "SELECT S.TotalReferAmount, S.TotalSellingAmount, S.SalesOrdersStatus, S.VendorCode, * FROM [10.1.13.76].FRTCRM.dbo.SalesOrders AS S WITH (NOLOCK) WHERE S.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, S.SalesOrderDate) = ''"
+}

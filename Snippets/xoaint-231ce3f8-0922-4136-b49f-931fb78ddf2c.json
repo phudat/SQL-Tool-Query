@@ -1,0 +1,6 @@
+{
+  "id": "231ce3f8-0922-4136-b49f-931fb78ddf2c",
+  "prefix": "xoaint",
+  "description": "Xóa bảng push vận chuyển sao sai bill",
+  "body": "RETURN\nDELETE FROM FRT_INTERGRATION.dbo.Intergration_Push WHERE LEFT(OrderNumber, 1) IN ('', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9')"
+}

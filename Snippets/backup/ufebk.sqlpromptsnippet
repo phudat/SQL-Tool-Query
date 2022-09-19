@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ufebk</Title>
+      <Shortcut>ufebk</Shortcut>
+      <Description>Update voucher không giá</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+	  @VC VARCHAR(50) = '$CURSOR$'
+	, @GC INT = 0
+
+SELECT 'OLD', * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = @VC
+SELECT 'OLD_BK', * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = @VC
+
+INSERT INTO dbo.FPT_PROMS
+    (
+          DocEntry_SO
+		, Status
+		, Email
+		, CreateDate
+		, GroupCode
+		, phone
+		, UPDATEdate
+		, email2
+		, U_Desc
+		, Remark
+	)
+SELECT
+	  DocEntry_SO
+	, Status
+	, Email
+	, CreateDate
+	, GroupCode
+	, phone
+	, UPDATEdate
+	, email2
+	, U_Desc
+	, Remark
+FROM
+    dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK)
+WHERE
+    Email = @VC
+	AND GroupCode = @GC
+
+DELETE FROM FPT_PROMS_BK_ARCHIVE WHERE Email = @VC AND GroupCode = @GC
+
+UPDATE FRT_POS.dbo.FPT_PROMS SET DocEntry_SO = 0, Status = 6 WHERE Email = @VC AND GroupCode = @GC
+
+SELECT 'NEW', * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = @VC
+SELECT 'NEW_BK', * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = @VC]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

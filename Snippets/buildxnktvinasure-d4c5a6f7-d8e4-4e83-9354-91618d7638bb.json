@@ -1,0 +1,6 @@
+{
+  "id": "d4c5a6f7-d8e4-4e83-9354-91618d7638bb",
+  "prefix": "buildxnktvinasure",
+  "description": "Build xác nhận kế toán Vinasure",
+  "body": "INSERT INTO dbo.CashCollectionReceiptsNoVAT\n    (\n         ReceiptCode\n       , ReceiptDate\n       , WarehouseCode\n       , VendorCode\n       , RefCode\n       , CustomerCode\n       , CustomerName\n       , MobilePhoneNumber\n       , Amount\n       , CashCollectionReceiptsNoVATType\n       , CashCollectionReceiptsNoVATStatus\n       , Remark\n       , CreatedDateTime\n       , CreatedEmployeeBy\n       , IsConfirmed\n       , ConfirmedDate\n       , ConfirmedEmployeeBy\n       , CardPaymentFee\n    )\nSELECT \n\t'BH-' + CONVERT(VARCHAR, GETDATE(), 112) + CONVERT(VARCHAR, P.ID)\n\t, P.CreatedDateTime\n\t, P.WarehouseCode\n\t, P.VendorCode\n\t, CONVERT(VARCHAR, P.ID)\n\t, ''\n\t, P.buyer_name\n\t, P.buyer_mobile\n\t, P.Amount\n\t, 343\n\t, 298\n\t, N'Hệ thống tạo'\n\t, P.CreatedDateTime\n\t, P.CreatedBy\n\t, 1\n\t, P.CreatedDateTime\n\t, 'SYSTEM'\n\t, 0\nFROM \n\tdbo.VinasureHeader P (NOLOCK) \nWHERE \n\tP.ID IN (\n$CURSOR$\n)"
+}

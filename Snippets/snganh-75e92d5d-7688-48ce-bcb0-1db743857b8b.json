@@ -1,0 +1,6 @@
+{
+  "id": "75e92d5d-7688-48ce-bcb0-1db743857b8b",
+  "prefix": "snganh",
+  "description": "SELECT NGANH",
+  "body": "SELECT * FROM FRT_MDM.dbo.[@FPT_NGANH] (NOLOCK)"
+}

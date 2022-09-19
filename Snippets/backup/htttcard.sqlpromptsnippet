@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>htttcard</Title>
+      <Shortcut>htttcard</Shortcut>
+      <Description>them httt the cao bang the</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+		SalesOrdersID
+		,Status
+       , CreatedDate
+       , CreatedBy
+       , Remark
+	   , CashAmount
+       , TransferAmount
+	   ,CreditCardType
+	   ,CardAmount
+	   ,VoucherAmount
+       , PaymentType
+	   , Card_Fee	  
+    )
+SELECT 
+	s.ID
+	,1
+	,  S.CreatedDateTime
+	, s.CreatedBy
+	, N'Thanh Toán Bằng Thẻ'
+	, 0
+	, 0
+	, '7'
+	, ISNULL(S.TotalReferAmount, 0)
+	, 0
+	,'CARD'
+	, 0
+FROM 
+	dbo.SalesOrders S (NOLOCK) 
+WHERE 
+	S.Id IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

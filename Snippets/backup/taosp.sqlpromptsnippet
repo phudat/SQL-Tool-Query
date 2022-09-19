@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>taosp</Title>
+      <Shortcut>taosp</Shortcut>
+      <Description>Tạo Store procedure bình thường</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>tensp</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[USE [FRTCRM]
+GO
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/*====================================================================
+Author					:		Datnp5
+Create date				:		$DATE(dd/MM/yyyy HH:mm:ss)$
+Description				:		
+====================================================================*/
+CREATE PROCEDURE $tensp$
+(
+	  @$CURSOR$	INT
+)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	BEGIN TRY
+		
+	END TRY
+	BEGIN CATCH
+		INSERT INTO dbo.Log
+		    (
+		         CreateDateTime
+		       , CreateBy
+		       , Content
+		    )
+		VALUES
+		    (
+		         GETDATE()
+		       , N'$tensp$'
+		       , N'Lỗi [$tensp$] - Err: ' + ERROR_MESSAGE() + ' Line: ' + CONVERT(VARCHAR, ERROR_LINE())
+		    )
+	END CATCH
+END
+GO
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

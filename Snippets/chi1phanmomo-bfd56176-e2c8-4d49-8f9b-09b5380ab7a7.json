@@ -1,0 +1,6 @@
+{
+  "id": "bfd56176-e2c8-4d49-8f9b-09b5380ab7a7",
+  "prefix": "chi1phanmomo",
+  "description": "chi 1 phan tien momo",
+  "body": "EXEC dbo.Refund_Percent_For_Collection @loai = 1,                -- tinyint\n                                       @TotalAmountAccept = $CURSOR$, -- float\n                                       @id = 0,                  -- int\n                                       @EmployeeCode = '29099'        -- varchar(50)"
+}

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitordoublesubsidy</Title>
+      <Shortcut>monitordoublesubsidy</Shortcut>
+      <Description>Monitor thu tiền double Subsidy</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+      SubsidePhoneNumber
+	, COUNT(*)
+FROM
+    dbo.SUBSIDY_SOSERVICE_PUSH (NOLOCK)
+WHERE
+    CONVERT(DATE, CreatedDateTime) = CONVERT(DATE, GETDATE())
+GROUP BY
+	SubsidePhoneNumber
+HAVING
+	COUNT(*) > 1]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

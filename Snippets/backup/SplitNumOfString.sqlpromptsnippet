@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>SplitNumOfString</Title>
+      <Shortcut>SplitNumOfString</Shortcut>
+      <Description>Loai so ra khoi chuoi</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @NumRange as VARCHAR(50) = '%[0-9]%', @Temp NVARCHAR(250)='$CURSOR$'
+    WHILE PatIndex(@NumRange, @Temp) > 0
+        Set @Temp = Stuff(@Temp, PatIndex(@NumRange, @Temp), 1, '')
+
+SELECT @Temp]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

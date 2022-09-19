@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>thecaochitiet</Title>
+      <Shortcut>thecaochitiet</Shortcut>
+      <Description>tao du lieu trong bang salesorderdetails do loi</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @id INT				= $CURSOR$
+DECLARE @serial VARCHAR(50) = ''
+DECLARE @pin VARCHAR(50)	= ''
+DECLARE @expried DATETIME	= ''
+
+INSERT INTO dbo.SalesOrderDetails
+(
+    SalesOrderID,CardPayooType,PriceCard,SerialCard,TotalPurchasingAmount,TotalReferAmount,TotalSellingAmount,NumberCode,ExpiredCard,Remark,
+	CreatedBy,CreatedEmployeeBy,CreatedDateTime,LastUpdatedBy,LastUpdatedEmployeeBy,LastUpdatedDateTime,Status
+)
+SELECT 
+	id,InsuranceAAAType,PriceCard,@serial,TotalPurchasingAmount,TotalReferAmount,TotalSellingAmount,@pin,@expried,'29099',CreatedBy,CreatedDateTime,LastUpdatedBy,LastUpdatedDateTime,1 
+FROM 
+	dbo.SalesOrders WITH (NOLOCK) 
+WHERE 
+	id = @id]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fixMonitorInDate</Title>
+      <Shortcut>fixMonitorInDate</Shortcut>
+      <Description>pull to pos and write what you do to colum descrip in table monitor</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC dbo.Fix_MonitorInDate_sp_POS_CRMv2_AllInOne 
+	@type = 1,                              -- tinyint 1 thu 2 chi 3 the
+	@IDList = '',                           -- varchar(max)
+	@VendorCode = '',                       -- varchar(40)
+	@ShopCode = '',                         -- varchar(40)
+	@ConfirmedDate = '2020-10-16 03:45:54', -- datetime
+	@POSDate = '2020-10-16 03:45:54',       -- datetime
+	@Description = N'',                     -- nvarchar(max)
+	@fixedBy = '29099'                      -- varchar(20)
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "baf88b1d-792a-494e-8c09-ffeddcca4a3c",
+  "prefix": "huysimonline",
+  "description": "Cập nhật hủy SIM online",
+  "body": "SELECT\n    ShopBook\n  , BookDate\n  , IsActived\n  , Status\n  , *\nFROM\n    [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline WITH (NOLOCK)\nWHERE\n    PhoneAdjusted IN ('$CURSOR$');\n\nRETURN\nUPDATE\n    [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline\nSET\n    IsActived = 0\n  , Status = 'E'\nWHERE\n    PhoneAdjusted IN ('');"
+}

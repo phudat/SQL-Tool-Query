@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildthutientienmatthuhoftel</Title>
+      <Shortcut>buildthutientienmatthuhoftel</Shortcut>
+      <Description>Build thu tiền mặt thu hộ Ftel</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+         CreatedDate
+       , CreatedBy
+       , Remark
+       , CashAmount
+       , PaymentType
+       , FtelBillID
+       , TypePaymentVendor
+    )
+SELECT 
+	  C.CreatedDateTime
+	, C.CreatedBy
+	, N'Thanh toán bằng tiền mặt'
+	, ISNULL(C.TotalAmount, 0)
+	, 'CASH'
+	, C.ID
+	, 3
+FROM 
+	dbo.CashCollectionReceipts C (NOLOCK) 
+WHERE 
+	C.Id IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

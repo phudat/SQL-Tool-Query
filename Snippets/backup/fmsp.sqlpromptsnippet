@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fmsp</Title>
+      <Shortcut>fmsp</Shortcut>
+      <Description>Tìm CTKM theo MSP</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @ItemCode VARCHAR(20) = '$CURSOR$';
+SELECT
+    DocEntry
+INTO
+    #tmpA
+FROM
+    dbo.CTKM_structure_detail (NOLOCK)
+WHERE
+    ItemCode = @ItemCode
+UNION
+SELECT
+    DocEntry
+FROM
+    dbo.CTKM_structure_detail_ex (NOLOCK)
+WHERE
+    ItemCode = @ItemCode;
+
+SELECT
+    *
+INTO
+	#tmpB
+FROM
+    dbo.CTKM_structure (NOLOCK)
+WHERE
+    DocEntry IN (SELECT DocEntry FROM #tmpA)
+	AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate);
+
+SELECT * FROM #tmpB
+SELECT * FROM dbo.CTKM_structure_detail (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpB)
+SELECT * FROM dbo.CTKM_structure_detail_ex (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpB)
+
+DROP TABLE #tmpA, #tmpB]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sau</Title>
+      <Shortcut>sau</Shortcut>
+      <Description>SELECT * FROM [10.1.13.76].FRTCRM.dbo.CRM_GenerateCode_Auth WHERE UserName=''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.76].FRTCRM.dbo.CRM_GenerateCode_Auth WITH (NOLOCK) WHERE UserName='$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

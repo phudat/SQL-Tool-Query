@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>spwh</Title>
+      <Shortcut>spwh</Shortcut>
+      <Description>Thu hộ từ bảng His</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.PaymentBillReceipts_History AS P WITH (NOLOCK) WHERE P.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, P.BillDate) = '' AND P.PaymentBillStatus = 284]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "66e0732a-df7c-4817-9c4a-e8c05bf76571",
+  "prefix": "fggpt",
+  "description": "Tìm cơ cấu theo giảm giá %",
+  "body": "SELECT DISTINCT DocEntry INTO #tmpGGPT FROM dbo.CTKM_structure_detail (NOLOCK) WHERE Percent_Amount = 5\nUNION\nSELECT DISTINCT DocEntry FROM dbo.CTKM_structure_detail_ex (NOLOCK) WHERE Percent_Amount = 5\n\nSELECT * FROM dbo.CTKM_structure (NOLOCK) WHERE DocEntry IN (SELECT DocEntry FROM #tmpGGPT) AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate)\n\nDROP TABLE #tmpGGPT"
+}

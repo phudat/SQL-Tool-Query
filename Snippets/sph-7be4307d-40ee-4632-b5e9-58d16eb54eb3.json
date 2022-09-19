@@ -1,0 +1,6 @@
+{
+  "id": "7be4307d-40ee-4632-b5e9-58d16eb54eb3",
+  "prefix": "sph",
+  "description": "Execute sp_help",
+  "body": "EXEC sp_help"
+}

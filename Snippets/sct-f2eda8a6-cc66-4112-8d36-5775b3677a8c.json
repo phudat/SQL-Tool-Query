@@ -1,0 +1,6 @@
+{
+  "id": "f2eda8a6-cc66-4112-8d36-5775b3677a8c",
+  "prefix": "sct",
+  "description": "SELECT Chi tiền",
+  "body": "SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, * FROM FRT_POS.dbo.[@FPTURCT] AS F WITH (NOLOCK) WHERE F.U_DocSO = $CURSOR$"
+}

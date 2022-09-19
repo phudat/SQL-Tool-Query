@@ -1,0 +1,6 @@
+{
+  "id": "04178b2f-0c07-4758-af97-ff334603f457",
+  "prefix": "monitordoublesubsidy",
+  "description": "Monitor thu tiền double Subsidy",
+  "body": "SELECT\n      SubsidePhoneNumber\n\t, COUNT(*)\nFROM\n    dbo.SUBSIDY_SOSERVICE_PUSH (NOLOCK)\nWHERE\n    CONVERT(DATE, CreatedDateTime) = CONVERT(DATE, GETDATE())\nGROUP BY\n\tSubsidePhoneNumber\nHAVING\n\tCOUNT(*) > 1"
+}

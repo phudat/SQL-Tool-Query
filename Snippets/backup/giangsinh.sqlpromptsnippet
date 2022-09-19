@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>giangsinh</Title>
+      <Shortcut>giangsinh</Shortcut>
+      <Description>GIANGSINH</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT N'Còn ' + REPLACE(CONVERT(NVARCHAR, CONVERT(MONEY, DATEDIFF(SECOND, GETDATE(), '20171223 23:59:59')), 1), '.00', '') + N' giây là tới Giáng Sinh.']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

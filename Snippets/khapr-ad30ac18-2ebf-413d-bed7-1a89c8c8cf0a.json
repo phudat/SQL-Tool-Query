@@ -1,0 +1,6 @@
+{
+  "id": "ad30ac18-2ebf-413d-bed7-1a89c8c8cf0a",
+  "prefix": "khapr",
+  "description": "Check khách hàng APR, hạng thẻ",
+  "body": "DECLARE @SDT VARCHAR(20) = '$CURSOR$'\nSELECT FRank, Fpoint, Fmoney, Birthday, * FROM [10.1.13.69].FRT_FSTUDIO.dbo.FRT_OCRD WITH (NOLOCK) WHERE SDT = @SDT\nSELECT O.DdctOffice, O.LicTradNum, O.Phone1, O.BPID, O.Fpoint, O.FMoney, O.GroupCode, * FROM FRT_POS.dbo.OCRD AS O WITH (NOLOCK) WHERE O.LicTradNum = @SDT"
+}

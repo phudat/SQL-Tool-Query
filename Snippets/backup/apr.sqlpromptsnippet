@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>apr</Title>
+      <Shortcut>apr</Shortcut>
+      <Description>Tính tiền trả thưởng APR</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT R.U_TMoney, (R.U_TMoney/1.1)*0.1 Thue, R.U_TaxAmo, R.U_TMoney/1.1*-1 Gia, R.U_Price, ( R.U_TMoney/1.1*-1)-(R.U_TMoney/1.1) GiamGia,R.DiscPrcnt, *  FROM dbo.RDR1 R (NOLOCK) WHERE DocEntry = $CURSOR$ AND ItemCode = '00001891']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

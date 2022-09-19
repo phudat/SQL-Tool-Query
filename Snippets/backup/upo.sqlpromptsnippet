@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>upo</Title>
+      <Shortcut>upo</Shortcut>
+      <Description>Mở PO cho kho tổng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo.OPOR SET DocStatus = 'O' WHERE DocEntry IN ($CURSOR$) AND DocStatus = 'C']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

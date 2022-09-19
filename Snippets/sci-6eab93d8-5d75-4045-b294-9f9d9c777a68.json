@@ -1,0 +1,6 @@
+{
+  "id": "6eab93d8-5d75-4045-b294-9f9d9c777a68",
+  "prefix": "sci",
+  "description": "SELECT FROM CASHCOLLECTIONRECEIPT FROM ID",
+  "body": "SELECT C.TotalAmount, C.CashCollectionReceiptStatus, C.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.ID IN ($CURSOR$)"
+}

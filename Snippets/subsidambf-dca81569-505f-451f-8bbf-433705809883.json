@@ -1,0 +1,6 @@
+{
+  "id": "dca81569-505f-451f-8bbf-433705809883",
+  "prefix": "subsidambf",
+  "description": "Check SO Subsida Mobifone",
+  "body": "SELECT * INTO #tmpAS FROM [10.1.13.86].MPOS.dbo.FRT_ActiveSim with (NOLOCK) WHERE Provider = 'Mobifone' AND CONVERT(DATE, Createdate) >= '20171219'\nSELECT P.POSDocEntry, P.mPOSDocEntry, T.Phonenumber INTO #tmpPush FROM #tmpAS T INNER JOIN dbo.POS_mPOS_PUSH P ON T.SOPOS = P.mPOSDocEntry\nSELECT O.DocEntry, O.DocStatus, O.U_ExDate, O.U_ShpCod, T.Phonenumber  FROM #tmpPush T  (NOLOCK)  INNER JOIN dbo.ORDR O (NOLOCK) ON T.POSDocEntry = O.DocEntry WHERE O.Type_ReturnSO = 19 AND O.DocStatus IN ('F', 'T', 'W')"
+}

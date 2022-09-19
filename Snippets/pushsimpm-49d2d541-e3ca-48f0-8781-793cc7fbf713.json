@@ -1,0 +1,6 @@
+{
+  "id": "49d2d541-e3ca-48f0-8781-793cc7fbf713",
+  "prefix": "pushsimpm",
+  "description": "Insert vào push SIM - PM",
+  "body": "DECLARE @DocEntry INT = $CURSOR$\nINSERT INTO dbo.POS_CRMv2_SIMSOFT_PUSH\n    (\n         DocEntry\n       , InvoiceCode\n       , CustomerCode\n       , CustomerName\n       , CustomerPhone\n       , CustomerType\n       , WarehouseCodeB1\n       , ExDate\n       , CreateBy\n       , U_TMonBi\n       , CreateDateTime\n    )\nSELECT\n    O.DocEntry\n  , ISNULL(O.U_NuBill, O.DocEntry)\n  , O.CardCode\n  , O.CardName\n  , O.LicTradNum\n  , ''\n  , O.U_ShpCod\n  , O.U_ExDate\n  , O.CreateBy\n  , O.U_TMonBi\n  , GETDATE()\nFROM\n    ORDR O (NOLOCK)\nWHERE\n    DocEntry = @DocEntry\n\tAND O.DocStatus = 'F'"
+}

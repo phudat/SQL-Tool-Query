@@ -1,0 +1,6 @@
+{
+  "id": "6ad00d47-f395-45a0-bf9e-eb84511d611a",
+  "prefix": "ttfec",
+  "description": "Thông tin trả góp FEC",
+  "body": "--SELECT O.frozenFor, O.U_TGBH, O.U_NG_CODE, O.ItmsGrpCod, O.FirmCode, O.U_Nhom, O.U_DongHH, * FROM FRT_MDM.dbo.OITM AS O WITH (NOLOCK) WHERE O.ItemName LIKE '%note 8%' AND O.U_NG_CODE = '02'\n\nDECLARE \n\t  @IDTT TINYINT = 0\n\t, @ItemCode VARCHAR(20) = '$CURSOR$'\n\t, @MAX INT\n\t, @From NUMERIC(18, 6) = 0\n\t, @To NUMERIC(8, 6) = 0\n\t, @KH VARCHAR(10) = ''\n\t, @LS FLOAT = 0.0\n\nSELECT @MAX = MAX(ID) + 1 FROM dbo.ThongTinTraGop_CRM (NOLOCK)\n\nINSERT dbo.ThongTinTraGop_CRM\n    (\n         ID\n       , ItemCode\n       , ID_TraTruoc\n       , Name_TraTruoc\n       , LaiSuat\n       , Ma_NhaTraGop_CRM\n       , Ma_NhaTraGop_POS\n       , NhaTraGop\n       , FromPrice\n       , ToPrice\n       , KyHan\n       , CreateDate\n       , CreateBy\n       , Type\n    )\nVALUES\n    (\n         @MAX\n       , @ItemCode\n       , @IDTT\n       , CASE @IDTT WHEN 1 THEN N'Trả trước 10%'\n\t\t\t\t    WHEN 2 THEN N'Trả trước 20%'\n\t\t\t\t\tWHEN 3 THEN N'Trả trước 30%'\n\t\t END\n       , @LS\n       , 2\n       , 1556545\n       , N'[FE Credit] Ngân Hàng TMCP Việt Nam Thịnh Vượng Chi nhánh TPHCM'\n       , @From\n       , @To\n       , @KH\n       , GETDATE()\n       , '-1'\n       , 0\n    )"
+}

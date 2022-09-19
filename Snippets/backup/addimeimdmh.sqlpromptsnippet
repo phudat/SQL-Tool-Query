@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>addimeimdmh</Title>
+      <Shortcut>addimeimdmh</Shortcut>
+      <Description>Thêm IMEI MDMH</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+        @DocEntrySO INT				= $CURSOR$ 
+      , @ItemCodeSO NVARCHAR(20)	= ''
+      , @IMEI VARCHAR(32)			= '';
+
+INSERT  INTO dbo.[@FPT_ImeiSO]
+    (
+         DocEntrySO
+       , ItemCodeMap
+       , LineNumMap
+       , Imei
+       , Type
+       , CreateDate
+       , Status
+       , UpdateDate
+       , UpdateBy
+       , SoPhieu
+       , U_PriceNew
+       , U_PriceBHV
+       , DocEntry_SOBHV
+       , PushStatus
+    )
+SELECT
+      R.DocEntry
+	, R.ItemCode
+	, R.LineNum
+	, @IMEI
+	, 2
+	, GETDATE()
+	, 1
+	, GETDATE()
+	, ''
+	, 0
+	, 0
+	, 0
+	, 0
+	, 1
+FROM
+    dbo.RDR1 R (NOLOCK)
+		INNER JOIN dbo.[@FPT_ItemConfig] F (NOLOCK)
+			ON R.ItemCode = F.ItemCode
+WHERE
+    R.DocEntry = @DocEntrySO
+    AND R.ItemCode = @ItemCodeSO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

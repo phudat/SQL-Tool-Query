@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tonsim</Title>
+      <Shortcut>tonsim</Shortcut>
+      <Description>Kiem tra so luong sim ton kho con lai</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[--SELECT DISTINCT Provider FROM dbo.StoreOnline WITH (NOLOCK) WHERE ISNULL(PhoneAdjusted,'')!=''
+SELECT  * FROM dbo.StoreOnline s WITH (NOLOCK) 
+WHERE Provider='Mobifone' AND ISNULL(ShopBook,'')='' AND ISNULL(BookDate,'')='' AND Status='I' AND IsActived=1 
+SELECT  * FROM dbo.StoreOnline s WITH (NOLOCK) 
+WHERE Provider='Itelecom' AND ISNULL(ShopBook,'')='' AND ISNULL(BookDate,'')='' AND Status='I' AND IsActived=1 
+SELECT  * FROM dbo.StoreOnline s WITH (NOLOCK) 
+WHERE Provider='Vietnammobile' AND ISNULL(ShopBook,'')='' AND ISNULL(BookDate,'')='' AND Status='I' AND IsActived=1 
+SELECT  * FROM dbo.StoreOnline s WITH (NOLOCK) 
+WHERE Provider='Viettel' AND ISNULL(ShopBook,'')='' AND ISNULL(BookDate,'')='' AND Status='I' AND IsActived=1 
+--SELECT DISTINCT Provider FROM dbo.StoreOnline WITH (NOLOCK) WHERE ISNULL(PhoneAdjusted,'')!=''
+SELECT  SimType,COUNT(1) FROM dbo.StoreOnline s WITH (NOLOCK) INNER JOIN CRM_SimType_Price p WITH (nolock) ON s.ProductID=p.PhoneNumber 
+WHERE Provider='Mobifone' AND ISNULL(ShopBook,'')='' AND ISNULL(BookDate,'')='' AND Status='I' AND IsActived=1 AND p.SimTypeID =10 AND LEFT(s.ProductID,2)!= '09' GROUP BY SimType
+
+SELECT  COUNT(1) FROM dbo.StoreOnline WITH (NOLOCK) WHERE Provider='Mobifone' AND ISNULL(ShopBook,'')='' AND ISNULL(BookDate,'')='' AND Status='I' AND IsActived=1
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

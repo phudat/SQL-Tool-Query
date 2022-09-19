@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>AsyncToPos</Title>
+      <Shortcut>AsyncToPos</Shortcut>
+      <Description>Bắn các giao dịch thu hộ thẻ cào về POS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[CREATE TABLE #temp ( [orderId] varchar(100) )
+INSERT INTO #temp ([orderId])
+VALUES
+( 'b507334b-41b6-fdca-154b-3a0154470822' )
+$CURSOR$
+
+CREATE TABLE #tempupdate(orderId VARCHAR(50), updatetime DATETIME, stattusUpdate int)
+
+	DECLARE CUR_PO CURSOR 
+	FOR 
+		SELECT  orderID FROM #temp WITH (NOLOCK)
+	OPEN CUR_PO		
+	DECLARE @ID VARCHAR(50) 
+	FETCH NEXT FROM CUR_PO INTO @ID
+	while ( @@FETCH_STATUS = 0)
+	begin
+		IF EXISTS (SELECT TOP 1 1 FROM [SOM-Legacy-Message].[Cap].[Published] WITH (NOLOCK) WHERE  Name = 'FRT.LegacyAPI.PayinEto' AND Content like '%'+@ID+'%' )
+		BEGIN
+			UPDATE [SOM-Legacy-Message].[Cap].[Published] SET Retries = 1, StatusName = 'Failed' WHERE  Name = 'FRT.LegacyAPI.PayinEto' AND Content like '%'+@id+'%'
+		    INSERT INTO #tempupdate
+		    (
+		        orderId,
+		        updatetime,
+		        stattusUpdate
+		    )
+		    VALUES
+		    (   @id,        -- orderId - varchar(50)
+		        GETDATE(), -- updatetime - datetime
+		        1          -- stattusUpdate - int
+		    )
+		END
+		ELSE 
+		BEGIN
+		    INSERT INTO #tempupdate
+		    (
+		        orderId,
+		        updatetime,
+		        stattusUpdate
+		    )
+		    VALUES
+		    (   @id,        -- orderId - varchar(50)
+		        GETDATE(), -- updatetime - datetime
+		        0          -- stattusUpdate - int
+		    )
+		END
+		FETCH NEXT FROM CUR_PO INTO @ID
+	END
+	CLOSE CUR_PO
+	DEALLOCATE CUR_PO
+DROP TABLE #temp
+SELECT * FROM #tempupdate WITH (NOLOCK)
+DROP TABLE #tempupdate
+--SELECT * FROM [SOM-Legacy-Message].[Cap].[Published] WITH (NOLOCK) WHERE  Name = 'FRT.LegacyAPI.PayinEto' AND Content like N'%b507334b-41b6-fdca-154b-3a0154470822%']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

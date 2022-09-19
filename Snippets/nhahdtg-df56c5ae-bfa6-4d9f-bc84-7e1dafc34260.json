@@ -1,0 +1,6 @@
+{
+  "id": "df56c5ae-bfa6-4d9f-bc84-7e1dafc34260",
+  "prefix": "nhahdtg",
+  "description": "Nhả hợp đồng trả góp",
+  "body": "DECLARE @SoHD NVARCHAR(40) = '$CURSOR$'\nINSERT  INTO dbo.tbl_Installment_DEL\n    (\n         DocEntrySO\n       , ContractNo\n       , U_CardCode\n       , CardCode\n       , CMND\n       , Status\n       , CreateDate\n       , UpdateDate\n       , CreateBy\n       , UpdateBy\n       , Remarks\n\t   , Khoanvay\n\t   , U_imei\n    )\nSELECT\n    DocEntrySO\n  , ContractNo\n  , U_CardCode\n  , CardCode\n  , CMND\n  , Status\n  , CreateDate\n  , UpdateDate\n  , CreateBy\n  , UpdateBy\n  , N'Trả hàng trong ngày'\n  , Khoanvay\n  , U_imei\nFROM\n    dbo.tbl_Installment (NOLOCK)\nWHERE\n    ContractNo = @SoHD\n\nDELETE FROM tbl_Installment WHERE ContractNo = @SoHD"
+}

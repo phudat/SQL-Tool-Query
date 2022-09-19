@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildxnktmomo</Title>
+      <Shortcut>buildxnktmomo</Shortcut>
+      <Description>Build xác nhận kế toán Momo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CashCollectionReceiptsNoVAT
+    (
+         ReceiptCode
+       , ReceiptDate
+       , WarehouseCode
+       , VendorCode
+       , RefCode
+       , CustomerCode
+       , CustomerName
+       , MobilePhoneNumber
+       , Amount
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Remark
+       , CreatedDateTime
+       , CreatedEmployeeBy
+       , IsConfirmed
+       , ConfirmedDate
+       , ConfirmedEmployeeBy
+    )
+SELECT 
+	  'PT-MoMo-' + CONVERT(VARCHAR, C.TransactionDate, 112) + CONVERT(VARCHAR, C.Id)
+	, C.TransactionDate
+	, C.WarehouseCode
+	, C.VendorCode
+	, CONVERT(VARCHAR, C.Id)
+	, C.MobilePhoneNumber
+	, C.CustomerName
+	, C.PayerPhone
+	, C.Amount
+	, 343
+	, 298
+	, N'Hệ thống tạo'
+	, C.CreatedDateTime
+	, C.CreatedBy
+	, 1
+	, C.TransactionDate
+	, 'SYSTEM'
+FROM 
+	dbo.TransactionMoMo C (NOLOCK) 
+WHERE 
+	C.Id IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

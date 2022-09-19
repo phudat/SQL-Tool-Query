@@ -1,0 +1,6 @@
+{
+  "id": "cea0390e-6a42-47e7-9f79-30cfbd8b0464",
+  "prefix": "giangsinh",
+  "description": "GIANGSINH",
+  "body": "SELECT N'Còn ' + REPLACE(CONVERT(NVARCHAR, CONVERT(MONEY, DATEDIFF(SECOND, GETDATE(), '20171223 23:59:59')), 1), '.00', '') + N' giây là tới Giáng Sinh.'"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "2a153fd1-0f2a-4f65-8111-c0d7ae025246",
+  "prefix": "ffind",
+  "description": "Tìm kiếm trong sp nhanh",
+  "body": "SELECT DISTINCT\n    'EXEC ' + o.name\nFROM\n    syscomments c\n    JOIN sysobjects o\n        ON c.id = o.id\n    JOIN INFORMATION_SCHEMA.TABLES t\n        ON c.text LIKE N'%$CURSOR$%';"
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>smr</Title>
+      <Shortcut>smr</Shortcut>
+      <Description>Select detail mPOS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.86].MPOS.dbo.FRT_RDR1 WITH (NOLOCK) WHERE DocEntry = $CURSOR$ ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

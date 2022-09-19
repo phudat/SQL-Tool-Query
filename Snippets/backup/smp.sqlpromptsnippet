@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>smp</Title>
+      <Shortcut>smp</Shortcut>
+      <Description>Lấy Active theo số điện thoại </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT SOPOS, * FROM [10.1.13.86].MPOS.dbo.FRT_ActiveSim WITH (NOLOCK) WHERE Phonenumber = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

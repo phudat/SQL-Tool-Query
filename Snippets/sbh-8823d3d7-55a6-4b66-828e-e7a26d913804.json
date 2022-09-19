@@ -1,0 +1,6 @@
+{
+  "id": "8823d3d7-55a6-4b66-828e-e7a26d913804",
+  "prefix": "sbh",
+  "description": "SELECT WARRANTY",
+  "body": "SELECT * FROM [10.1.13.72].FRTWARRANTY.dbo$CURSOR$ WITH (NOLOCK) WHERE "
+}

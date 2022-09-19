@@ -1,0 +1,6 @@
+{
+  "id": "2c2ca712-21cd-48ff-936d-1f263a74c2a5",
+  "prefix": "checkpricevc",
+  "description": "Kiểm tra trả hàng bị trừ phí VC",
+  "body": "DECLARE @SO NVARCHAR(20) = '$CURSOR$'\nSELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH] AS F (NOLOCK) WHERE F.U_IssIn = @SO\nSELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH] AS F (NOLOCK) WHERE F.U_BillIn = @SO\nSELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH_BK_20150615] AS F (NOLOCK) WHERE F.U_IssIn = @SO\nSELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH_BK_20150615] AS F (NOLOCK) WHERE F.U_BillIn = @SO"
+}

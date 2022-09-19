@@ -1,0 +1,6 @@
+{
+  "id": "c0f25481-39f4-4f06-86a5-42a681098bc4",
+  "prefix": "chuyencoc",
+  "description": "Chuyển cọc từ shop A qua shop B",
+  "body": "DECLARE \n\t  @DocEntry INT = $CURSOR$\n\t, @ShopNew VARCHAR(20) = ''\nUPDATE FRT_POS.dbo.ORDR SET U_ShpCod = @ShopNew WHERE DocEntry = @DocEntry\nUPDATE FRT_POS.dbo.RDR1 SET U_WhsCod = @ShopNew + RIGHT(U_WhsCod, 3), WhsCode = @ShopNew + RIGHT(U_WhsCod, 3) WHERE DocEntry = @DocEntry\nUPDATE FRT_POS.dbo.[@FPTORCT] SET U_ShpCod = @ShopNew WHERE U_DocSO = @DocEntry\nUPDATE FRT_POS.dbo.[@FPTODPI] SET U_ShpCod = @ShopNew WHERE U_NumSO = @DocEntry"
+}

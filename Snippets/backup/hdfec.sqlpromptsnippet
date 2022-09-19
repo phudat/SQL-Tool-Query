@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>hdfec</Title>
+      <Shortcut>hdfec</Shortcut>
+      <Description>Cập nhật thông tin hợp đồng FEC</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE FRT_POS.dbo.ORDR SET U_ProNum = '', KyHan = 0, TraTruoc = 0, LaiSuat_FEC = '', CMND = '', U_Phone = '', U_CardCode = 1556545 WHERE DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

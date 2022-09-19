@@ -1,0 +1,6 @@
+{
+  "id": "b4814542-c818-4d23-93a8-df84bad513c4",
+  "prefix": "soivl",
+  "description": "SELECT * FROM dbo.FRT_POS_OIVL AS V (NOLOCK) WHERE V.ItemCode = '' AND V.Whscode = ''",
+  "body": "SELECT * FROM FRT_POS.dbo.FRT_POS_OIVL AS V WITH (NOLOCK) WHERE V.ItemCode = '$CURSOR$' AND V.Whscode = '' ORDER BY V.Docdate"
+}

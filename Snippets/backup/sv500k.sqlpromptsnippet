@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sv500k</Title>
+      <Shortcut>sv500k</Shortcut>
+      <Description>Check VC tân sinh viên</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT TOP 50 * FROM [10.96.254.249].[FPTShopVer2].[dbo].[FPTShop_TSMT_ThiSinh] WHERE SoBaoDanh = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

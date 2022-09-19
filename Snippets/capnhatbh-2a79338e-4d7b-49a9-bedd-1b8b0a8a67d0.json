@@ -1,0 +1,6 @@
+{
+  "id": "2a79338e-4d7b-49a9-bedd-1b8b0a8a67d0",
+  "prefix": "capnhatbh",
+  "description": "Cập nhật hạn bảo hành 2 năm iPhone 7",
+  "body": "SELECT O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = $CURSOR$ \nSELECT U_WhsCod, U_Imei, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry =  AND R.U_IMei <> ''\nSELECT U_WhsCod, U_Imei, R.U_DateWarr, * FROM [10.1.13.62].POSEInv.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry =  AND R.U_IMei <> ''\nSELECT S.NgayBaoHang, S.DocNum, * FROM [10.1.13.72].FRT_TichHop.dbo.FRT_SODet_BaoHanh AS S (NOLOCK) WHERE S.SoImmei = ''\n\nRETURN\n/*\nUPDATE FRT_POS.dbo.RDR1 SET U_DateWarr = ''  WHERE DocEntry =  AND LineNum = \nUPDATE [10.1.13.62].POSEInv.dbo.RDR1 SET U_DateWarr = ''  WHERE DocEntry =  AND LineNum = \nUPDATE [10.1.13.72].FRT_TichHop.dbo.FRT_SODet_BaoHanh SET NgayBaoHang = ''  WHERE DocEntry = \n*/"
+}

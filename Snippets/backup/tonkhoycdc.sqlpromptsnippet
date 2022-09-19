@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tonkhoycdc</Title>
+      <Shortcut>tonkhoycdc</Shortcut>
+      <Description>Check tồn kho YCDC dự án</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @DocEntry INT			= $CURSOR$
+	, @OWTQDocEntryX INT
+	, @OWTQDocEntryN INT
+	, @CountMSP INT
+	, @CountIMEI INT
+
+SELECT * INTO #tmpBookMSP FROM dbo.[@FPTRQROTA1] (NOLOCK) WHERE DocEntry = @DocEntry
+SELECT @OWTQDocEntryX = O.DocEntry FROM FRT_POS.dbo.OWTQ AS O WITH (NOLOCK) WHERE O.U_Numreq = @DocEntry AND O.DocType = 'X'
+SELECT @OWTQDocEntryN = O.DocEntry FROM FRT_POS.dbo.OWTQ AS O WITH (NOLOCK) WHERE O.U_Numreq = @DocEntry AND O.DocType = 'N'
+
+SELECT @CountMSP = SUM(U_Qutity) FROM #tmpBookMSP
+SELECT @CountIMEI = SUM(Quantity) FROM dbo.WTQ1 (NOLOCK) WHERE DocEntry = @OWTQDocEntryX
+SELECT @CountMSP AS TotalMSP, @CountIMEI AS TotalIMEI
+
+SELECT
+	  N'BOOK Mã kho xuất' 'BOOK Mã kho xuất'
+	, T.U_ItmCod
+	, T.U_ItmNam
+	, T.U_Qutity
+	, '------' '------'
+	, O.ItemCode
+	, O.WhsCode
+	, O.OnHand
+	, O.Qty_Available
+	, O.Qty_Order
+FROM
+    #tmpBookMSP T
+		INNER JOIN dbo.OITW O (NOLOCK)
+			ON T.U_ItmCod = O.ItemCode
+				AND T.U_WhsEx = O.WhsCode;
+
+SELECT
+	  N'BOOK Mã kho nhập' 'BOOK Mã kho nhập'
+	, T.U_ItmCod
+	, T.U_ItmNam
+	, T.U_Qutity
+	, '------' '------'
+	, O.ItemCode
+	, O.WhsCode
+	, O.OnHand
+	, O.Qty_Available
+	, O.Qty_Order
+FROM
+    #tmpBookMSP T
+		INNER JOIN dbo.OITW O (NOLOCK)
+			ON T.U_ItmCod = O.ItemCode
+				AND T.U_WhsRec = O.WhsCode;
+
+SELECT
+      N'BOOK IMEI kho xuất' 'BOOK IMEI kho xuất'
+    , W.ItemCode
+	, W.Dscription
+	, W.U_WhsCod
+	, W.U_IMei
+	, '-----' '-----'
+	, O.ItemCode
+	, O.WhsCode
+	, O.DistNumber
+	, O.Quantity
+	, O.CommitQty
+FROM
+    dbo.WTQ1 W (NOLOCK)
+		INNER JOIN dbo.OSRN O (NOLOCK)
+			ON W.ItemCode = O.ItemCode
+				AND W.U_WhsCod = O.WhsCode
+				AND W.U_IMei = O.DistNumber
+				AND O.Quantity = 1
+WHERE
+	W.DocEntry = @OWTQDocEntryX
+	--AND O.DistNumber IS NULL
+	--AND CommitQty = 0
+
+SELECT
+	  N'BOOK IMEI kho nhập' 'BOOK IMEI kho nhập'
+    , W.ItemCode
+	, W.Dscription
+	, W.U_WhsCod
+	, W.U_IMei
+	, '-----' '-----'
+	, O.ItemCode
+	, O.WhsCode
+	, O.DistNumber
+	, O.Quantity
+	, O.CommitQty
+
+FROM
+    dbo.WTQ1 W (NOLOCK)
+    INNER JOIN dbo.OSRN O (NOLOCK)
+        ON W.ItemCode = O.ItemCode
+           AND W.U_WhsTo = O.WhsCode
+           AND W.U_IMei = O.DistNumber
+		   AND O.Quantity = 1
+WHERE
+	W.DocEntry = @OWTQDocEntryN
+	--AND O.DistNumber IS NULL
+	--AND CommitQty = 0
+
+DROP TABLE #tmpBookMSP]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

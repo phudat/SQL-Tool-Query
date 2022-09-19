@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>nhabookvoucherkhonggia</Title>
+      <Shortcut>nhabookvoucherkhonggia</Shortcut>
+      <Description>Nhả book voucher không giá</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @voucher VARCHAR(100) = '$CURSOR$'
+INSERT INTO dbo.tbl_Voucher_Ordr_BK_ARCHIVE (DocEntrySO, Voucher, U_Status, CreateDate, CreateBy)
+SELECT DocEntrySO, Voucher, U_Status, CreateDate, CreateBy FROM dbo.tbl_Voucher_Ordr (NOLOCK) WHERE Voucher = @voucher
+DELETE FROM dbo.tbl_Voucher_Ordr WHERE Voucher = @voucher]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

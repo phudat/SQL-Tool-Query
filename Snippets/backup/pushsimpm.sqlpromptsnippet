@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>pushsimpm</Title>
+      <Shortcut>pushsimpm</Shortcut>
+      <Description>Insert vào push SIM - PM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @DocEntry INT = $CURSOR$
+INSERT INTO dbo.POS_CRMv2_SIMSOFT_PUSH
+    (
+         DocEntry
+       , InvoiceCode
+       , CustomerCode
+       , CustomerName
+       , CustomerPhone
+       , CustomerType
+       , WarehouseCodeB1
+       , ExDate
+       , CreateBy
+       , U_TMonBi
+       , CreateDateTime
+    )
+SELECT
+    O.DocEntry
+  , ISNULL(O.U_NuBill, O.DocEntry)
+  , O.CardCode
+  , O.CardName
+  , O.LicTradNum
+  , ''
+  , O.U_ShpCod
+  , O.U_ExDate
+  , O.CreateBy
+  , O.U_TMonBi
+  , GETDATE()
+FROM
+    ORDR O (NOLOCK)
+WHERE
+    DocEntry = @DocEntry
+	AND O.DocStatus = 'F']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

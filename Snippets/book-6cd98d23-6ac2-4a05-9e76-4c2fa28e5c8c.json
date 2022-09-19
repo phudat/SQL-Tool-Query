@@ -1,0 +1,6 @@
+{
+  "id": "6cd98d23-6ac2-4a05-9e76-4c2fa28e5c8c",
+  "prefix": "book",
+  "description": "Check book",
+  "body": "EXEC FRT_POS.dbo.sp_COMMOND_GetHistoryProduct_New \n\t@ItemCode = '$CURSOR$', -- varchar(50)\n    @Serial = N'', -- nvarchar(100)\n    @TuNgay = '2016-12-07 16:06:49', -- datetime\n    @DenNgay = '2016-12-31 16:06:49', -- datetime\n    @Status = 'O', -- char(1)\n    @ShopCode = '', -- varchar(max)\n    @WhsCode = '', -- varchar(max)\n    @Paging = 0, -- int\n    @UserID = N'6017' -- nvarchar(40)"
+}

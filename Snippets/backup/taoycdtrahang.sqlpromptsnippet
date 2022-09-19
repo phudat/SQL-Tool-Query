@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>taoycdtrahang</Title>
+      <Shortcut>taoycdtrahang</Shortcut>
+      <Description>Tạo yê uc ầu duyệt trả hàng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @DocEntry INT = 0 
+	, @DocReturn INT = 0
+	, @CreateBy VARCHAR(20)
+
+SELECT @DocReturn = O.DocEntry, @CreateBy= O.CreateBy FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE o.U_NumSO = @DocEntry
+SELECT @DocEntry DocEntry, @DocReturn DocReuturn, @CreateBy CreateBy
+
+INSERT INTO dbo.APPROVAL (CreateBy, CreateDateTime, UpdateBy, UpdateDateTime, Status, Type, Content, UserApprove, U_SONum, Jobtitle, Remark, LineSO, ApprovedBy)
+VALUES 
+	  ('HT', GETDATE(), NULL, NULL, 'N', 'C', N'Duyệt chi tiền trả hàng', '', @DocReturn, '', N'Hệ thống hỗ trợ duyệt trả hàng', 0, 'HT')
+	, ('HT', GETDATE(), 'HT', GETDATE(), 'C', 'R', N'Yêu cầu duyệt trả hàng', '', @DocReturn, '', N'Hệ thống hỗ trợ duyệt trả hàng', 0, 'HT')
+
+UPDATE FRT_POS.dbo.APPROVAL SET Status = 'C', ApprovedBy = 'HT' WHERE U_SONum = @DocReturn AND Type = 'R'
+UPDATE FRT_POS.dbo.ORDN SET DocStatus = 'A' WHERE DocEntry = @DocReturn
+
+SELECT * FROM dbo.APPROVAL (NOLOCK) WHERE U_SONum = @DocReturn
+SELECT * FROM dbo.ORDN (NOLOCK) WHERE DocEntry = @DocReturn
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

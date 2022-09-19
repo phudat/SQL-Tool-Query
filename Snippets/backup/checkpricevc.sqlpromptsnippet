@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkpricevc</Title>
+      <Shortcut>checkpricevc</Shortcut>
+      <Description>Kiểm tra trả hàng bị trừ phí VC</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @SO NVARCHAR(20) = '$CURSOR$'
+SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH] AS F (NOLOCK) WHERE F.U_IssIn = @SO
+SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH] AS F (NOLOCK) WHERE F.U_BillIn = @SO
+SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH_BK_20150615] AS F (NOLOCK) WHERE F.U_IssIn = @SO
+SELECT F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, * FROM FRT_POS.dbo.[@FPTVOCH_BK_20150615] AS F (NOLOCK) WHERE F.U_BillIn = @SO]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

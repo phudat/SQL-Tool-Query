@@ -1,0 +1,6 @@
+{
+  "id": "4f105d4d-4018-4a56-9005-00affbaf0fe6",
+  "prefix": "sothecao",
+  "description": "Check SO thẻ vào đó từ phiếu nào",
+  "body": "SELECT\n\t  C.SO\n\t, S.ID\n\t, S.SalesOrderCode\n\t, S.WarehouseCode\n\t, S.TotalReferAmount\nFROM\n    dbo.CRM_CARDMONEY_Log C (NOLOCK)\n    OUTER APPLY dbo.ufn_StringToTable(C.ID, ',', 0) F\n    INNER JOIN [10.1.13.76].FRTCRM.dbo.SalesOrders S WITH (NOLOCK)\n        ON F.VALUE = S.ID\nWHERE\n    C.SO = $CURSOR$;"
+}

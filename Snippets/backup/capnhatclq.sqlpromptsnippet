@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhatclq</Title>
+      <Shortcut>capnhatclq</Shortcut>
+      <Description>Cập nhật call log quỹ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>SoCallLog</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>SoTien</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[UPDATE [10.1.13.73].FRTCallLogV2.dbo.RequestDetails SET Money1 += $SoTien$ WHERE RequestId = $SoCallLog$
+UPDATE FRT_POS.dbo.Log_Calllog_Quy_New SET Money_BanDau += $SoTien$, Money += $SoTien$ WHERE CallogID = $SoCallLog$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

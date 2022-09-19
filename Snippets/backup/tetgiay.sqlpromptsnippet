@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tetgiay</Title>
+      <Shortcut>tetgiay</Shortcut>
+      <Description>SECOND OF TET</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT N'Còn ' + REPLACE(CONVERT(NVARCHAR, CONVERT(MONEY, DATEDIFF(SECOND, GETDATE(), '20180215 23:59:59')), 1), '.00', '') + N' giây là tới Tết.']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

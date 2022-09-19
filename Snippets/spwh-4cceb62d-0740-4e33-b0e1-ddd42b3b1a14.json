@@ -1,0 +1,6 @@
+{
+  "id": "4cceb62d-0740-4e33-b0e1-ddd42b3b1a14",
+  "prefix": "spwh",
+  "description": "Thu hộ từ bảng His",
+  "body": "SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.PaymentBillReceipts_History AS P WITH (NOLOCK) WHERE P.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, P.BillDate) = '' AND P.PaymentBillStatus = 284"
+}

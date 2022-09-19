@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>huyclgecom</Title>
+      <Shortcut>huyclgecom</Shortcut>
+      <Description>Hỗ trợ hủy Call Log Ecom</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE	
+	  @DocEntry VARCHAR(200) 	= '$CURSOR$'
+	, @Remark 	NVARCHAR(100)	= N''
+	
+DECLARE @tblDocEntry TABLE (DocEntry INT)
+
+INSERT INTO @tblDocEntry (DocEntry)
+SELECT VALUE AS DocEntry FROM dbo.ufn_StringToTable(@DocEntry, ',', 0) 
+
+IF EXISTS(SELECT TOP 1 1 FROM @tblDocEntry)
+	BEGIN	
+		UPDATE FRT_POS.dbo.ORDR SET Callog_ID = NULL WHERE DocEntry IN (SELECT DocEntry FROM @tblDocEntry)
+		INSERT INTO dbo.tbl_Lydohuy_SOEcom_DEL
+			(
+				 DocentrySO
+			   , Reason
+			   , CreateDate
+			   , CreateBy
+			   , NumEcom
+			   , DocStatus
+			   , DocType
+			   , PickStatus
+			   , CallLogID
+			   , Remark
+			   , DeletedDateTime
+			)
+		SELECT
+			  DocentrySO
+			, Reason
+			, CreateDate
+			, CreateBy
+			, NumEcom
+			, DocStatus
+			, DocType
+			, PickStatus
+			, CallLogID
+			, @Remark
+			, GETDATE()
+		FROM
+			dbo.tbl_Lydohuy_SOEcom (NOLOCK)
+		WHERE
+			DocentrySO IN (SELECT DocEntry FROM @tblDocEntry);
+
+		DELETE FROM dbo.tbl_Lydohuy_SOEcom WHERE DocentrySO  IN (SELECT DocEntry FROM @tblDocEntry);
+	END]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

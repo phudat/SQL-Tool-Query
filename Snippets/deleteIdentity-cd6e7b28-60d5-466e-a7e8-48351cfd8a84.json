@@ -1,0 +1,6 @@
+{
+  "id": "cd6e7b28-60d5-466e-a7e8-48351cfd8a84",
+  "prefix": "deleteIdentity",
+  "description": "xoa va chay lai id theo sap xep moi",
+  "body": "DBCC CHECKIDENT ('dbo.Category', RESEED, 4);"
+}

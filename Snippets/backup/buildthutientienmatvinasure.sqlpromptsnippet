@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildthutientienmatvinasure</Title>
+      <Shortcut>buildthutientienmatvinasure</Shortcut>
+      <Description>Build thu tiền, tiền mặt Vinasure</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+         CreatedDate
+       , CreatedBy
+       , Remark
+       , CashAmount
+       , PaymentType
+       , VinasureID
+       , TypePaymentVendor
+    )
+SELECT 
+	  V.CreatedDateTime
+	, V.CreatedBy
+	, N'Thanh toán bằng tiền mặt'
+	, ISNULL(V.Amount, 0)
+	, 'CASH'
+	, V.ID
+	, 1
+FROM 
+	dbo.VinasureHeader V (NOLOCK) 
+WHERE 
+	V.Id IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

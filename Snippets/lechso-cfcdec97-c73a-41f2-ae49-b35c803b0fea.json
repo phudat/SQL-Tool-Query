@@ -1,0 +1,6 @@
+{
+  "id": "cfcdec97-c73a-41f2-ae49-b35c803b0fea",
+  "prefix": "lechso",
+  "description": "",
+  "body": "DECLARE @DocEntry INT = $CURSOR$\nUPDATE\n    R\nSET\n      R.U_Price = V.OpenStockPrice\n\t, R.U_TaxAmo = V.OpenStockPrice * R.Quantity * 0.1\n\t, R.U_TMoney = V.OpenStockPrice * R.Quantity * 1.1\nFROM\n    FRT_POS.dbo.RDR1 R (NOLOCK)\n    INNER JOIN dbo.FRT_POS_OIVL V (NOLOCK)\n        ON R.ItemCode = V.ItemCode\n           AND R.U_WhsCod = V.Whscode\n           AND R.DocEntry = V.Docentry\n\tINNER JOIN dbo.ORDR O (NOLOCK)\n\t\tON R.DocEntry = O.DocEntry\nWHERE\n    R.DocEntry = @DocEntry\n\tAND V.TypeGD = 1\n    AND V.OpenStockPrice <> R.U_Price\n\tAND O.DocType = '04';\n\nUPDATE B SET  \n    U_TMonPr\t= B1.U_TMoney - B1.U_TaxAmo\n    , U_TMonTx\t= B1.U_TaxAmo\n    , U_TMonBi\t= B1.U_TMoney FROM \nFRT_POS.dbo.ORDR B WITH (NOLOCK), \n    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo \n    \tFROM FRT_POS.dbo.RDR1 WITH (NOLOCK)\n    \tWHERE DocEntry = @DocEntry\nGROUP BY DocEntry) B1 WHERE \n    B.DocEntry = B1.DocEntry"
+}

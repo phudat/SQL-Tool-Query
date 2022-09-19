@@ -1,0 +1,6 @@
+{
+  "id": "5986d3db-ee9e-4d63-a5dc-04cf12a9f5ed",
+  "prefix": "tgmsp",
+  "description": "Check thông tin trả góp ưu đã theo mã sản phẩm từ CRM",
+  "body": "SELECT\n    D.FromDate\n  , D.ToDate\n  , *\nFROM\n    [10.96.254.98].FRTCRM_MDM.dbo.CRM_Amortizations_Definitions AS D (NOLOCK)\nWHERE\n    D.ID IN (\n    SELECT\n        P.ID\n    FROM\n        [10.96.254.98].FRTCRM_MDM.dbo.CRM_Amortizations_Definitions_Products P (NOLOCK)\n    WHERE\n        P.ItemCode = '$CURSOR$');"
+}

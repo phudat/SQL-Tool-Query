@@ -1,0 +1,6 @@
+{
+  "id": "3c98c5a8-b416-4cb4-91b2-9d7e522a0527",
+  "prefix": "checksaigiaxk",
+  "description": "Check sai giá xuất khác",
+  "body": "SELECT\n    W.DocEntry\n  , W.ItemCode\n  , W.U_IMei\n  , W.U_WhsCod\n  , W.Price\n  , '--------------------------'\n  , O.Docentry\n  , O.ItemCode\n  , O.EMEI\n  , O.Whscode\n  , O.OpenStockPrice\n  , O.TypeGD\nFROM\n    FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK)\n    INNER JOIN dbo.FRT_POS_OIVL_0405 O (NOLOCK)\n        ON W.DocEntry = O.Docentry\n           AND W.ItemCode = O.ItemCode\n           AND W.U_WhsCod = O.Whscode\n           AND ISNULL(W.U_IMei, '') = ISNULL(O.EMEI, '')\n\t\t   AND O.TypeGD = 7\nWHERE\n    W.DocEntry = $CURSOR$\n    AND W.Price <> O.OpenStockPrice;"
+}

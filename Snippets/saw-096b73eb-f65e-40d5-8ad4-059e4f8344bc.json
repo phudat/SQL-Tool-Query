@@ -1,0 +1,6 @@
+{
+  "id": "096b73eb-f65e-40d5-8ad4-059e4f8344bc",
+  "prefix": "saw",
+  "description": "Thu hộ theo shop",
+  "body": "SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CRM_PaymentBillReceipt_AgriBank AS P WITH (NOLOCK) WHERE P.WarehouseCode = '$CURSOR$' AND CONVERT(DATE, P.BillDate) = '' AND P.PaymentBillStatus = 570"
+}

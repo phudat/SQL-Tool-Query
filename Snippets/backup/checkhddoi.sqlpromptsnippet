@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkhddoi</Title>
+      <Shortcut>checkhddoi</Shortcut>
+      <Description>Check bị lỗi hóa đơn điện tư</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT DISTINCT
+    F.VALUE Comcode
+INTO
+    #tmpHDDTerr
+FROM
+    dbo.Log G (NOLOCK)
+    OUTER APPLY dbo.ufn_StringToTable(Content, '-', 0) F
+WHERE
+    G.CreateBy = ''
+    AND G.Content LIKE '%Bill_HDDT%'
+    AND CONVERT(DATE, G.CreateDateTime) = CONVERT(DATE, GETDATE())
+	AND LEN(F.VALUE) = '6'
+
+SELECT * FROM #tmpHDDTerr
+
+DROP TABLE #tmpHDDTerr]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "91e1c836-7fbe-403b-9a20-b203e0656860",
+  "prefix": "diemfxu",
+  "description": "Lấy thông tin điểm Fxu theo SDT",
+  "body": "SELECT * FROM [10.1.13.69].FRT_Platform.dbo.TongHopGiaoDichKH (NOLOCK) WHERE SoDienThoai = '$CURSOR$'"
+}

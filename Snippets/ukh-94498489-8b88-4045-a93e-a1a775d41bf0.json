@@ -1,0 +1,6 @@
+{
+  "id": "94498489-8b88-4045-a93e-a1a775d41bf0",
+  "prefix": "ukh",
+  "description": "Update OCRD",
+  "body": "RETURN\nUPDATE FRT_POS.dbo.OCRD SET LicTradNum = Phone1 WHERE CardCode IN ($CURSOR$)"
+}

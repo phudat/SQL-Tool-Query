@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>UpdateWarehouseCodeForVietteL_Paymentservice</Title>
+      <Shortcut>UpdateWarehouseCodeForVietteL_Paymentservice</Shortcut>
+      <Description>cap nhat phieu chi viettel bi mat ma shop</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @warehousecodereceipt VARCHAR(50),@warehousecode VARCHAR(50), @id INT = $CURSOR$
+SELECT BillCode,PaymentBillStatus,WarehouseCode INTO #temp FROM dbo.PaymentBillReceipts_Viettel WITH (NOLOCK) WHERE id = @id
+SET @warehousecode = (SELECT WarehouseCode FROM #temp )
+SET @warehousecodereceipt = (SELECT WarehouseCode FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode IN (SELECT BillCode FROM #temp))
+IF ISNULL(@warehousecodereceipt,'')=''
+BEGIN
+PRINT 1
+	--SELECT POSPayReceipt,POSIsPushed,WarehouseCode,* FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode IN (SELECT BillCode FROM #temp)
+    UPDATE dbo.PaymentServices SET WarehouseCode=@warehousecode WHERE ReceiptCode IN (SELECT BillCode FROM #temp)
+END
+SELECT POSPayReceipt,POSIsPushed,WarehouseCode,* FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode IN (SELECT BillCode FROM #temp)
+DROP TABLE #temp
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

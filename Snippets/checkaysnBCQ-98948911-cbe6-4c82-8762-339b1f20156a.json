@@ -1,0 +1,6 @@
+{
+  "id": "98948911-cbe6-4c82-8762-339b1f20156a",
+  "prefix": "checkaysnBCQ",
+  "description": "",
+  "body": "DECLARE @fromdate NVARCHAR(50) = CAST(GETDATE()  AS DATE)\r\nEXEC dbo.SP_SOM_Tool_Check_Not_Asynced @FromDate = @fromdate, -- date\r\n                                       @ToDate = @fromdate    -- date\r\nEXEC dbo.SP_SOM_ToolGetInforByListBillNoSOM @listKeySearch = 'FAILED,PARTIAL_CANCEL,CANCELLED',      -- varchar(max)\r\n                                            @FromDate = @fromdate, -- date\r\n                                            @ToDate = @fromdate,   -- date\r\n                                            @size = 10000,                -- int\r\n                                            @type = 6                -- int\r\nSELECT billNo, cRMBillNo,paymentVoucherCode, orderStatus,categoryName,productName FROM dbo.InforByListBillNoSOM WITH (NOLOCK) WHERE ISNULL(cRMBillNo,'')!='' AND ISNULL(paymentVoucherCode,'')=''"
+}

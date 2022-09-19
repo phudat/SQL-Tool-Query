@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>swhs1</Title>
+      <Shortcut>swhs1</Shortcut>
+      <Description>SELECT * FROM [10.96.254.19].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK) WHERE W.WarehouseCodeB1 = ''</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK) WHERE W.WarehouseCodeB1 = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

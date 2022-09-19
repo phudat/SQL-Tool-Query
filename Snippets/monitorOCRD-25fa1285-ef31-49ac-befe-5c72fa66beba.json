@@ -1,0 +1,6 @@
+{
+  "id": "25fa1285-ef31-49ac-befe-5c72fa66beba",
+  "prefix": "monitorOCRD",
+  "description": "Monitor khách hàng nội bộ",
+  "body": "SELECT O.* FROM dbo.OCRD O (NOLOCK) INNER JOIN FRT_MDM.dbo.[@FPTCATECOM] F (NOLOCK) ON O.LicTradNum = F.U_FedeID AND O.BPID = F.U_CusCod"
+}

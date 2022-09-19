@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkvoucherkhongia</Title>
+      <Shortcut>checkvoucherkhongia</Shortcut>
+      <Description>Check voucher không giá</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>voucher</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = '$voucher$'
+SELECT * FROM dbo.FPT_PROMS_USED (NOLOCK) WHERE Email = '$voucher$'
+SELECT * FROM dbo.tbl_Voucher_Ordr (NOLOCK) WHERE Voucher= '$voucher$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

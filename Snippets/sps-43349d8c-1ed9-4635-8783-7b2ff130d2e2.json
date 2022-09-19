@@ -1,0 +1,6 @@
+{
+  "id": "43349d8c-1ed9-4635-8783-7b2ff130d2e2",
+  "prefix": "sps",
+  "description": "SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.SalesOrdersID IN ()",
+  "body": "SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.SalesOrdersID IN ($CURSOR$)"
+}

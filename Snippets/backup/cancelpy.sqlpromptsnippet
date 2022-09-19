@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cancelpy</Title>
+      <Shortcut>cancelpy</Shortcut>
+      <Description>tim thong tin huy payoo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT 
+	e.Email,
+	s.CreatedEmployeeCode [Ma inside huy],
+	s.CreatedDateTime [Ngay huy],
+	s.Reason [Ly do huy],
+	s.UserRemark [Ghi chu],
+	py.CreatedBy [Nguoi tao phieu] 
+FROM 
+	dbo.Log_Cancel_Payoo s WITH (NOLOCK) 
+	INNER JOIN dbo.PaymentBillReceipts_History AS py WITH (NOLOCK) ON py.ID = s.IDGD
+	INNER JOIN dbo.CRM_Employees e WITH (NOLOCK) ON s.CreatedEmployeeCode=e.EmployeeCode 
+WHERE 
+	s.IDGD=$CURSOR$
+	ORDER BY s.CreatedDateTime]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

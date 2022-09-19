@@ -1,0 +1,6 @@
+{
+  "id": "0e9fe753-1278-417f-9b5c-3f5015c84fe6",
+  "prefix": "thecaochitiet",
+  "description": "tao du lieu trong bang salesorderdetails do loi",
+  "body": "DECLARE @id INT\t\t\t\t= $CURSOR$\nDECLARE @serial VARCHAR(50) = ''\nDECLARE @pin VARCHAR(50)\t= ''\nDECLARE @expried DATETIME\t= ''\n\nINSERT INTO dbo.SalesOrderDetails\n(\n    SalesOrderID,CardPayooType,PriceCard,SerialCard,TotalPurchasingAmount,TotalReferAmount,TotalSellingAmount,NumberCode,ExpiredCard,Remark,\n\tCreatedBy,CreatedEmployeeBy,CreatedDateTime,LastUpdatedBy,LastUpdatedEmployeeBy,LastUpdatedDateTime,Status\n)\nSELECT \n\tid,InsuranceAAAType,PriceCard,@serial,TotalPurchasingAmount,TotalReferAmount,TotalSellingAmount,@pin,@expried,'29099',CreatedBy,CreatedDateTime,LastUpdatedBy,LastUpdatedDateTime,1 \nFROM \n\tdbo.SalesOrders WITH (NOLOCK) \nWHERE \n\tid = @id"
+}

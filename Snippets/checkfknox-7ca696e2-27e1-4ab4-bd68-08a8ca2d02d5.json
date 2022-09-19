@@ -1,0 +1,6 @@
+{
+  "id": "7ca696e2-27e1-4ab4-bd68-08a8ca2d02d5",
+  "prefix": "checkfknox",
+  "description": "Check trạng thái FKnox",
+  "body": "DECLARE\n        @FKnoxStatusOut\t\tINT\n      , @FKnoxMessageOut\tNVARCHAR(200)\n      , @IMEI\t\t\t\tNVARCHAR(200) = '$CURSOR$'\n\nEXEC [10.1.13.86].[EDMServer].[dbo].[FRT_SP_fknox_checkImei] \n\t  @IMEI\t\t\t= @IMEI\n    , @p_status\t\t= @FKnoxStatusOut OUTPUT\n    , @p_messsages\t= @FKnoxMessageOut OUTPUT\n\nSELECT @IMEI IMEI, @FKnoxStatusOut Status, @FKnoxMessageOut Message"
+}

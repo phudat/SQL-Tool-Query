@@ -1,0 +1,6 @@
+{
+  "id": "3091772a-b81f-4921-bb13-8452386e0832",
+  "prefix": "restartidentity",
+  "description": "đánh lại số tự tăng",
+  "body": "DBCC CHECKIDENT ('ProductAttribute', RESEED, 137)"
+}

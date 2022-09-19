@@ -1,0 +1,6 @@
+{
+  "id": "89a50767-51f3-4b35-930d-f655ba9e60eb",
+  "prefix": "fgroup",
+  "description": "Tìm CTKM theo group code",
+  "body": "SELECT\n    DISTINCT DocEntry_structure\nINTO\n    #tmpA\nFROM\n    dbo.CTKM_Condition (NOLOCK)\nWHERE\n    Value = '$CURSOR$';\n\nSELECT\n    *\nFROM\n    dbo.CTKM_structure (NOLOCK)\nWHERE\n    DocEntry IN (SELECT DocEntry_structure FROM #tmpA)\n\tAND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate);\n\nDROP TABLE #tmpA;\n"
+}

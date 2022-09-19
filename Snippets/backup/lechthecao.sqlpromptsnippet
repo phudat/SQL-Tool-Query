@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>lechthecao</Title>
+      <Shortcut>lechthecao</Shortcut>
+      <Description>Check lệch tiền thẻ cào</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @WarehouseCode 	VARCHAR(40) = '$CURSOR$'
+	, @Date 			DATE 		= ''
+
+SELECT
+      S.ID
+	, S.SalesOrderCode
+	, S.TotalReferAmount
+INTO
+	#tmpSale
+FROM
+    [10.1.13.76].FRTCRM.dbo.SalesOrders S WITH (NOLOCK)
+		LEFT JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod P (NOLOCK)
+			ON S.ID = P.SalesOrdersID
+WHERE
+    S.WarehouseCode = @WarehouseCode
+    AND CONVERT(DATE, S.SalesOrderDate) = @Date
+	AND S.SalesOrdersStatus = 67
+	AND ISNULL(S.POSIsPushed, 0) = 0
+
+SELECT
+      T.ID
+	, T.SalesOrderCode
+	, T.TotalReferAmount
+	, ISNULL(P.CashAmount, 0)		AS CashAmount
+	, ISNULL(P.CardAmount, 0)		AS CardAmount
+	, ISNULL(P.VoucherAmount, 0)	AS VoucherAmount
+	, ISNULL(P.TransferAmount, 0)	AS TransferAmount
+INTO
+	#tmpPayment
+FROM
+    #tmpSale T
+		LEFT JOIN [10.1.13.76].FRTCRM.dbo.POSPaymentMethod P (NOLOCK)
+			ON T.ID = P.SalesOrdersID
+
+SELECT
+    T.SalesOrderCode
+  , T.TotalReferAmount
+  , SUM(T.CashAmount + T.CardAmount + T.VoucherAmount + T.TransferAmount) AS TotalPOSPaymentMethod
+FROM
+    #tmpPayment T
+GROUP BY
+    T.SalesOrderCode
+  , T.TotalReferAmount
+HAVING
+	SUM(T.CashAmount + T.CardAmount + T.VoucherAmount + T.TransferAmount) <> TotalReferAmount
+
+DROP TABLE #tmpSale, #tmpPayment]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

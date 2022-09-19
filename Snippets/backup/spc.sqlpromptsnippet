@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>spc</Title>
+      <Shortcut>spc</Shortcut>
+      <Description>SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.FtelBillID IN ()</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT M.CashAmount, M.CardAmount, M.TransferAmount, M.VoucherAmount, * FROM [10.1.13.76].FRTCRM.dbo.POSPaymentMethod AS M WITH (NOLOCK) WHERE M.FtelBillID IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

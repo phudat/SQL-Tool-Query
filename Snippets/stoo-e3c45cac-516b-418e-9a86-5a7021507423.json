@@ -1,0 +1,6 @@
+{
+  "id": "e3c45cac-516b-418e-9a86-5a7021507423",
+  "prefix": "stoo",
+  "description": "SELECT TOP 1 1 FROM table FROM",
+  "body": "SELECT TOP 1 1 FROM $CURSOR$ (NOLOCK) WHERE DocEntry = "
+}

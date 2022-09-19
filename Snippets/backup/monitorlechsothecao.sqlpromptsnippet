@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorlechsothecao</Title>
+      <Shortcut>monitorlechsothecao</Shortcut>
+      <Description>Monitor lệch tiền SO thẻ cào</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    CONVERT(INT, SO) AS DocEntry
+INTO
+    #tmpSOCard
+FROM
+    dbo.CRM_CARDMONEY_Log (NOLOCK)
+WHERE
+    CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())
+    AND SO <> '';
+
+SELECT
+    O.DocEntry
+  , O.U_TMonBi
+INTO
+    #tmpSOCardHeader
+FROM
+    #tmpSOCard T
+		INNER JOIN dbo.ORDR O (NOLOCK)
+			ON T.DocEntry = O.DocEntry
+			   AND O.DocStatus = 'F';
+
+SELECT
+    T.*
+  , ISNULL(O.U_MoCash, 0) CashAmout
+  , ISNULL(O.U_MoCCad, 0) CardAmount
+  , ISNULL(O.U_MoVoCh, 0) VoucherAmount
+  , ISNULL(O.U_MoTran, 0) TransferAmount
+INTO
+	#tmpSOCardPayment
+FROM
+    #tmpSOCardHeader T
+    INNER JOIN dbo.[@FPTORCT] O (NOLOCK)
+        ON T.DocEntry = O.U_DocSO;
+
+SELECT
+    T.DocEntry
+  , T.U_TMonBi
+  , SUM(T.CashAmout + T.CardAmount + T.VoucherAmount + T.TransferAmount) AS Toaal
+FROM
+    #tmpSOCardPayment T
+GROUP BY
+    T.DocEntry
+  , T.U_TMonBi
+HAVING
+    SUM(T.CashAmout + T.CardAmount + T.VoucherAmount + T.TransferAmount) <> T.U_TMonBi;
+
+DROP TABLE #tmpSOCard, #tmpSOCardHeader, #tmpSOCardPayment]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

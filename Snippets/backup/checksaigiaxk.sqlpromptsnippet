@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checksaigiaxk</Title>
+      <Shortcut>checksaigiaxk</Shortcut>
+      <Description>Check sai giá xuất khác</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    W.DocEntry
+  , W.ItemCode
+  , W.U_IMei
+  , W.U_WhsCod
+  , W.Price
+  , '--------------------------'
+  , O.Docentry
+  , O.ItemCode
+  , O.EMEI
+  , O.Whscode
+  , O.OpenStockPrice
+  , O.TypeGD
+FROM
+    FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK)
+    INNER JOIN dbo.FRT_POS_OIVL_0405 O (NOLOCK)
+        ON W.DocEntry = O.Docentry
+           AND W.ItemCode = O.ItemCode
+           AND W.U_WhsCod = O.Whscode
+           AND ISNULL(W.U_IMei, '') = ISNULL(O.EMEI, '')
+		   AND O.TypeGD = 7
+WHERE
+    W.DocEntry = $CURSOR$
+    AND W.Price <> O.OpenStockPrice;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

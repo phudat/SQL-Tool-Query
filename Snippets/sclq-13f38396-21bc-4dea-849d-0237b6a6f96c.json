@@ -1,0 +1,6 @@
+{
+  "id": "13f38396-21bc-4dea-849d-0237b6a6f96c",
+  "prefix": "sclq",
+  "description": "Select Call Log Quỹ",
+  "body": "SELECT * FROM dbo.Log_Calllog_Quy_New (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND ShopPOS = '$CURSOR$'\nSELECT D.Money1, * FROM [10.1.13.73].FRTCallLogV2.dbo.RequestDetails AS D (NOLOCK) WHERE D.RequestId = "
+}

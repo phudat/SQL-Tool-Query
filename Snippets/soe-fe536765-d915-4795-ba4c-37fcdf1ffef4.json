@@ -1,0 +1,6 @@
+{
+  "id": "fe536765-d915-4795-ba4c-37fcdf1ffef4",
+  "prefix": "soe",
+  "description": "SO Ecom",
+  "body": "SELECT * FROM FRT_CUSTOMIZE.dbo.[@FPTORDRTMP] (NOLOCK) WHERE DocEntry = $CURSOR$"
+}

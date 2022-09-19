@@ -1,0 +1,6 @@
+{
+  "id": "3f349f1c-5161-4b0d-9551-44aec96924e7",
+  "prefix": "updateheaderGRPO",
+  "description": "Tính lại tiền GRPO",
+  "body": "UPDATE B SET  \n      U_TMonBi\t = B1.U_TMoney\n    , U_TMonTx\t = B1.U_TaxAmo\n    , B.DocTotal = B1.U_TMoney\n\t, B.U_TMonPr = B1.U_TMoney - B1.U_TaxAmo FROM \nFRT_POS.dbo.OPDN B WITH (NOLOCK), \n    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo \n    \tFROM FRT_POS.dbo.PDN1 WITH (NOLOCK)\n    \tWHERE DocEntry = $CURSOR$\nGROUP BY DocEntry) B1 WHERE \n    B.DocEntry = B1.DocEntry"
+}

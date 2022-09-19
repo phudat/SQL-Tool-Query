@@ -1,0 +1,6 @@
+{
+  "id": "9dd93642-df2a-4c5f-83a0-67b2c3b396b0",
+  "prefix": "huytrahang",
+  "description": "Hủy chứng từ trả hàng",
+  "body": "-- === Check kỹ trước khi làm === -- $CURSOR$\nSELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_NumSO, * FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE DocEntry = \n--SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_DocSOReturn, O.U_NumSO, * FROM FRT_POS.dbo.OPDN AS O WITH (NOLOCK) WHERE DocEntry = \n------------------------------------------------------------------------------------------------\nSELECT O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = \nSELECT U_WhsCod, U_Imei, U_OnHand, OrderedQty, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry =  \nRETURN\n/*\nUPDATE FRT_POS.dbo.ORDR SET DocStatus = 'F' WHERE DocEntry = \nUPDATE FRT_POS.dbo.RDR1 SET U_Return = 1 WHERE DocEntry = \nUPDATE FRT_POS.dbo.ORDN SET DocStatus = 'C' WHERE DocEntry = \n--UPDATE FRT_POS.dbo.OPDN SET DocStatus = 'C' WHERE DocEntry = \n*/"
+}

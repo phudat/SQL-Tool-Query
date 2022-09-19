@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sctd</Title>
+      <Shortcut>sctd</Shortcut>
+      <Description>Lấy chi tiền theo DocEntry</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, * FROM FRT_POS.dbo.[@FPTURCT] AS F WITH (NOLOCK) WHERE F.DocEntry = $CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

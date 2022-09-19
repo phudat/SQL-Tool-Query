@@ -1,0 +1,6 @@
+{
+  "id": "088d80f5-5755-4a44-80b0-288a94f727e9",
+  "prefix": "sjt",
+  "description": "SELECT * FROM [10.1.13.77].FRTInsideV2.dbo.F03_EmployeeJobTitles AS T WITH (NOLOCK) WHERE T.EmployeeCode = ''",
+  "body": "SELECT * FROM [10.1.13.77].FRTInsideV2.dbo.F03_EmployeeJobTitles AS T WITH (NOLOCK) WHERE T.EmployeeCode = '$CURSOR$'"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "b86f89a3-bf8b-4965-87a2-8ef78d09568b",
+  "prefix": "monitorlechsothecao",
+  "description": "Monitor lệch tiền SO thẻ cào",
+  "body": "SELECT\n    CONVERT(INT, SO) AS DocEntry\nINTO\n    #tmpSOCard\nFROM\n    dbo.CRM_CARDMONEY_Log (NOLOCK)\nWHERE\n    CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE())\n    AND SO <> '';\n\nSELECT\n    O.DocEntry\n  , O.U_TMonBi\nINTO\n    #tmpSOCardHeader\nFROM\n    #tmpSOCard T\n\t\tINNER JOIN dbo.ORDR O (NOLOCK)\n\t\t\tON T.DocEntry = O.DocEntry\n\t\t\t   AND O.DocStatus = 'F';\n\nSELECT\n    T.*\n  , ISNULL(O.U_MoCash, 0) CashAmout\n  , ISNULL(O.U_MoCCad, 0) CardAmount\n  , ISNULL(O.U_MoVoCh, 0) VoucherAmount\n  , ISNULL(O.U_MoTran, 0) TransferAmount\nINTO\n\t#tmpSOCardPayment\nFROM\n    #tmpSOCardHeader T\n    INNER JOIN dbo.[@FPTORCT] O (NOLOCK)\n        ON T.DocEntry = O.U_DocSO;\n\nSELECT\n    T.DocEntry\n  , T.U_TMonBi\n  , SUM(T.CashAmout + T.CardAmount + T.VoucherAmount + T.TransferAmount) AS Toaal\nFROM\n    #tmpSOCardPayment T\nGROUP BY\n    T.DocEntry\n  , T.U_TMonBi\nHAVING\n    SUM(T.CashAmout + T.CardAmount + T.VoucherAmount + T.TransferAmount) <> T.U_TMonBi;\n\nDROP TABLE #tmpSOCard, #tmpSOCardHeader, #tmpSOCardPayment"
+}

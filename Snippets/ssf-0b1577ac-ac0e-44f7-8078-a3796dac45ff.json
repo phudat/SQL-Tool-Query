@@ -1,0 +1,6 @@
+{
+  "id": "0b1577ac-ac0e-44f7-8078-a3796dac45ff",
+  "prefix": "ssf",
+  "description": "SELECT * FROM fragment",
+  "body": "SELECT * FROM $CURSOR$ WITH (NOLOCK) WHERE ID = "
+}

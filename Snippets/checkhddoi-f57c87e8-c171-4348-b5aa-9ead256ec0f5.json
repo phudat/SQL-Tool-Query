@@ -1,0 +1,6 @@
+{
+  "id": "f57c87e8-c171-4348-b5aa-9ead256ec0f5",
+  "prefix": "checkhddoi",
+  "description": "Check bị lỗi hóa đơn điện tư",
+  "body": "SELECT DISTINCT\n    F.VALUE Comcode\nINTO\n    #tmpHDDTerr\nFROM\n    dbo.Log G (NOLOCK)\n    OUTER APPLY dbo.ufn_StringToTable(Content, '-', 0) F\nWHERE\n    G.CreateBy = ''\n    AND G.Content LIKE '%Bill_HDDT%'\n    AND CONVERT(DATE, G.CreateDateTime) = CONVERT(DATE, GETDATE())\n\tAND LEN(F.VALUE) = '6'\n\nSELECT * FROM #tmpHDDTerr\n\nDROP TABLE #tmpHDDTerr"
+}

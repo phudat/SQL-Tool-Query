@@ -1,0 +1,6 @@
+{
+  "id": "b3318845-a239-48e5-99ab-d847764750f4",
+  "prefix": "ctfxu",
+  "description": "Hiển thị chi tiết giao dịch Fxu",
+  "body": "SELECT\n    C.ID\n  , C.MaKH\n  , C.TenKH\n  , C.SoDienThoai\n  , C.MaDoiTuong\n  , D.TenDoiTuong\n  , C.MaSuKien\n  , S.TenSuKien\n  , C.HanThe\n  , C.TenHangThe\n  , C.Diem\n  , C.Heso\n  , C.U_DESC\n  , C.NgayTao\n  , C.NgayCapNhat\nFROM\n    [10.1.13.69].FRT_Platform.dbo.ChiTietGiaoDichKH C WITH (NOLOCK)\n\t\tINNER JOIN [10.1.13.69].FRT_Platform.dbo.DinhNghiaDoiTuong D WITH (NOLOCK)\n\t\t\tON C.MaDoiTuong = D.MaDoiTuong\n\tINNER JOIN [10.1.13.69].FRT_Platform.dbo.DinhNghiaSuKien S WITH (NOLOCK)\n\t\t\tON C.MaSuKien = S.MaSuKien\nWHERE\n    C.SoDienThoai = '$CURSOR$'\nORDER BY\n    C.ID DESC;"
+}

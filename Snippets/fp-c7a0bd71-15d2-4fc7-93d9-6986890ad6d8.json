@@ -1,0 +1,6 @@
+{
+  "id": "c7a0bd71-15d2-4fc7-93d9-6986890ad6d8",
+  "prefix": "fp",
+  "description": "Tìm Voucher không giá bằng SDT",
+  "body": "SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Phone = '$CURSOR$'"
+}

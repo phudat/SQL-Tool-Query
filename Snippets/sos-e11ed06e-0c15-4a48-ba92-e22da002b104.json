@@ -1,0 +1,6 @@
+{
+  "id": "e11ed06e-0c15-4a48-ba92-e22da002b104",
+  "prefix": "sos",
+  "description": "SELECT OSRN",
+  "body": "SELECT O.ItemCode, O.itemName, O.WhsCode, O.Quantity, O.CommitQty, O.LastPurPrice, O.InDate, O.LastPurPrice, O.AbsEntry, * FROM FRT_POS.dbo.OSRN AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$' AND O.WhsCode = ''"
+}

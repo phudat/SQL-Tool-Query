@@ -1,0 +1,6 @@
+{
+  "id": "881485a8-2f47-468c-a512-f0ddf0b01de5",
+  "prefix": "laydanhsachcatlonhon2",
+  "description": "lấy danh sách 1 sản phẩm map đến 2 category chính khác nhau",
+  "body": "SELECT  p2.id,p2.Name INTO #tmp_507 from dbo.Product p2 \r\nINNER JOIN [10.96.254.118].STG_FRT_MDM.dbo.[08082022_Data_Cate_SP] cp2 ON  cp2.[Mã sản phẩm] = p2.Code\r\nORDER BY p2.Code\r\nCREATE TABLE #temptable (id_pro int, [Name] nvarchar(max) )\r\n\r\ndeclare @id int\r\nWHILE (SELECT COUNT(1) FROM #tmp_507 WITH (NOLOCK))>1\r\nBEGIN\r\n    SELECT TOP 1 @id= Id FROM #tmp_507 WITH (NOLOCK)\r\n\t;WITH parent AS\r\n\t(\r\n\t\tSELECT c2.id, ParentCategoryId  from dbo.ProductCategory pc2\r\n\tINNER JOIN dbo.Product p2 ON p2.Id = pc2.ProductId\r\n\tINNER JOIN dbo.Category c2 ON c2.Id = pc2.CategoryId AND c2.Type=10  WHERE p2.id = @id\r\n\t\tUNION ALL \r\n\t\tSELECT t.id, t.ParentCategoryId FROM parent\r\n\t\tINNER JOIN dbo.Category t ON t.id =  parent.ParentCategoryId AND t.Type=10\r\n\t)\r\n\tINSERT INTO #temptable (id_pro, [Name])\r\n\tSELECT @id,Name FROM dbo.Category WITH (NOLOCK) WHERE ID IN( SELECT DISTINCT id FROM  parent) AND Level=1\r\n\r\n\tDELETE #tmp_507 WHERE Id=@id\r\nEND\r\n\r\nSELECT * FROM #temptable WITH (NOLOCK) WHERE id_pro IN( SELECT id_pro FROM #temptable WITH (NOLOCK) GROUP BY id_pro HAVING COUNT(1)>1)\r\n\r\nDROP TABLE #tmp_507,#temptable\r\n"
+}

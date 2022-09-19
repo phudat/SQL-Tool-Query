@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkthuhovepos</Title>
+      <Shortcut>checkthuhovepos</Shortcut>
+      <Description>Check thu hộ đã về hết POS chưa</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @Date DATETIME = GETDATE() - 1
+SELECT * FROM dbo.PaymentBillReceipts P (NOLOCK) WHERE CONVERT(DATE, P.BillDate) = CONVERT(DATE, @Date) AND P.PaymentBillStatus = 284 AND ISNULL(P.POSIsPushed, 0) = 0
+SELECT * FROM dbo.CashCollectionReceipts C (NOLOCK) WHERE CONVERT(DATE, C.ReceiptDate) = CONVERT(DATE, @Date) AND C.CashCollectionReceiptStatus = 37 AND ISNULL(C.POSIsPushed, 0) = 0
+SELECT * FROM dbo.PaymentBillReceipts_Viettel V (NOLOCK) WHERE CONVERT(DATE, V.BillDate) = CONVERT(DATE, @Date) AND V.PaymentBillStatus = 284 AND ISNULL(V.POSIsPushed, 0) = 0
+SELECT * FROM dbo.TransactionMoMo M WITH (NOLOCK) WHERE CONVERT(DATE, M.TransactionDate) = CONVERT(DATE, @Date) AND M.TransactionMoMoStatus = 585 AND ISNULL(M.POSIsPushed, 0) = 0
+SELECT * FROM dbo.PaymentBill_LongChauPharmacy L (NOLOCK) WHERE CONVERT(DATE, L.BillDate) = CONVERT(DATE, @Date) AND LongChauStatus = 621 AND ISNULL(L.POSIsPushed, 0) = 0
+SELECT * FROM dbo.VinasureHeader H (NOLOCK) WHERE CONVERT(DATE, H.CreatedDateTime) = CONVERT(DATE, @Date) AND H.VinasureStatus = 615 AND ISNULL(H.POSIsPushed, 0) = 0
+SELECT * FROM dbo.CRM_MomoC2CSend_Header S (NOLOCK) WHERE CONVERT(DATE, S.SenderIssueDate) = CONVERT(DATE, GETDATE()) AND S.MomoC2CStatus = 639 AND ISNULL(S.POSIsPushed, 0) = 0
+SELECT * FROM dbo.CashOutMoMoHeader O (NOLOCK) WHERE CONVERT(DATE, O.TransactionDate) = CONVERT(DATE, @Date) AND O.CashOutStatus = 605 AND ISNULL(POSIsPushed, 0) = 0
+SELECT * FROM dbo.CRM_MomoC2CReceiver_Header R (NOLOCK) WHERE CONVERT(DATE, R.ReceiverIssueDate) = CONVERT(DATE, @Date) AND R.MomoReceiverStatus = 648 AND ISNULL(R.PosIsPushed, 0) = 0
+SELECT * FROM dbo.PaymentServices P (NOLOCK) WHERE CONVERT(DATE, P.PaymentServiceDate) = CONVERT(DATE, @Date) AND ISNULL(P.POSIsPushed, 0) = 0
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhattenpo</Title>
+      <Shortcut>capnhattenpo</Shortcut>
+      <Description>Cập nhật tên PO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+SELECT
+	  O.DocEntry
+	, O.DocStatus
+	, O.U_ShpCod
+    , P.ItemCode
+	, P.Dscription
+	, P.U_IMei
+	, P.U_WhsCod
+	, P.WhsCode
+	, P.U_WhsTo
+	, P.Quantity
+	, P.OpenQty	-- Còn lại
+	, P.BaseQty	-- Đã nhập
+FROM
+    dbo.OPOR O (NOLOCK)
+		INNER JOIN dbo.POR1 P (NOLOCK)
+			ON O.DocEntry = P.DocEntry
+WHERE
+	P.ItemCode = '00488198'
+	
+UPDATE
+	P
+SET
+	P.Dscription = N'MTXT Legion Y530-15ICH/Core i5-8300H/8Gb/1Tb+ 128Gb SSD/GTX 1050 4Gb/15.6FHD/Ubuntu/Đen/81FV00STVN'
+FROM
+    dbo.OPOR O (NOLOCK)
+		INNER JOIN dbo.POR1 P (NOLOCK)
+			ON O.DocEntry = P.DocEntry
+WHERE
+	P.ItemCode = '00488198'
+
+SELECT
+	  O.DocEntry
+	, O.DocStatus
+	, O.U_ShpCod
+    , P.ItemCode
+	, P.Dscription
+	, P.U_IMei
+	, P.U_WhsCod
+	, P.WhsCode
+	, P.U_WhsTo
+	, P.Quantity
+	, P.OpenQty	-- Còn lại
+	, P.BaseQty	-- Đã nhập
+FROM
+    dbo.OPDN O (NOLOCK)
+		INNER JOIN dbo.PDN1 P (NOLOCK)
+			ON O.DocEntry = P.DocEntry
+WHERE
+	P.ItemCode = '00534873'
+
+UPDATE
+	P
+SET
+	P.Dscription = N'MTXT Legion Y530-15ICH/Core i5-8300H/8Gb/1Tb+ 128Gb SSD/GTX 1050 4Gb/15.6FHD/Ubuntu/Đen/81FV00STVN'
+FROM
+    dbo.OPDN O (NOLOCK)
+		INNER JOIN dbo.PDN1 P (NOLOCK)
+			ON O.DocEntry = P.DocEntry
+WHERE
+	P.ItemCode = '00488198']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

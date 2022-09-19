@@ -1,0 +1,6 @@
+{
+  "id": "9e3e5b79-7243-4f17-9f4a-8922505d2c89",
+  "prefix": "scl",
+  "description": "SELECT CALL LOG",
+  "body": "SELECT * FROM [10.1.13.73].FRTCallLogV2.dbo.Requests AS R (NOLOCK) WHERE R.Id = $CURSOR$"
+}

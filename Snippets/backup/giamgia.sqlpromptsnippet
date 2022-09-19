@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>giamgia</Title>
+      <Shortcut>giamgia</Shortcut>
+      <Description>Cập nhật giảm giá tay</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[RETURN
+DECLARE 
+	  @DocEntry		INT				= $CURSOR$
+	, @Itemcode		VARCHAR(20)		= ''
+	, @DiscPrcnt	NUMERIC(18, 6)	= 0
+
+SELECT O.Type_ReturnSO, O.PickStatus, O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = @DocEntry
+SELECT R.ItemCode, R.U_IMei, R.U_WhsCod, R.U_Price, R.Quantity, R.U_TaxAmo, R.U_TMoney, R.DiscPrcnt, R.U_DisOther, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry = @DocEntry
+
+UPDATE FRT_POS.dbo.RDR1 SET DiscPrcnt = @DiscPrcnt, U_ReaCode = 6 WHERE DocEntry = @DocEntry AND ItemCode = @Itemcode
+UPDATE FRT_POS.dbo.RDR1 SET U_TaxAmo = (Quantity - U_Price	 - DiscPrcnt - U_DisOther) * (U_TaxRate / 100), U_TMoney = (Quantity - U_Price - DiscPrcnt - U_DisOther) * (1 + U_TaxRate / 100) WHERE DocEntry = @DocEntry AND ItemCode = @Itemcode
+UPDATE B SET  
+    U_TMonPr	= B1.U_TMoney - B1.U_TaxAmo
+    , U_TMonTx	= B1.U_TaxAmo
+    , U_TMonBi	= B1.U_TMoney FROM 
+FRT_POS.dbo.ORDR B WITH (NOLOCK), 
+    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo 
+    	FROM FRT_POS.dbo.RDR1 WITH (NOLOCK)
+    	WHERE DocEntry = @DocEntry
+GROUP BY DocEntry) B1 WHERE 
+    B.DocEntry = B1.DocEntry]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

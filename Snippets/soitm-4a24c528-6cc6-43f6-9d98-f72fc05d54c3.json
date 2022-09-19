@@ -1,0 +1,6 @@
+{
+  "id": "4a24c528-6cc6-43f6-9d98-f72fc05d54c3",
+  "prefix": "soitm",
+  "description": "SELECT O.frozenFor, * FROM frt_ho.dbo.OITM AS O (NOLOCK) WHERE O.ItemCode = ''",
+  "body": "SELECT O.frozenFor, O.U_TGBH, O.U_NG_CODE, O.ItmsGrpCod, O.FirmCode, O.U_Nhom, O.U_DongHH, * FROM FRT_MDM.dbo.OITM AS O WITH (NOLOCK) WHERE O.ItemCode = '$CURSOR$'"
+}

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>nhahdtg</Title>
+      <Shortcut>nhahdtg</Shortcut>
+      <Description>Nhả hợp đồng trả góp</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @SoHD NVARCHAR(40) = '$CURSOR$'
+INSERT  INTO dbo.tbl_Installment_DEL
+    (
+         DocEntrySO
+       , ContractNo
+       , U_CardCode
+       , CardCode
+       , CMND
+       , Status
+       , CreateDate
+       , UpdateDate
+       , CreateBy
+       , UpdateBy
+       , Remarks
+	   , Khoanvay
+	   , U_imei
+    )
+SELECT
+    DocEntrySO
+  , ContractNo
+  , U_CardCode
+  , CardCode
+  , CMND
+  , Status
+  , CreateDate
+  , UpdateDate
+  , CreateBy
+  , UpdateBy
+  , N'Trả hàng trong ngày'
+  , Khoanvay
+  , U_imei
+FROM
+    dbo.tbl_Installment (NOLOCK)
+WHERE
+    ContractNo = @SoHD
+
+DELETE FROM tbl_Installment WHERE ContractNo = @SoHD]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

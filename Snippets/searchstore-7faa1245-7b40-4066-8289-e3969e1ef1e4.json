@@ -1,0 +1,12 @@
+{
+  "id": "7faa1245-7b40-4066-8289-e3969e1ef1e4",
+  "prefix": "searchstore",
+  "description": "",
+  "body": "SELECT DISTINCT\n    'EXEC ' + o.name\nFROM\n    syscomments c\n    JOIN sysobjects o\n        ON c.id = o.id\n    JOIN INFORMATION_SCHEMA.TABLES t\n        ON c.text LIKE N'%$tenstore$%';",
+  "placeholders": [
+    {
+      "name": "tenstore",
+      "defaultValue": ""
+    }
+  ]
+}

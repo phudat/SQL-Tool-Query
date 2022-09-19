@@ -1,0 +1,6 @@
+{
+  "id": "29e0f361-6e58-4048-be05-efcbae9f39da",
+  "prefix": "foff",
+  "description": "Disable formatting from this point onwards",
+  "body": "--SQL Prompt Formatting Off"
+}

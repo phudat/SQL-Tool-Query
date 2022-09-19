@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>fgroup</Title>
+      <Shortcut>fgroup</Shortcut>
+      <Description>Tìm CTKM theo group code</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    DISTINCT DocEntry_structure
+INTO
+    #tmpA
+FROM
+    dbo.CTKM_Condition (NOLOCK)
+WHERE
+    Value = '$CURSOR$';
+
+SELECT
+    *
+FROM
+    dbo.CTKM_structure (NOLOCK)
+WHERE
+    DocEntry IN (SELECT DocEntry_structure FROM #tmpA)
+	AND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, ActiveDate) AND CONVERT(DATE, InActiveDate);
+
+DROP TABLE #tmpA;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

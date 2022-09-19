@@ -1,0 +1,6 @@
+{
+  "id": "23438dea-beee-453f-aed7-5e3a4d7224b3",
+  "prefix": "monitorpushthuho",
+  "description": "Monitorbảng push thu hộ",
+  "body": "SELECT * FROM dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND PushStatus = 4\nSELECT * FROM dbo.CRM_POS_PAYMENT_ON_BEHALF_PUSH (NOLOCK) WHERE CONVERT(DATE, CreateDate) = CONVERT(DATE, GETDATE()) AND PushStatus = 4"
+}

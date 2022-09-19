@@ -1,0 +1,6 @@
+{
+  "id": "2f8b93ce-1415-4654-8531-9e364b276e45",
+  "prefix": "nhabooksimthuc",
+  "description": " Nha book va loai sim tren thuc",
+  "body": "EXEC dbo.FRT_SP_SIM_NHABOOK @SDT = N'',   -- nvarchar(20)\n                       @MaShop = N'' -- nvarchar(20)\n--loai sim check các thông tin BookDate=null, ShopBook=null, isActive=1 và status=I => có th? update\nUPDATE [10.96.254.98].FRTCRM_MDM.dbo.StoreOnline  SET IsActived=0,Status='E',Remark='Ho tro anh Gia 20201028' WHERE  PhoneAdjusted in (\n''\n)\n"
+}

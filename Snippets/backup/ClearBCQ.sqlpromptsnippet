@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ClearBCQ</Title>
+      <Shortcut>ClearBCQ</Shortcut>
+      <Description>Clear BCQ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC [10.1.13.71].FRT_POS.dbo.frt_pos_ClearThuTien 
+	@DocEntryORCT = '$CURSOR$', -- varchar(100)
+	@daybravo = ''    -- bit qua ngay clear bravo, trong ngay khoi truye null]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

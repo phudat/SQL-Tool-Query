@@ -1,0 +1,6 @@
+{
+  "id": "5b343069-b55d-4c15-b87f-8ae9b8ac54af",
+  "prefix": "buildpushchihomomo",
+  "description": "Build bảng push chi hộ Momo",
+  "body": "INSERT INTO dbo.CRM_POS_PAYMENT_ON_BEHALF_PUSH\n        (\n         CRMID\n       , CRMCode\n       , VendorCode\n       , TotalAmount\n       , Fee\n       , CreateDate\n       , U_ShpCod\n       , U_CrdCod\n       , U_EplCod\n       , U_Desc\n       , U_MoCash\n       , IsAutoCard\n       , PushStatus\n       , POSMsg\n       , POSURCT\n       , Status\n        )\nSELECT\n      M.ID\n\t, M.ID\n\t, M.VendorCode\n\t, M.TotalAmount\n\t, 0\n\t, M.CreatedDatetime\n\t, M.WarehouseCode\n\t, 0\n\t, M.CreatedBy\n\t, ''\n\t, M.TotalAmount\n\t, 'N'\n\t, 1\n\t, ''\n\t, 0\n\t, M.CashOutStatus\nFROM\n    dbo.CashOutMoMoHeader M (NOLOCK)\nWHERE\n    ID IN (\n$CURSOR$\n)\n"
+}

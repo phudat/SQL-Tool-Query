@@ -1,0 +1,6 @@
+{
+  "id": "aea75b2e-0ec1-42d4-b65c-60edccfeee96",
+  "prefix": "sv500k",
+  "description": "Check VC tân sinh viên",
+  "body": "SELECT TOP 50 * FROM [10.96.254.249].[FPTShopVer2].[dbo].[FPTShop_TSMT_ThiSinh] WHERE SoBaoDanh = '$CURSOR$'"
+}

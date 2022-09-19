@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>nganhang</Title>
+      <Shortcut>nganhang</Shortcut>
+      <Description>SEELCT BANK FROM MASTERDATA</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT * FROM FRT_MDM.dbo.OCRC
+SELECT * FROM FRT_MDM.dbo.OCRP
+SELECT * FROM FRT_MDM.dbo.ODSC]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

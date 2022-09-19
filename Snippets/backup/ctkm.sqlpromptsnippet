@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ctkm</Title>
+      <Shortcut>ctkm</Shortcut>
+      <Description>Lấy thông tin CTKM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE
+        @CC INT = $CURSOR$
+      , @GiftDocEntry INT;
+
+SELECT * FROM dbo.CTKM_structure (NOLOCK) WHERE DocEntry = @CC
+SELECT * FROM dbo.CTKM_structure_detail (NOLOCK) WHERE DocEntry = @CC
+SELECT * FROM dbo.CTKM_structure_detail_ex (NOLOCK) WHERE DocEntry = @CC
+
+SELECT * FROM dbo.CTKM_Condition (NOLOCK) WHERE DocEntry_structure = @CC
+SELECT * FROM dbo.CTKM_Condition_EX (NOLOCK) WHERE DocEntry_structure = @CC
+
+SELECT * FROM dbo.CTKM_Gift (NOLOCK) WHERE CTKM_structure_DocEntry = @CC
+SELECT @GiftDocEntry = DocEntry FROM dbo.CTKM_Gift (NOLOCK) WHERE CTKM_structure_DocEntry = @CC
+SELECT * FROM dbo.CTKM_Gift_ex (NOLOCK) WHERE DocEntry = @GiftDocEntry]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

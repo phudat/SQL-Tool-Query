@@ -1,0 +1,6 @@
+{
+  "id": "4fd599b9-af98-44ac-b24e-9b38ded032fe",
+  "prefix": "themmdmnh",
+  "description": "Thêm định gnhĩa MSP là mdmh",
+  "body": "INSERT  INTO dbo.[@FPT_ItemConfig]\n    (\n         ItemCode\n       , ItemName\n       , Nganh\n       , Loai\n       , Nhan\n       , Type\n       , CreateBy\n       , CreateDate\n       , NhomHang\n       , DongHang\n    )\nSELECT\n\t  O.ItemCode\n\t, O.ItemName\n\t, O.U_NG_CODE\n\t, O.ItmsGrpCod\n\t, O.FirmCode\n\t, 2\n\t, '-1'\n\t, GETDATE()\n\t, O.U_Nhom\n\t, O.U_DongHH\nFROM\n    FRT_MDM.dbo.OITM O (NOLOCK)\nWHERE\n    O.ItemCode = '$CURSOR$';"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "75b2e8c2-21c8-4518-8eb0-1eef312f933e",
+  "prefix": "sotp",
+  "description": "Lấy mã OTP",
+  "body": "SELECT * FROM [10.1.13.69].FRT_FSTUDIO.dbo.FRT_FSOFT_OTP_User WITH (NOLOCK) WHERE OtpCode='$SDT$'\nSELECT * FROM [10.1.13.69].FRT_Customer.dbo.FRT_OTT WITH (NOLOCK) WHERE ChuoiOTT='$SDT$'",
+  "placeholders": [
+    {
+      "name": "SDT",
+      "defaultValue": ""
+    }
+  ]
+}

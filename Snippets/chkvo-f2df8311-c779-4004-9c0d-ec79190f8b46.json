@@ -1,0 +1,6 @@
+{
+  "id": "f2df8311-c779-4004-9c0d-ec79190f8b46",
+  "prefix": "chkvo",
+  "description": "CHECK VOUCHER REMAIN",
+  "body": "SELECT CONVERT(NVARCHAR, DocEntry) +',', *\nFROM FRT_POS.dbo.[@FPTVOCH] WITH (NOLOCK)\nWHERE U_ItmCod = '$CURSOR$'\nAND CONVERT(DATE, GETDATE()) BETWEEN CONVERT(DATE, U_StartD) AND CONVERT(DATE, U_EndD )\nAND U_Status = 'N' \nAND U_ExBill = 'N' \nAND U_IssBill = 'N'\nORDER BY LineId DESC"
+}

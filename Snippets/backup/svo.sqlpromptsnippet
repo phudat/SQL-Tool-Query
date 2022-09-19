@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>svo</Title>
+      <Shortcut>svo</Shortcut>
+      <Description>SELECT VOUCHER</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT F.U_ItmCod, F.U_Voucher, F.U_Status, F.U_IssBill, F.U_ExBill, F.U_IssIn, F.U_BillIn, F.U_Voucher, F.U_FacVal, F.U_StartD, F.U_EndD, F.U_Nganh_AD, F.U_Loai_AD, F.U_Nhan_AD, F.U_ItemCode_AD, F.U_Phone, F.TypeReturnSO, F.U_SOType, F.Fix_Facval, * FROM FRT_POS.dbo.[@FPTVOCH] AS F WITH (NOLOCK) WHERE F.U_Voucher = '$CURSOR$' AND F.U_Status <> 'C']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

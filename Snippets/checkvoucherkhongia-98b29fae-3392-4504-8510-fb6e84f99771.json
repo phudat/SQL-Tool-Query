@@ -1,0 +1,12 @@
+{
+  "id": "98b29fae-3392-4504-8510-fb6e84f99771",
+  "prefix": "checkvoucherkhongia",
+  "description": "Check voucher không giá",
+  "body": "SELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = '$voucher$'\nSELECT * FROM dbo.FPT_PROMS_USED (NOLOCK) WHERE Email = '$voucher$'\nSELECT * FROM dbo.tbl_Voucher_Ordr (NOLOCK) WHERE Voucher= '$voucher$'",
+  "placeholders": [
+    {
+      "name": "voucher",
+      "defaultValue": ""
+    }
+  ]
+}

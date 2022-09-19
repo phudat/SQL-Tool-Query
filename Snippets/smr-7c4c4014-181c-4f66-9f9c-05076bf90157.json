@@ -1,0 +1,6 @@
+{
+  "id": "7c4c4014-181c-4f66-9f9c-05076bf90157",
+  "prefix": "smr",
+  "description": "Select detail mPOS",
+  "body": "SELECT * FROM [10.1.13.86].MPOS.dbo.FRT_RDR1 WITH (NOLOCK) WHERE DocEntry = $CURSOR$ "
+}

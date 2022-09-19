@@ -1,0 +1,6 @@
+{
+  "id": "7e1ad912-736e-4208-8795-633b0245d13e",
+  "prefix": "cdkey",
+  "description": "Lấy key phần mềm",
+  "body": "SELECT * FROM [10.1.13.76].FRTCRM.dbo.StoreOnlineGiftCodeDetail  AS G WITH (NOLOCK) WHERE G.RefInvoiceCode = '$CURSOR$'"
+}

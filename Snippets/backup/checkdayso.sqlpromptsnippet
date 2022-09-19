@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkdayso</Title>
+      <Shortcut>checkdayso</Shortcut>
+      <Description>lay id cac the cao day so nhung mat httt </Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT 
+	* 
+FROM 
+	dbo.SalesOrders s WITH (NOLOCK) 
+	LEFT JOIN dbo.POSPaymentMethod AS P WITH (nolock) ON s.ID=p.SalesOrdersID
+WHERE 
+	WarehouseCode = '$CURSOR$' 
+	AND CreatedDateTime> CAST(GETDATE() AS DATE) 
+	AND isExportInvoice=1 
+	AND p.SalesOrdersID IS NULL]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

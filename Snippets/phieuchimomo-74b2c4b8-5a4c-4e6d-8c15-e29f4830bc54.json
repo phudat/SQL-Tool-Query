@@ -1,0 +1,6 @@
+{
+  "id": "74b2c4b8-5a4c-4e6d-8c15-e29f4830bc54",
+  "prefix": "phieuchimomo",
+  "description": "kiem tra phieu chi momo vua tao",
+  "body": "DECLARE @id INT = $CURSOR$\nSELECT id INTO #tempreceipt FROM dbo.PaymentServices WITH (NOLOCK) WHERE ReceiptCode=CAST(@id AS VARCHAR(20))\nSELECT * FROM [10.1.13.71].FRT_POS.dbo.[@FPTURCT] WITH (NOLOCK) WHERE U_DocAR IN (SELECT ID FROM #tempreceipt) AND [Object]='0036'\nDROP table #tempreceipt"
+}

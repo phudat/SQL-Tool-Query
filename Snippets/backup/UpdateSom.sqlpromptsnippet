@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>UpdateSom</Title>
+      <Shortcut>UpdateSom</Shortcut>
+      <Description>cap nhat status cho order va insert orderhistory</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[--not in ('NON_SUPPORT',
+--	'CREATE',
+--	'SUCCESS',
+--	'FAILED',
+--	'CANCELLED',
+--	'PUSHED_TO_POS',
+--	'REQUEST_CANCEL',
+--	'PROCESSING',
+--	'CANCEL_FAILED',
+--	'CANCEL_PROCESSING',
+--	'PARTIAL_CANCEL',
+--	'NEED_ADDITIONAL_INFORMATION')
+DECLARE @OrderId VARCHAR(50)='96d721bc-9483-3656-6577-3a0218b42d3c'
+DECLARE @orderStatus VARCHAR(50)='SUCCESS'
+DECLARE @Description NVARCHAR(250)=N'ticket 186629'
+UPDATE [SOM-Order-Service].dbo.[Order] set OrderStatus = @orderStatus  where Id = @OrderId
+	INSERT INTO [SOM-Order-Service].dbo.OrderHistory
+	(
+	    Id,
+	    CreationTime,
+	    CreationBy,
+	    OrderId,
+	    Action,
+	    Remark,
+	    Description,
+	    CreationTimeOffset,
+	    LastModificationTimeOffset
+	)
+	VALUES
+	(   NEWID(),                -- Id - uniqueidentifier
+	    NULL,       -- CreationTime - datetime2(7)
+	    N'owner',                 -- CreationBy - nvarchar(max)
+	    @OrderId,                -- OrderId - uniqueidentifier
+	    @orderStatus,                 -- Action - nvarchar(max)
+	    NULL,                 -- Remark - nvarchar(max)
+	    @Description,                 -- Description - nvarchar(max)
+	    SYSDATETIMEOFFSET(), -- CreationTimeOffset - datetimeoffset(7)
+	    NULL  -- LastModificationTimeOffset - datetimeoffset(7)
+	    )]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

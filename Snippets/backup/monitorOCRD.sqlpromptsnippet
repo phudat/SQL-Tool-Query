@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>monitorOCRD</Title>
+      <Shortcut>monitorOCRD</Shortcut>
+      <Description>Monitor khách hàng nội bộ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT O.* FROM dbo.OCRD O (NOLOCK) INNER JOIN FRT_MDM.dbo.[@FPTCATECOM] F (NOLOCK) ON O.LicTradNum = F.U_FedeID AND O.BPID = F.U_CusCod]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

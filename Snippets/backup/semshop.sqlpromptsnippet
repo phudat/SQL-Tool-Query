@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>semshop</Title>
+      <Shortcut>semshop</Shortcut>
+      <Description>Lấy NV theo shop</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+      E.EmployeeCode
+	, J.JobTitleCode
+	, J.JobTitleName
+FROM
+    [10.1.13.77].FRTInsideV2.dbo.F03_Employees AS E WITH (NOLOCK)
+		INNER JOIN [10.1.13.77].FRTInsideV2.dbo.F03_JobTitles J WITH (NOLOCK)
+			ON E.JobTitle = J.JobTitleCode
+		INNER JOIN [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)
+			ON E.WarehouseCode = W.WarehouseCode
+WHERE
+    W.WarehouseCodeB1 = '$CURSOR$'
+    AND E.Status = 'A';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

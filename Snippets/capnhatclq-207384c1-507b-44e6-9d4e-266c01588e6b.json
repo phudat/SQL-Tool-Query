@@ -1,0 +1,16 @@
+{
+  "id": "207384c1-507b-44e6-9d4e-266c01588e6b",
+  "prefix": "capnhatclq",
+  "description": "Cập nhật call log quỹ",
+  "body": "UPDATE [10.1.13.73].FRTCallLogV2.dbo.RequestDetails SET Money1 += $SoTien$ WHERE RequestId = $SoCallLog$\nUPDATE FRT_POS.dbo.Log_Calllog_Quy_New SET Money_BanDau += $SoTien$, Money += $SoTien$ WHERE CallogID = $SoCallLog$",
+  "placeholders": [
+    {
+      "name": "SoCallLog",
+      "defaultValue": ""
+    },
+    {
+      "name": "SoTien",
+      "defaultValue": ""
+    }
+  ]
+}

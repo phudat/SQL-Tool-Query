@@ -1,0 +1,6 @@
+{
+  "id": "54224c8f-5279-4bbd-8406-7a284ce5e401",
+  "prefix": "snvc",
+  "description": "SELECT FROM Transporters",
+  "body": "SELECT * FROM FRT_INTERGRATION.dbo.Intergration_DOInfo AS I WITH (NOLOCK) WHERE I.orderNumber = '$CURSOR$'"
+}

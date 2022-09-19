@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>huytrahang</Title>
+      <Shortcut>huytrahang</Shortcut>
+      <Description>Hủy chứng từ trả hàng</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[-- === Check kỹ trước khi làm === -- $CURSOR$
+SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_NumSO, * FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE DocEntry = 
+--SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_DocSOReturn, O.U_NumSO, * FROM FRT_POS.dbo.OPDN AS O WITH (NOLOCK) WHERE DocEntry = 
+------------------------------------------------------------------------------------------------
+SELECT O.U_ShpCod, O.U_NumECom, O.U_TMonBi, O.U_ExDate, * FROM FRT_POS.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = 
+SELECT U_WhsCod, U_Imei, U_OnHand, OrderedQty, R.U_Return, R.U_TMoney, R.U_TaxAmo, R.Quantity, R.U_Price, R.U_DESC, R.U_DateWarr, * FROM FRT_POS.dbo.RDR1 AS R WITH (NOLOCK) WHERE R.DocEntry =  
+RETURN
+/*
+UPDATE FRT_POS.dbo.ORDR SET DocStatus = 'F' WHERE DocEntry = 
+UPDATE FRT_POS.dbo.RDR1 SET U_Return = 1 WHERE DocEntry = 
+UPDATE FRT_POS.dbo.ORDN SET DocStatus = 'C' WHERE DocEntry = 
+--UPDATE FRT_POS.dbo.OPDN SET DocStatus = 'C' WHERE DocEntry = 
+*/]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,6 @@
+{
+  "id": "11ef64cc-3ebd-4e81-9a3d-fa2e0016f446",
+  "prefix": "uphongban",
+  "description": "Cập nhật phòng ban và ngành của XKNK",
+  "body": "UPDATE\n\tW\nSET\n\t  W.OcrCode2 = O.U_OcrCode2\n\t, W.OcrCode = LEFT(W.U_WhsCod, 5)\nFROM\n    FRT_POS.dbo.WTQ1 AS W WITH (NOLOCK)\n\t\tINNER JOIN FRT_MDM.dbo.OITM O WITH (NOLOCK)\n\t\t\tON W.ItemCode = O.ItemCode COLLATE SQL_Latin1_General_CP1_CI_AS\nWHERE\n    W.DocEntry IN ($CURSOR$)"
+}

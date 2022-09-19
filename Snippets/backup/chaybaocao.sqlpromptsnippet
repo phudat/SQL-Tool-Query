@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>chaybaocao</Title>
+      <Shortcut>chaybaocao</Shortcut>
+      <Description>Chạy báo cáo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXEC [dbo].[sp_BaoCao_AllInOne] '2019-05-21 12:00:00', @MaBaoCao = 31 -- int
+EXEC [dbo].[sp_BaoCao_AllInOne] '2019-05-21 12:00:00', @MaBaoCao = 95 -- int
+EXEC [dbo].[sp_BaoCao_AllInOne] '2019-05-21 12:00:00', @MaBaoCao = 111 -- int]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

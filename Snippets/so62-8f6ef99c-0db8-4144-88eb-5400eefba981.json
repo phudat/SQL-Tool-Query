@@ -1,0 +1,6 @@
+{
+  "id": "8f6ef99c-0db8-4144-88eb-5400eefba981",
+  "prefix": "so62",
+  "description": "Lấy SO ở con 62",
+  "body": "SELECT O.U_ShpCod, O.U_NumECom, O.U_DocMap, O.U_TMonBi, O.U_ExDate, * FROM [10.1.13.62].POSEInv.dbo.ORDR AS O WITH (NOLOCK) WHERE O.DocEntry = $CURSOR$"
+}

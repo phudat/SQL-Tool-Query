@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>taolckc</Title>
+      <Shortcut>taolckc</Shortcut>
+      <Description>Tạo luân chuyển kho con</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @Result INT
+	, @Msg NVARCHAR(500)
+	, @DocEntry INT
+	, @A nvarchar(MAX)
+
+	DECLARE @DetailXML NVARCHAR(MAX) = N'
+		<DATA>
+			<LineItem>
+				<ItemCode>00555884</ItemCode>
+				<IMEI>355915101966422</IMEI>
+				<Quantity>1</Quantity>
+				<WhsEx>30227010</WhsEx>
+				<WhsRec>30227030</WhsRec>
+			</LineItem>
+		</DATA>'
+
+EXEC sp_COMMON_CreateRequestTransfer_W2W
+		@DetailXML = @DetailXML
+	, @Serie = 50
+	, @Remarks = N'Trả hàng 1408 - Lỗi NSX'
+	, @CreatedBy = '17321'
+	, @ResultOut = @Result OUTPUT
+	, @MsgOut = @Msg OUTPUT
+	, @ReturnDocEntry = @DocEntry OUTPUT
+
+SELECT @Result, @Msg, @DocEntry]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

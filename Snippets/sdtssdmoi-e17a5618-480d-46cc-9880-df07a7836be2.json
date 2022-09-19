@@ -1,0 +1,6 @@
+{
+  "id": "e17a5618-480d-46cc-9880-df07a7836be2",
+  "prefix": "sdtssdmoi",
+  "description": "Cập nhật số điện thoại SSD mới",
+  "body": "UPDATE\n\tT\nSET \n\t  T.Sdt_active_Old = T.Sdt_active\n\t, T.Sdt_active = \n\t\t\t\t\tCASE WHEN LEFT(T.Sdt_active, LEN(M.Mamangcu)) = M.Mamangcu\n\t\t\t\t\t\tTHEN M.Mamangmoi + RIGHT(T.Sdt_active, LEN(T.Sdt_active) - LEN(M.Mamangcu))\n\t\t\t\t\t\tWHEN LEFT(T.Sdt_active, LEN(M.Mamangmoi)) = M.Mamangmoi THEN T.Sdt_active\n\t\t\t\t\tEND\nFROM\n    dbo.ThongTinSSD T (NOLOCK)\n\t\tINNER JOIN FRT_MDM.dbo.Mapsim_chuyendoi M\n\t\t\tON LEFT(T.Sdt_active, LEN(M.Mamangcu)) = M.Mamangcu\nWHERE\n\tLEN(T.Sdt_active) = 11\n\tAND M.Trangthai = 1"
+}

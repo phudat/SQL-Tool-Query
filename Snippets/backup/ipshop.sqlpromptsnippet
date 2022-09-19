@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ipshop</Title>
+      <Shortcut>ipshop</Shortcut>
+      <Description>Lấy Shop theo IP</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT L.IP, F.Code + ' - ' + F.Name FROM [10.1.13.77].FRTInsideV2.dbo.F01_ListIP L WITH (NOLOCK) 
+	INNER JOIN [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK)
+		ON L.WarehouseCode = W.WarehouseCode
+	INNER JOIN FRT_MDM.dbo.[@FPTSHOP] AS F (NOLOCK)
+		ON W.WarehouseCodeB1 = F.Code COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE L.IP = '$CURSOR$']]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

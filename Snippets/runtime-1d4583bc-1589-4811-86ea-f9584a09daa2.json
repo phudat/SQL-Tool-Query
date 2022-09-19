@@ -1,0 +1,6 @@
+{
+  "id": "1d4583bc-1589-4811-86ea-f9584a09daa2",
+  "prefix": "runtime",
+  "description": "",
+  "body": "select\r\n    r.session_id,\r\n    s.login_name,\r\n    c.client_net_address,\r\n    s.host_name,\r\n    s.program_name,\r\n    st.text,\r\n\tr.start_time,\r\n\tr.wait_time / 1000 AS wait_time_s,\r\n\tr.wait_type,\r\n\tr.cpu_time,\r\n\tr.estimated_completion_time\r\n\tfrom sys.dm_exec_requests r\r\n\tinner join sys.dm_exec_sessions s\r\n\ton r.session_id = s.session_id\r\n\tINNER join sys.dm_exec_connections c\r\n\ton r.session_id = c.session_id\r\n\touter apply sys.dm_exec_sql_text(r.sql_handle) st\r\n\tWHERE s.login_name <> 'sa'"
+}

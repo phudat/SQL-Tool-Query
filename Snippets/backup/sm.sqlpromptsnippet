@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sm</Title>
+      <Shortcut>sm</Shortcut>
+      <Description>Lấy thông tin phiếu thu hộ Momo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT Id, TransactionMoMoStatus, Amount, WarehouseCode, POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.TransactionMoMo WITH (NOLOCK) WHERE Id IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

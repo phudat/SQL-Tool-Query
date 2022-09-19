@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>checkthuho</Title>
+      <Shortcut>checkthuho</Shortcut>
+      <Description>Check lệch tiền thu hộ</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE 
+	  @WarehouseB1 VARCHAR(10) = '$CURSOR$'
+	, @WarehouseInside VARCHAR(10) = ''
+	, @Date VARCHAR(10) = ''
+SELECT TOP 1 @WarehouseInside = W.WarehouseCode FROM [10.1.13.77].FRTInsideV2.dbo.Warehouse AS W WITH (NOLOCK) WHERE W.WarehouseCodeB1 = @WarehouseB1
+SELECT @WarehouseInside
+SELECT P.TotalAmount, P.PaymentBillStatus, P.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.PaymentBillReceipts AS P WITH (NOLOCK) WHERE P.WarehouseCode = @WarehouseInside AND CONVERT(DATE, P.BillDate) = @Date AND P.PaymentBillStatus = 284
+SELECT SUM(P.TotalAmount) FROM [10.1.13.76].FRTCRM.dbo.PaymentBillReceipts AS P WITH (NOLOCK) WHERE P.WarehouseCode = @WarehouseInside AND CONVERT(DATE, P.BillDate) = @Date AND P.PaymentBillStatus = 284
+SELECT C.TotalAmount, C.CashCollectionReceiptStatus, C.POSIsPushed, * FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.WarehouseCode = @WarehouseInside AND CONVERT(DATE, C.ReceiptDate) = @Date AND C.CashCollectionReceiptStatus = 37
+SELECT C.TotalAmount FROM [10.1.13.76].FRTCRM.dbo.CashCollectionReceipts AS C WITH (NOLOCK) WHERE C.WarehouseCode = @WarehouseInside AND CONVERT(DATE, C.ReceiptDate) = @Date AND C.CashCollectionReceiptStatus = 37
+SELECT * FROM dbo.CRM_COB_Log (NOLOCK) WHERE ShopCode = @WarehouseB1 AND CONVERT(DATE, CreateDateTime) = DATEADD(DAY, 1, CONVERT(DATE, @Date))
+SELECT SUM(U_Total) FROM dbo.CRM_COB_Log (NOLOCK) WHERE ShopCode = @WarehouseB1 AND CONVERT(DATE, CreateDateTime) = DATEADD(DAY, 1, CONVERT(DATE, @Date)) AND Type = 0
+SELECT SUM(U_Total) FROM dbo.CRM_COB_Log (NOLOCK) WHERE ShopCode = @WarehouseB1 AND CONVERT(DATE, CreateDateTime) = DATEADD(DAY, 1, CONVERT(DATE, @Date)) AND Type = 1]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

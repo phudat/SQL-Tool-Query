@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>buildxnktchihomomo</Title>
+      <Shortcut>buildxnktchihomomo</Shortcut>
+      <Description>Build xác nhận kế toán chi hộ Momo</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.CRM_CashOutMoMo_AccCF
+        (
+         CashOutMoMoID
+       , ReceiptDate
+       , WarehouseCode
+       , VendorCode
+       , CashCollectionReceiptsNoVATType
+       , CashCollectionReceiptsNoVATStatus
+       , Amount
+       , Remark
+       , CreateDate
+       , CreateBy
+       , UpdateDate
+       , UpdateBy
+       , IsConfirm
+       , ConfirmDate
+       , ConfirmBy
+        )
+SELECT
+    C.ID
+	, C.TransactionDate
+	, C.WarehouseCode
+	, C.VendorCode
+	, 606
+	, 605
+	, C.TotalAmount
+	, ''
+	, C.TransactionDate
+	, C.CreatedBy
+	, C.LastUpdateDatetime
+	, C.LastUpdateBy
+	, 1
+	, C.TransactionDate
+	, C.LastUpdateBy
+FROM
+    dbo.CashOutMoMoHeader C (NOLOCK)
+WHERE
+    ID IN (
+$CURSOR$
+)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

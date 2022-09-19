@@ -1,0 +1,6 @@
+{
+  "id": "50b6bc63-3778-4f5a-b20b-c6c7856e5bf9",
+  "prefix": "sordnso",
+  "description": "Select trả hàng từ chứng từ SO",
+  "body": "SELECT O.U_PriceVC, O.U_CanPayPrice, O.U_TMonBi, O.U_NumSO, * FROM FRT_POS.dbo.ORDN AS O WITH (NOLOCK) WHERE o.U_NumSO = $CURSOR$"
+}

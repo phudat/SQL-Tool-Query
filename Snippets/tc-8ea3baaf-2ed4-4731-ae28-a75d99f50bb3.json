@@ -1,0 +1,12 @@
+{
+  "id": "8ea3baaf-2ed4-4731-ae28-a75d99f50bb3",
+  "prefix": "tc",
+  "description": "TRY ... CATCH fragment",
+  "body": "BEGIN TRY\n    BEGIN TRANSACTION $trans_name$\n    \t\n\tCOMMIT TRANSACTION $trans_name$\nEND TRY\nBEGIN CATCH\n\tIF @@TRANCOUNT > 0\n\t\tBEGIN\n\t\t    ROLLBACK TRANSACTION $trans_name$\n\t\tEND\n    DECLARE @ErrMsg NVARCHAR(2000) = N'Lỗi: [] - ERR: ' + ERROR_MESSAGE() + ' - Line: ' + CONVERT(NVARCHAR, ERROR_LINE())\n\tINSERT INTO\tdbo.Log\n\t        (\n\t         CreateDateTime\n\t       , CreateBy\n\t       , UpdateBy\n\t       , Content\n\t        )\n\tVALUES\n\t        (\n\t         GETDATE()  -- CreateDateTime - datetime\n\t       , N''  -- CreateBy - nchar(40)\n\t       , N'QuangLP'  -- UpdateBy - nchar(40)\n\t       , @ErrMsg  -- Content - nvarchar(2000)\n\t        )\nEND CATCH",
+  "placeholders": [
+    {
+      "name": "trans_name",
+      "defaultValue": ""
+    }
+  ]
+}

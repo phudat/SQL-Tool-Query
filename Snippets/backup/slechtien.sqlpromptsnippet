@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>slechtien</Title>
+      <Shortcut>slechtien</Shortcut>
+      <Description />
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT
+    T.CRMID
+    , T.TotalAmount + ISNULL(T.Fee,0)									AS TotalAmount
+    , SUM(T.U_MoCash + T.U_MoCCad + T.U_MoVoCh + T.U_MoTran)	AS TotalPayment
+				
+FROM
+    CRM_POS_COLLECTION_ON_BEHALF_PUSH T
+WHERE T.CRMID=$CURSOR$
+GROUP BY
+        T.CRMID
+	, T.TotalAmount + ISNULL(T.Fee,0)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

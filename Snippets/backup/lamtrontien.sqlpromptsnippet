@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>lamtrontien</Title>
+      <Shortcut>lamtrontien</Shortcut>
+      <Description>Làm tròn tiền đơn hàng do lỗi làm tròn qq</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>RoundDocSO</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[RETURN
+UPDATE FRT_POS.dbo.RDR1 SET U_Price = ROUND(U_Price, 0) WHERE DocEntry = $RoundDocSO$
+UPDATE
+    FRT_POS.dbo.RDR1
+SET
+      U_TaxAmo = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (U_TaxRate / 100), 0)
+	, U_TaxAmL = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)), 0)
+	, U_TMoney = ROUND((U_Price * Quantity - ISNULL(DiscPrcnt, 0) - ISNULL(U_DisOther, 0)) * (1 + U_TaxRate / 100), 0)
+WHERE
+    DocEntry = $RoundDocSO$
+
+UPDATE B SET  
+    U_TMonPr	= B1.U_TMoney - B1.U_TaxAmo
+    , U_TMonTx	= B1.U_TaxAmo
+    , U_TMonBi	= B1.U_TMoney FROM 
+FRT_POS.dbo.ORDR B WITH (NOLOCK), 
+    (SELECT DocEntry, SUM(ISNULL(U_TMoney, 0)) AS U_TMoney, SUM(ISNULL(U_TaxAmo, 0)) AS U_TaxAmo 
+    	FROM FRT_POS.dbo.RDR1 WITH (NOLOCK)
+    	WHERE DocEntry = $RoundDocSO$
+GROUP BY DocEntry) B1 WHERE 
+    B.DocEntry = B1.DocEntry
+
+RETURN
+--DELETE FROM [10.1.13.62].POSEInv.dbo.ORDR WHERE DocEntry = $RoundDocSO$
+--DELETE FROM [10.1.13.62].POSEInv.dbo.RDR1 WHERE DocEntry = $RoundDocSO$
+
+--EXEC [10.1.13.62].POSEInv.dbo.sp_Get_SOPOS '$RoundDocSO$', 0
+--EXEC dbo.sp_Delete_File_Einv_DEV $RoundDocSO$, 1
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

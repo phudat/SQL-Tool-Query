@@ -1,0 +1,6 @@
+{
+  "id": "8aded05c-722e-4823-813d-7a786498ca9f",
+  "prefix": "taokh",
+  "description": "",
+  "body": "INSERT  INTO OCRD\n        (\n         CardName\n       , CardType\n       , GroupCode\n       , CmpPrivate\n       , Address\n       , ZipCode\n       , MailZipCod\n       , CntctPrsn\n       , GroupNum\n       , LicTradNum\n       , Currency\n       , DebPayAcct\n       , DpmClear\n       , LangCode\n       , Phone1\n       , U_ID\n       , U_PlaceID\n       , U_Passport\n       , U_DateID\n       , U_Citizen\n       , CreateDate\n       , E_Mail\n\t\t\t\t\n        )\nSELECT\n    N'Nguyễn Văn Lâm'\n  , 'C'\n  , 100\n  , 'I'\n  , LEFT(N'Vĩnh Hưng, Vĩnh Lộc, An Phú, An Giang', 100)\n  , LEFT('084', 20)\n  , LEFT('084', 20)\n  , '01657312654'\n  , 1\n  , '01657312654'\n  , 'VND'\n  , '131100100'\n  , '131200100'\n  , 8\n  , '01657312654'\n  , '352493571'\n  , N'An Giang'\n  , ''\n  , '2015-11-23 00:00:00.000'\n  , 'VN'\n  , GETDATE()\n  , NULL;\t\t\t"
+}

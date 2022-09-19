@@ -1,0 +1,6 @@
+{
+  "id": "35d6c6fc-5d7c-4dcf-b9b4-c07833fbc238",
+  "prefix": "s77",
+  "description": "SELECT FROM Server 77",
+  "body": "SELECT * FROM [10.1.13.77]$CURSOR$ WITH (NOLOCK) WHERE "
+}

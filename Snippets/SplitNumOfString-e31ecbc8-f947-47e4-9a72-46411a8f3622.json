@@ -1,0 +1,6 @@
+{
+  "id": "e31ecbc8-f947-47e4-9a72-46411a8f3622",
+  "prefix": "SplitNumOfString",
+  "description": "Loai so ra khoi chuoi",
+  "body": "DECLARE @NumRange as VARCHAR(50) = '%[0-9]%', @Temp NVARCHAR(250)='$CURSOR$'\n    WHILE PatIndex(@NumRange, @Temp) > 0\n        Set @Temp = Stuff(@Temp, PatIndex(@NumRange, @Temp), 1, '')\n\nSELECT @Temp"
+}

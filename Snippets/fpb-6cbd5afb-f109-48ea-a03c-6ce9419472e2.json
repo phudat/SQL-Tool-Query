@@ -1,0 +1,6 @@
+{
+  "id": "6cbd5afb-f109-48ea-a03c-6ce9419472e2",
+  "prefix": "fpb",
+  "description": "Tìm voucher không giá bằng SDT ở bảng backup",
+  "body": "SELECT * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Phone = '$CURSOR$'"
+}

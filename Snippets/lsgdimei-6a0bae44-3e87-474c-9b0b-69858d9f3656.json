@@ -1,0 +1,6 @@
+{
+  "id": "6a0bae44-3e87-474c-9b0b-69858d9f3656",
+  "prefix": "lsgdimei",
+  "description": "Lịch sử giao dịch IMEI",
+  "body": "SELECT * FROM [10.1.13.70].FRT_BW.dbo.FRT_LichSuGiaoDichImei AS L (NOLOCK) WHERE L.DistNumber = '$CURSOR$'"
+}

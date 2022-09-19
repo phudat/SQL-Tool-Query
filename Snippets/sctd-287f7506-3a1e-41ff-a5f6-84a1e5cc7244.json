@@ -1,0 +1,6 @@
+{
+  "id": "287f7506-3a1e-41ff-a5f6-84a1e5cc7244",
+  "prefix": "sctd",
+  "description": "Lấy chi tiền theo DocEntry",
+  "body": "SELECT F.U_MoCash, F.U_MoCCad, F.U_MoVoCh, F.U_MoTran, * FROM FRT_POS.dbo.[@FPTURCT] AS F WITH (NOLOCK) WHERE F.DocEntry = $CURSOR$"
+}

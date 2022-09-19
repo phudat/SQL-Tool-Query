@@ -1,0 +1,6 @@
+{
+  "id": "18c21d64-6214-4a94-859c-5ecf1b0d5b73",
+  "prefix": "tinhtiengrpo",
+  "description": "Tính tiền detail GRPO",
+  "body": "UPDATE\n    FRT_POS.dbo.PDN1\nSET\n      U_TaxAmo = ROUND((Price * U_Quantity) * (U_TaxRate / 100), 0)\n\t, U_TaxAmL = ROUND((Price * U_Quantity), 0)\n\t, U_TMoney = ROUND((Price * U_Quantity) * (1 + U_TaxRate / 100), 0)\nWHERE\n    DocEntry = $CURSOR$\n\tAND LineNum ="
+}

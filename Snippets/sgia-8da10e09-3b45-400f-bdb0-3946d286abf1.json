@@ -1,0 +1,6 @@
+{
+  "id": "8da10e09-3b45-400f-bdb0-3946d286abf1",
+  "prefix": "sgia",
+  "description": "Lấy giá MSP",
+  "body": "SELECT * FROM FRT_MDM.dbo.[@FPTITM11] (NOLOCK) WHERE U_ItemCode = '$CURSOR$'"
+}

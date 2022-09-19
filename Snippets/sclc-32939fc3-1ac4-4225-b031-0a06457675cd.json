@@ -1,0 +1,6 @@
+{
+  "id": "32939fc3-1ac4-4225-b031-0a06457675cd",
+  "prefix": "sclc",
+  "description": "Lấy trao đổi call log",
+  "body": "SELECT * FROM [10.1.13.73].FRTCallLogV2.dbo.Conversations AS D (NOLOCK) WHERE D.RequestId = $CURSOR$ ORDER BY D.Id ASC"
+}

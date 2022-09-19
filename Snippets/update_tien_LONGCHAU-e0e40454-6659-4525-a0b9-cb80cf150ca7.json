@@ -1,0 +1,6 @@
+{
+  "id": "e0e40454-6659-4525-a0b9-cb80cf150ca7",
+  "prefix": "update_tien_LONGCHAU",
+  "description": "update tien long chau",
+  "body": "DECLARE @id INT =$CURSOR$, @docentry int \nDECLARE @remark NVARCHAR(250) = N' updateby:29099 + Ticket: '\t  \t         \nDECLARE @amount DECIMAL(18,2)=  0\nSELECT TotalAmount,* FROM dbo.PaymentBill_LongChauPharmacy (NOLOCK) WHERE id = @id\nSELECT TOP 1 @docentry=POSORCT FROM dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH WITH (NOLOCK) WHERE CRMID = @id AND VendorCode='0046'\n\nUPDATE dbo.PaymentBill_LongChauPharmacy SET TotalAmount=@amount,Remark=ISNULL(Remark,'')+@remark WHERE id =  @id\nUPDATE dbo.POSPaymentMethod SET CashAmount=@amount WHERE LongChauID =  @id\nUPDATE dbo.CashCollectionReceiptsNoVAT SET Amount=@amount WHERE RefCode=CAST(@id AS VARCHAR(50))\nUPDATE dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH SET U_MoCash=@amount,TotalAmount=@amount WHERE CRMID =  @id\nUPDATE [10.1.13.71].FRT_POS.dbo.[@FPTORCT] SET U_MoCash=@amount WHERE DocEntry =@docentry"
+}

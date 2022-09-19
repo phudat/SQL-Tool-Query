@@ -1,0 +1,6 @@
+{
+  "id": "e3ada9fd-d8dd-4358-867b-caceaf4c43c6",
+  "prefix": "sre",
+  "description": "SO Detail Ecom",
+  "body": "SELECT * FROM FRT_CUSTOMIZE.dbo.[@FPTRDR1TMP] (NOLOCK) WHERE DocEntry = $CURSOR$"
+}

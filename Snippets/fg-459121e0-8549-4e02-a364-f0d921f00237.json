@@ -1,0 +1,6 @@
+{
+  "id": "459121e0-8549-4e02-a364-f0d921f00237",
+  "prefix": "fg",
+  "description": "Check Galaxy Gift",
+  "body": "DECLARE @GalaxyGift VARCHAR(30) = '$CURSOR$'\nSELECT * FROM dbo.Log_Update_GalaxyGift (NOLOCK) WHERE Voucher = @GalaxyGift\nSELECT * FROM dbo.FPT_PROMS (NOLOCK) WHERE Email = @GalaxyGift\nSELECT * FROM dbo.FPT_PROMS_BK_ARCHIVE (NOLOCK) WHERE Email = @GalaxyGift"
+}

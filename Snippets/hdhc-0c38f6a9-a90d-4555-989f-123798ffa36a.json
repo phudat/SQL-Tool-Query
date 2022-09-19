@@ -1,0 +1,6 @@
+{
+  "id": "0c38f6a9-a90d-4555-989f-123798ffa36a",
+  "prefix": "hdhc",
+  "description": "Cập nhật thông tin hợp đồng HC",
+  "body": "UPDATE FRT_POS.dbo.ORDR SET U_ProNum = '', KyHan = 0, TraTruoc = 0, laisuat = '', CMND = '', U_Phone = '', U_CardCode = 667497 WHERE DocEntry = $CURSOR$"
+}

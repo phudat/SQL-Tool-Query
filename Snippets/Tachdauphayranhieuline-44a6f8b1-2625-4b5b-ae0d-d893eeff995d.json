@@ -1,0 +1,6 @@
+{
+  "id": "44a6f8b1-2625-4b5b-ae0d-d893eeff995d",
+  "prefix": "Tachdauphayranhieuline",
+  "description": "tách row có , ra nhiều line",
+  "body": "select CategoryId, value from GroupCategory CROSS APPLY STRING_SPLIT(replace(replace(Category_Ecom,'',''),'',''),',') where Category_Ecom LIKE '%,%'"
+}

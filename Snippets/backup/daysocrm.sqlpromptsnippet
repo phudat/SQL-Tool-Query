@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>daysocrm</Title>
+      <Shortcut>daysocrm</Shortcut>
+      <Description>thieu httt</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO dbo.POSPaymentMethod
+    (
+         CreatedDate
+       , CreatedBy
+       , Remark
+       , CashAmount
+       , PaymentType
+       , SalesOrdersID
+       , TypePaymentVendor
+    )
+SELECT 
+	  S.CreatedDateTime
+	, S.CreatedBy
+	, N'Thanh toán bằng tiền mặt'
+	, ISNULL(S.TotalReferAmount, 0)
+	, 'CASH'
+	, S.ID
+	, 1
+FROM 
+	dbo.SalesOrders S (NOLOCK) 
+WHERE 
+	S.Id IN (
+				SELECT 
+					s.id 
+				FROM 
+					dbo.SalesOrders AS s WITH (NOLOCK) 
+					LEFT JOIN dbo.POSPaymentMethod AS P WITH (nolock) ON s.ID=p.SalesOrdersID 
+				WHERE 
+					s.CreatedDateTime > CAST(GETDATE() AS date) 
+					AND s.WarehouseCode='$CURSOR$'
+					AND s.isExportInvoice =1 
+					AND p.SalesOrdersID IS NULL
+				)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

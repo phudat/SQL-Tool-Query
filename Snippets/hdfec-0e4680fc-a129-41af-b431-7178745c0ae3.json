@@ -1,0 +1,6 @@
+{
+  "id": "0e4680fc-a129-41af-b431-7178745c0ae3",
+  "prefix": "hdfec",
+  "description": "Cập nhật thông tin hợp đồng FEC",
+  "body": "UPDATE FRT_POS.dbo.ORDR SET U_ProNum = '', KyHan = 0, TraTruoc = 0, LaiSuat_FEC = '', CMND = '', U_Phone = '', U_CardCode = 1556545 WHERE DocEntry = $CURSOR$"
+}

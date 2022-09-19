@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>capnhatbangpushthuhopayooecom</Title>
+      <Shortcut>capnhatbangpushthuhopayooecom</Shortcut>
+      <Description>Cập nhật lại ti6èn bảng push thu hộ Realtime Payoo Ecom</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[UPDATE
+    P
+SET
+    P.TotalAmount = B.TotalAmount
+  , P.CRMCode = B.BillCode
+  , P.Fee = B.PaymentFee
+  , P.U_EplCod = '-1'
+  , P.U_Desc = N'[Khởi tạo Phiếu IP:::1] keo tu ecom ve'
+  , P.U_MoTran = B.TotalAmount + B.PaymentFee
+FROM
+    dbo.CRM_POS_COLLECTION_ON_BEHALF_PUSH P (NOLOCK)
+		INNER JOIN FRTCRM.dbo.PaymentBillReceipts AS B (NOLOCK)
+			ON P.CRMID = B.ID
+WHERE
+    P.CRMID IN ($CURSOR$)]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

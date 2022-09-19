@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tonkho</Title>
+      <Shortcut>tonkho</Shortcut>
+      <Description>Lấy dánh sách MSP tồn kho theo shop</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @ShopCode VARCHAR(20) = '$CURSOR$'
+SELECT
+	  O.ItemCode
+	, M.ItemName
+	, O.WhsCode
+	, S.DistNumber
+	, O.OnHand
+	, O.Qty_Available
+	, O.Qty_Order
+	, S.Quantity
+	, S.CommitQty
+FROM
+    dbo.OITW O (NOLOCK)
+		INNER JOIN dbo.OSRN S (NOLOCK)
+			ON O.ItemCode = S.ItemCode
+			   AND O.WhsCode = S.WhsCode
+		INNER JOIN FRT_MDM.dbo.OITM M (NOLOCK)
+			ON O.ItemCode = M.ItemCode
+WHERE
+    LEFT(O.WhsCode, 5) = @ShopCode
+    AND O.OnHand > 0
+    AND M.ManSerNum = 'Y';]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

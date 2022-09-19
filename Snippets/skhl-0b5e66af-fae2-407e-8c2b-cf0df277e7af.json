@@ -1,0 +1,6 @@
+{
+  "id": "0b5e66af-fae2-407e-8c2b-cf0df277e7af",
+  "prefix": "skhl",
+  "description": "SELECT OCRD FROM LICTRADNUM",
+  "body": "SELECT O.IsResident, O.DdctOffice, O.LicTradNum, O.Phone1, O.BPID, * FROM FRT_POS.dbo.OCRD AS O WITH (NOLOCK) WHERE O.LicTradNum = '$CURSOR$'"
+}
